@@ -183,8 +183,10 @@
         <img src="images/tiago-missace.png" alt="Professor de Inglês Online">
         <div class="texto">
       
+      <div class="card">
           <h1>Por que escolher nossas aulas?</h1>
           <p>
+            
             <div class="card"> 
             Nossas aulas online foram criadas para todos os níveis, do iniciante ao avançado. 
             Você terá contacto directo com professor Tiago Missace, materiais interativos e uma 
@@ -978,7 +980,6 @@ function nextQuestion(){
 </body>
 </html>
 
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -1039,12 +1040,12 @@ function nextQuestion(){
 </head>
 <body>
 
-<h2>English Learning Activities – Adult Beginners</h2>
+<h2>English Learning Activities</h2>
 <div class="atividade">
 <p>Responda às actividades e clique em <strong>Check</strong> para ver a correcção.</p>
 
 <!-- SPEAKING -->
-<div class="atividade">
+
   <h3>🗣️ Speaking – Daily Communication</h3>
 
   <p>1. Introduce yourself:</p>
@@ -1068,7 +1069,7 @@ function nextQuestion(){
   <h3>📖 Reading – Text 1</h3>
 
   <p><em>
-    Hello! My name is Teresa. I am 30 years old and I live in Mozambique.
+    Hello! My name is Peter. I am 30 years old and I live in Mozambique.
     I work in an office and I like my job.
     Every day I wake up early, go to work, and come home in the evening.
     In my free time, I like to read and listen to music.
@@ -1092,9 +1093,9 @@ function nextQuestion(){
   <h3>📖 Reading – Text 2</h3>
 
   <p><em>
-    Jéssica is a teacher. She teaches English at a small school.
+    Maria is a teacher. She teaches English at a small school.
     She likes her students and enjoys teaching.
-    Jéssica studies English every day to improve her skills.
+    Maria studies English every day to improve her skills.
     She believes English is important for work and communication.
   </em></p>
 
@@ -1121,6 +1122,7 @@ function nextQuestion(){
   <p>Friend = <input id="v4"></p>
   <p>House = <input id="v5"></p>
   <p>Morning = <input id="v6"></p>
+  <p>sleeping = <input id="v7"></p>
 
   <button onclick="checkVocabulary()">Check</button>
   <p id="resultVocabulary"></p>
@@ -1138,7 +1140,7 @@ function nextQuestion(){
       ? "<span class='correct'>✔ Good job!</span>"
       : "<span class='wrong'>✖ Complete all sentences.</span>";
 
-    result += "<div class='answer'>Example: My name is Leonildo. I am 30 years old. I work as a teacher. I am from Mozambique.</div>";
+    result += "<div class='answer'>Example: My name is Peter. I am 30 years old. I work as a teacher. I am from Mozambique.</div>";
     document.getElementById("resultSpeaking").innerHTML = result;
   }
 
@@ -1165,7 +1167,7 @@ function nextQuestion(){
 
   <footer>
     <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
-    Tiago Missace</p>
+    tiago-missace</p>
   </footer>
 
   <script>
@@ -1178,22 +1180,3 @@ function nextQuestion(){
 </body>
 
 </html>
-
-
-  <footer>
-    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
-    Tiago Missace</p>
-  </footer>
-
-  <script>
-    window.addEventListener('load', () => {
-      const header = document.querySelector('header');
-      header.classList.add('show');
-    });
-  </script>
-
-</body>
-
-</html>
-
-
