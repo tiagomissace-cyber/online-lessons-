@@ -81,7 +81,7 @@
       font-size:1.8rem;
       color:#000000;
     }
-    .texto p { color:#FFFFFF; }
+    .texto p { color:#00997d; }
 
     .formulario {
       background:#fff;
@@ -156,7 +156,7 @@
   </header>
 
   <script>
-    // Mostra o header com slide-in assim que a página carrega
+    // Mostra o header com slide-in mais rápido assim que a página carrega
     window.addEventListener('load', () => {
       document.querySelector('header').classList.add('show');
     });
@@ -180,14 +180,18 @@
 
     <main>
       <section class="intro">
-        <img src="https://source.unsplash.com/400x300/?online,learning" alt="Aulas online com professor Tiago Missace">
+        <img src="images/tiago-missace.png" alt="Professor de Inglês Online">
         <div class="texto">
-          <h2>Por que escolher nossas aulas?</h2>
+      
+          <h1>Por que escolher nossas aulas?</h1>
           <p>
+            <div class="card"> 
             Nossas aulas online foram criadas para todos os níveis, do iniciante ao avançado. 
             Você terá contacto directo com professor Tiago Missace, materiais interativos e uma 
             comunidade de apoio no WhatsApp que vai ajudar na sua jornada.
           </p>
+           </div>
+          
           <!-- Botão centralizado -->
           <div style="display:flex; justify-content:center; margin-top:20px;">
             <a href="#inscricao" class="btn" id="btnInfo">Quero começar!</a>
@@ -975,9 +979,193 @@ function nextQuestion(){
 </html>
 
 
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>English Practice for Beginners</title>
+
+  <style>
+  /* fundo gradiente azul para verde */
+    body {
+      background: linear-gradient(to right, #0041c2, #00b496);
+      color:#333;
+      line-height:1.6;
+    }
+
+    .atividade {
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    h2, h3 {
+      color: #ffffff;
+    }
+
+    input {
+      padding: 6px;
+      margin: 6px 0;
+      width: 300px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: red;
+      font-weight: bold;
+    }
+
+    .answer {
+      color: #333;
+      font-style: italic;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>English Learning Activities – Adult Beginners</h2>
+<div class="atividade">
+<p>Responda às actividades e clique em <strong>Check</strong> para ver a correcção.</p>
+
+<!-- SPEAKING -->
+<div class="atividade">
+  <h3>🗣️ Speaking – Daily Communication</h3>
+
+  <p>1. Introduce yourself:</p>
+  <p>My name is <input id="s1">.</p>
+
+  <p>2. Age:</p>
+  <p>I am <input id="s2"> years old.</p>
+
+  <p>3. Job:</p>
+  <p>I work as a <input id="s3">.</p>
+
+  <p>4. Country:</p>
+  <p>I am from <input id="s4">.</p>
+
+  <button onclick="checkSpeaking()">Check</button>
+  <p id="resultSpeaking"></p>
+</div>
+
+<!-- READING 1 -->
+<div class="atividade">
+  <h3>📖 Reading – Text 1</h3>
+
+  <p><em>
+    Hello! My name is Teresa. I am 30 years old and I live in Mozambique.
+    I work in an office and I like my job.
+    Every day I wake up early, go to work, and come home in the evening.
+    In my free time, I like to read and listen to music.
+  </em></p>
+
+  <p>1. What is his name?</p>
+  <input id="r1">
+
+  <p>2. Where does he live?</p>
+  <input id="r2">
+
+  <p>3. What does he like to do in his free time?</p>
+  <input id="r3">
+
+  <button onclick="checkReading1()">Check</button>
+  <p id="resultReading1"></p>
+</div>
+
+<!-- READING 2 -->
+<div class="atividade">
+  <h3>📖 Reading – Text 2</h3>
+
+  <p><em>
+    Jéssica is a teacher. She teaches English at a small school.
+    She likes her students and enjoys teaching.
+    Jéssica studies English every day to improve her skills.
+    She believes English is important for work and communication.
+  </em></p>
+
+  <p>1. What is Maria’s job?</p>
+  <input id="r4">
+
+  <p>2. What subject does she teach?</p>
+  <input id="r5">
+
+  <p>3. Why does she study English every day?</p>
+  <input id="r6">
+
+  <button onclick="checkReading2()">Check</button>
+  <p id="resultReading2"></p>
+</div>
+
+<!-- VOCABULARY -->
+<div class="atividade">
+  <h3>📚 Vocabulary – Common Words</h3>
+
+  <p>Teacher = <input id="v1"></p>
+  <p>Work = <input id="v2"></p>
+  <p>School = <input id="v3"></p>
+  <p>Friend = <input id="v4"></p>
+  <p>House = <input id="v5"></p>
+  <p>Morning = <input id="v6"></p>
+
+  <button onclick="checkVocabulary()">Check</button>
+  <p id="resultVocabulary"></p>
+</div>
+
+<script>
+  function checkSpeaking() {
+    let s1 = s2 = s3 = s4 = "";
+    s1 = document.getElementById("s1").value;
+    s2 = document.getElementById("s2").value;
+    s3 = document.getElementById("s3").value;
+    s4 = document.getElementById("s4").value;
+
+    let result = (s1 && s2 && s3 && s4)
+      ? "<span class='correct'>✔ Good job!</span>"
+      : "<span class='wrong'>✖ Complete all sentences.</span>";
+
+    result += "<div class='answer'>Example: My name is Leonildo. I am 30 years old. I work as a teacher. I am from Mozambique.</div>";
+    document.getElementById("resultSpeaking").innerHTML = result;
+  }
+
+  function checkReading1() {
+    document.getElementById("resultReading1").innerHTML =
+      "<span class='answer'>Correct answers: Peter / Mozambique / Read and listen to music</span>";
+  }
+
+  function checkReading2() {
+    document.getElementById("resultReading2").innerHTML =
+      "<span class='answer'>Correct answers: Teacher / English / To improve her skills</span>";
+  }
+
+  function checkVocabulary() {
+    document.getElementById("resultVocabulary").innerHTML =
+      "<span class='answer'>Correct answers: Teacher=Professor, Work=Trabalho, School=Escola, Friend=Amigo, House=Casa, Morning=Manhã</span>";
+  }
+</script>
+
+</body>
+</html>
+
+
 
   <footer>
-    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
+    Tiago Missace</p>
   </footer>
 
   <script>
@@ -990,4 +1178,22 @@ function nextQuestion(){
 </body>
 
 </html>
+
+
+  <footer>
+    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
+    Tiago Missace</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      const header = document.querySelector('header');
+      header.classList.add('show');
+    });
+  </script>
+
+</body>
+
+</html>
+
 
