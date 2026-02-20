@@ -16,7 +16,7 @@
     }
     /* fundo gradiente azul para verde */
     body {
-      background: linear-gradient(to right, #0041c2, #00b496);
+      background: linear-gradient(to right, #002345, #00b496);
       color:#333;
       line-height:1.6;
     }
@@ -134,7 +134,7 @@
     }
     .outras-info h2 {
       text-align:center;
-      color:#0041c2;
+      color:#0045c2;
       margin-bottom:15px;
     }
     .outras-info ul {
@@ -180,10 +180,10 @@
 
     <main>
       <section class="intro">
-        <img src="images/tiago-missace.png" alt="Professor de Inglês Online">
+        <img src="https://uploads.onecompiler.io/43xfyv2u7/44e4h87ry/ChatGPT%20Image%20Feb%2019,%202026,%2010_36_28%20PM.png"  alt="Professor de Inglês Online">
         <div class="texto">
       
-      <div class="card">
+      <div class="card" style="margin-bottom:30px;">
           <h1>Por que escolher nossas aulas?</h1>
           <p>
             
@@ -201,9 +201,13 @@
         </div>
       </section>
 
+    <div class="card" style="margin-top:20px;">
       <section class="beneficios">
-        <h2>Benefícios</h2>
-        <div class="cards">
+        <h1>Benefícios</h1> 
+        </p>
+           </div>
+        
+        <div class="cards" style="margin-top:20px;">
           <div class="card">📚 Material completo</div>
           <div class="card">💻 Acesso 24/7</div>
           <div class="card">👩‍🏫 Professor experiente</div>
@@ -242,139 +246,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz de Inglês com Áudio</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #1E90FF, #00b496);
-    color: #333;
-    line-height: 1.2;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #1E90FF, #00b496);
+      color: #333;
+      line-height: 1.2;
+      margin: 0;
+      padding: 0;
+    }
 
-  .quiz-section {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    margin: 40px auto;
-    border-radius: 10px;
-    max-width: 700px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
+    .quiz-section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      margin: 40px auto;
+      border-radius: 10px;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-  .quiz-section h2 {
-    color: #4e73df;
-    margin-bottom: 20px;
-  }
+    .quiz-section h2 {
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
 
-  /* opções do quiz */
-  .quiz-option {
-    display: block;
-    margin: 10px 0;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    width: 100%;
-  }
-  .quiz-option:hover {
-    background: #17a673;
-    color: #fff;
-  }
-  .quiz-option.correct {
-    background: #17a673; /* verde ao acertar */
-    color: #fff;
-  }
-  .quiz-option.wrong {
-    background: #c9302c; /* vermelho ao errar */
-    color: #fff;
-  }
+    /* opções do quiz */
+    .quiz-option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      width: 100%;
+    }
 
-  /* menu */
-  .quiz-menu {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-  }
+    .quiz-option:hover {
+      background: #17a673;
+      color: #fff;
+    }
 
-  /* botões do menu */
-  .btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    background: #1cc88a;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .btn:hover {
-    background: #17a673;
-  }
+    .quiz-option.correct {
+      background: #17a673; /* verde ao acertar */
+      color: #fff;
+    }
 
-  /* botão próximo */
-  .btn-audio {
-    display: block;
-    margin: 20px auto 0; /* centraliza */
-    padding: 12px 24px;
-    background: #1cc88a; /* verde */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  .btn-audio:hover {
-    background: #17a673;
-  }
+    .quiz-option.wrong {
+      background: #c9302c; /* vermelho ao errar */
+      color: #fff;
+    }
 
-  #user-input {
-    padding:8px;
-    width:70%;
-    border-radius:5px;
-    border:1px solid #ccc;
-    margin-top:10px;
-  }
+    /* menu */
+    .quiz-menu {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
 
-  #feedback {
-    margin-top: 20px;
-    font-weight: bold;
-  }
+    /* botões do menu */
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #1cc88a;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-  .hidden {
-    display: none;
-  }
-</style>
+    .btn:hover {
+      background: #17a673;
+    }
+
+    /* botão próximo */
+    .btn-audio {
+      display: block;
+      margin: 20px auto 0; /* centraliza */
+      padding: 12px 24px;
+      background: #1cc88a; /* verde */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-audio:hover {
+      background: #17a673;
+    }
+
+    #user-input {
+      padding: 8px;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+
+    #feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-<section class="quiz-section">
-  <h2>Teste seu Inglês 🎯</h2>
+  <!-- Áudio para sons correto e errado -->
+  <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
+  <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
 
-  <div class="quiz-menu">
-    <button class="btn" onclick="startQuiz('vocab')">Vocabulário</button>
-    <button class="btn" onclick="startQuiz('grammar')">Gramática</button>
-    <button class="btn" onclick="startQuiz('expressions')">Expressões</button>
-    <button class="btn" onclick="startQuiz('translations')">Traduções</button>
-    <button class="btn" onclick="startQuiz('listening')">Listening</button>
-  </div>
+  <section class="quiz-section">
+    <h2>Teste seu Inglês 🎯</h2>
 
-  <div id="quiz-container" style="display:none;">
-    <p id="question">Carregando pergunta...</p>
-    <div id="options"></div>
-    <div id="audio-box" style="margin-top:15px;"></div>
-    <p id="feedback"></p>
-    <p id="score"></p>
-    <button id="nextBtn" class="btn-audio hidden" onclick="nextQuestion()">➡ Próximo</button>
-  </div>
-</section>
+    <div class="quiz-menu">
+      <button class="btn" onclick="startQuiz('vocab')">Vocabulário</button>
+      <button class="btn" onclick="startQuiz('grammar')">Gramática</button>
+      <button class="btn" onclick="startQuiz('expressions')">Expressões</button>
+      <button class="btn" onclick="startQuiz('translations')">Traduções</button>
+      <button class="btn" onclick="startQuiz('listening')">Listening</button>
+    </div>
 
+   <div id="quiz-container" style="display:block;">
+    <div class="card"> <!-- Added card here -->
+      <p id="question">Carregando pergunta...</p>
+      <div id="options"></div>
+      <div id="audio-box" style="margin-top:15px;"></div>
+      <p id="feedback"></p>
+      <p id="score"></p>
+      <button id="nextBtn" class="btn-audio hidden" onclick="nextQuestion()">➡ Próximo</button>
+    </div>
+  </section>
 
 <script>
 const quizzes = {
   vocab: [
-    { question: "O que significa 'Apple'?", options: ["Banana","Maçã","Laranja"], answer: "Maçã" },
+     { question: "O que significa 'Apple'?", options: ["Banana","Maçã","Laranja"], answer: "Maçã" },
     { question: "O que significa 'Dog'?", options: ["Gato","Cão","Pássaro"], answer: "Cão" },
     { question: "O que significa 'Cat'?", options: ["Gato","Cachorro","Coelho"], answer: "Gato" },
     { question: "O que significa 'Apple'?", options: ["Banana","Maçã","Laranja"], answer: "Maçã" },
@@ -472,8 +484,9 @@ const quizzes = {
 { question: "O que significa 'Coherent'?", options: ["Confuso","Lógico","Desorganizado"], answer: "Lógico" },
 { question: "O que significa 'Subtle'?", options: ["Óbvio","Sutil","Grosseiro"], answer: "Sutil" },
 { question: "O que significa 'Comprehensive'?", options: ["Limitado","Abrangente","Simples"], answer: "Abrangente" }
-
   ],
+  
+  
   grammar: [
     { question: "Escolha a frase correta:", options: ["She go to school","She goes to school","She going school"], answer: "She goes to school" },
     { question: "Complete: I ___ happy.", options: ["am","is","are"], answer: "am" },
@@ -571,12 +584,10 @@ const quizzes = {
 { question: "Complete: While I ___ driving, I received a phone call.", options: ["was","were","am"], answer: "was" },
 { question: "Complete: Right now, I ___ working on my English exercises.", options: ["am","is","are"], answer: "am" },
 { question: "Complete: The project has ___ completed successfully.", options: ["been","be","was"], answer: "been" }
-
-
-
-  ],
+  
+   ],
   expressions: [
-    { question: "O que significa 'Break a leg'?", options: ["Quebrar a perna","Boa sorte","Correr rápido"], answer: "Boa sorte" },
+  { question: "O que significa 'Break a leg'?", options: ["Quebrar a perna","Boa sorte","Correr rápido"], answer: "Boa sorte" },
     { question: "O que significa 'Piece of cake'?", options: ["Muito fácil","Difícil","Impossível"], answer: "Muito fácil" },
     { question: "O que significa 'Break a leg'?", options: ["Quebrar a perna","Boa sorte","Correr rápido"], answer: "Boa sorte" },
   { question: "O que significa 'Piece of cake'?", options: ["Muito fácil","Difícil","Impossível"], answer: "Muito fácil" },
@@ -628,10 +639,10 @@ const quizzes = {
   { question: "O que significa 'On the ball'?", options: ["Atento","Competente","Rápido"], answer: "Atento" },
   { question: "O que significa 'The ball is in your court'?", options: ["A bola está com você","Sua vez de agir","Decisão sua"], answer: "Sua vez" }
 
-
+  
   ],
   translations: [
-    { question: "Traduza para português: 'I am happy'", answer: "eu estou feliz", audio: "I am happy" },
+     { question: "Traduza para português: 'I am happy'", answer: "eu estou feliz", audio: "I am happy" },
     { question: "Traduza para português: 'She is my friend'", answer: "ela é minha amiga", audio: "She is my friend" },
     { question: "Traduza para português: 'We went to the market'", answer: "nós fomos ao mercado", audio: "We went to the market" },
     { question: "Traduza para português: 'I am reading a book'", answer: "eu estou lendo um livro", audio: "I am reading a book" },
@@ -740,10 +751,9 @@ const quizzes = {
   { question: "Traduza para português: 'He is studying for the test'", answer: "ele está estudando para a prova", audio: "He is studying for the test" }
 
 
-
   ],
   listening: [
-    { audio: "Good morning, how are you?", question: "O que significa?", options: ["Boa noite, como vai?","Bom dia, como vai?","Boa tarde, como vai?"], answer: "Bom dia, como vai?" },
+     { audio: "Good morning, how are you?", question: "O que significa?", options: ["Boa noite, como vai?","Bom dia, como vai?","Boa tarde, como vai?"], answer: "Bom dia, como vai?" },
     { audio: "Where is the bus stop?", question: "O que significa?", options: ["Onde fica a escola?","Onde fica a parada de ônibus?","Onde fica o mercado?"], answer: "Onde fica a parada de ônibus?" },
   { audio: "Good morning, how are you?", question: "O que significa?", options: ["Boa noite, como vai?","Bom dia, como vai?","Boa tarde, como vai?"], answer: "Bom dia, como vai?" },
   { audio: "Where is the bus stop?", question: "O que significa?", options: ["Onde fica a escola?","Onde fica a parada de ônibus?","Onde fica o mercado?"], answer: "Onde fica a parada de ônibus?" },
@@ -854,7 +864,7 @@ let score = 0;
 let currentAudioText = "";
 let currentType = "";
 
-const questionEl = document.getElementById("question"); 
+const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const scoreEl = document.getElementById("score");
 const quizContainer = document.getElementById("quiz-container");
@@ -862,7 +872,6 @@ const audioBox = document.getElementById("audio-box");
 const feedbackEl = document.getElementById("feedback");
 const nextBtn = document.getElementById("nextBtn");
 
-// Função para embaralhar arrays
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -872,7 +881,7 @@ function shuffleArray(array) {
 }
 
 function startQuiz(type) {
-  currentQuiz = shuffleArray([...quizzes[type]]); // embaralha questões
+  currentQuiz = shuffleArray([...quizzes[type]]);
   currentType = type;
   currentQuestion = 0;
   score = 0;
@@ -891,17 +900,17 @@ function playAudio(text) {
 
 function loadQuestion() {
   const current = currentQuiz[currentQuestion];
-  questionEl.textContent = current.question; 
+  questionEl.textContent = current.question;
   optionsEl.innerHTML = "";
   audioBox.innerHTML = "";
   feedbackEl.textContent = "";
   nextBtn.classList.add("hidden");
 
-  if(currentType === "translations" || currentType === "listening"){
+  if (currentType === "translations" || currentType === "listening") {
     currentAudioText = current.audio || current.question;
     playAudio(currentAudioText);
 
-    if(currentType === "translations"){
+    if (currentType === "translations") {
       audioBox.innerHTML = `
         <button class="btn-audio" onclick="playAudio(currentAudioText)">🔊 Repetir Áudio</button><br><br>
         <input type="text" id="user-input" placeholder="Escreva a tradução aqui">
@@ -909,7 +918,7 @@ function loadQuestion() {
       `;
     } else {
       audioBox.innerHTML = `<button class="btn-audio" onclick="playAudio(currentAudioText)">🔊 Repetir Áudio</button>`;
-      shuffleArray(current.options).forEach(option => { // embaralha opções
+      shuffleArray(current.options).forEach(option => {
         const btn = document.createElement("button");
         btn.textContent = option;
         btn.classList.add("quiz-option");
@@ -918,7 +927,7 @@ function loadQuestion() {
       });
     }
   } else {
-    shuffleArray(current.options).forEach(option => { // embaralha opções
+    shuffleArray(current.options).forEach(option => {
       const btn = document.createElement("button");
       btn.textContent = option;
       btn.classList.add("quiz-option");
@@ -928,44 +937,60 @@ function loadQuestion() {
   }
 }
 
-function checkAnswer(button, selected){
+function checkAnswer(button, selected) {
   const correct = currentQuiz[currentQuestion].answer;
-  if(selected === correct){ 
-    button.classList.add("correct"); 
-    score++; 
-    feedbackEl.textContent = "✅ Correto!";
-feedbackEl.style.color = "#1cc88a";          // text color
-feedbackEl.style.backgroundColor = "#e6f4ea"; // light green background
-feedbackEl.style.padding = "5px 10px";      // optional padding
-feedbackEl.style.borderRadius = "5px";      // optional rounded corners
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
 
-  } else { 
-    button.classList.add("wrong"); 
+  if (selected === correct) {
+    button.classList.add("correct");
+    score++;
+    feedbackEl.textContent = "✅ Correto!";
+    feedbackEl.style.color = "#1cc88a";
+    feedbackEl.style.backgroundColor = "#e6f4ea";
+    feedbackEl.style.padding = "5px 10px";
+    feedbackEl.style.borderRadius = "20px";
+
+    correctSound.currentTime = 0;
+    correctSound.play();
+  } else {
+    button.classList.add("wrong");
     feedbackEl.textContent = "❌ Errado! Resposta correta: " + correct;
     feedbackEl.style.color = "#e74a3b";
+
+    wrongSound.currentTime = 0;
+    wrongSound.play();
   }
   Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
   nextBtn.classList.remove("hidden");
 }
 
-function checkTranslation(){
+function checkTranslation() {
   const userInput = document.getElementById("user-input").value.trim().toLowerCase();
   const correct = currentQuiz[currentQuestion].answer.toLowerCase();
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
 
-  if(userInput === correct){
+  if (userInput === correct) {
     feedbackEl.textContent = "✅ Correto!";
     feedbackEl.style.color = "#1cc88a";
     score++;
+
+    correctSound.currentTime = 0;
+    correctSound.play();
   } else {
     feedbackEl.textContent = "❌ Errado! Resposta correta: " + currentQuiz[currentQuestion].answer;
     feedbackEl.style.color = "#e74a3b";
+
+    wrongSound.currentTime = 0;
+    wrongSound.play();
   }
   nextBtn.classList.remove("hidden");
 }
 
-function nextQuestion(){
+function nextQuestion() {
   currentQuestion++;
-  if(currentQuestion < currentQuiz.length){
+  if (currentQuestion < currentQuiz.length) {
     loadQuestion();
   } else {
     questionEl.textContent = "Quiz finalizado! 🎉";
@@ -980,192 +1005,7 @@ function nextQuestion(){
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <title>English Practice for Beginners</title>
-
-  <style>
-  /* fundo gradiente azul para verde */
-    body {
-      background: linear-gradient(to right, #0041c2, #00b496);
-      color:#333;
-      line-height:1.6;
-    }
-
-    .atividade {
-      background: #ffffff;
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    h2, h3 {
-      color: #ffffff;
-    }
-
-    input {
-      padding: 6px;
-      margin: 6px 0;
-      width: 300px;
-    }
-
-    button {
-      padding: 8px 16px;
-      background: #1a73e8;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .correct {
-      color: green;
-      font-weight: bold;
-    }
-
-    .wrong {
-      color: red;
-      font-weight: bold;
-    }
-
-    .answer {
-      color: #333;
-      font-style: italic;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-<body>
-
-<h2>English Learning Activities</h2>
-<div class="atividade">
-<p>Responda às actividades e clique em <strong>Check</strong> para ver a correcção.</p>
-
-<!-- SPEAKING -->
-
-  <h3>🗣️ Speaking – Daily Communication</h3>
-
-  <p>1. Introduce yourself:</p>
-  <p>My name is <input id="s1">.</p>
-
-  <p>2. Age:</p>
-  <p>I am <input id="s2"> years old.</p>
-
-  <p>3. Job:</p>
-  <p>I work as a <input id="s3">.</p>
-
-  <p>4. Country:</p>
-  <p>I am from <input id="s4">.</p>
-
-  <button onclick="checkSpeaking()">Check</button>
-  <p id="resultSpeaking"></p>
-</div>
-
-<!-- READING 1 -->
-<div class="atividade">
-  <h3>📖 Reading – Text 1</h3>
-
-  <p><em>
-    Hello! My name is Peter. I am 30 years old and I live in Mozambique.
-    I work in an office and I like my job.
-    Every day I wake up early, go to work, and come home in the evening.
-    In my free time, I like to read and listen to music.
-  </em></p>
-
-  <p>1. What is his name?</p>
-  <input id="r1">
-
-  <p>2. Where does he live?</p>
-  <input id="r2">
-
-  <p>3. What does he like to do in his free time?</p>
-  <input id="r3">
-
-  <button onclick="checkReading1()">Check</button>
-  <p id="resultReading1"></p>
-</div>
-
-<!-- READING 2 -->
-<div class="atividade">
-  <h3>📖 Reading – Text 2</h3>
-
-  <p><em>
-    Maria is a teacher. She teaches English at a small school.
-    She likes her students and enjoys teaching.
-    Maria studies English every day to improve her skills.
-    She believes English is important for work and communication.
-  </em></p>
-
-  <p>1. What is Maria’s job?</p>
-  <input id="r4">
-
-  <p>2. What subject does she teach?</p>
-  <input id="r5">
-
-  <p>3. Why does she study English every day?</p>
-  <input id="r6">
-
-  <button onclick="checkReading2()">Check</button>
-  <p id="resultReading2"></p>
-</div>
-
-<!-- VOCABULARY -->
-<div class="atividade">
-  <h3>📚 Vocabulary – Common Words</h3>
-
-  <p>Teacher = <input id="v1"></p>
-  <p>Work = <input id="v2"></p>
-  <p>School = <input id="v3"></p>
-  <p>Friend = <input id="v4"></p>
-  <p>House = <input id="v5"></p>
-  <p>Morning = <input id="v6"></p>
-  <p>sleeping = <input id="v7"></p>
-
-  <button onclick="checkVocabulary()">Check</button>
-  <p id="resultVocabulary"></p>
-</div>
-
-<script>
-  function checkSpeaking() {
-    let s1 = s2 = s3 = s4 = "";
-    s1 = document.getElementById("s1").value;
-    s2 = document.getElementById("s2").value;
-    s3 = document.getElementById("s3").value;
-    s4 = document.getElementById("s4").value;
-
-    let result = (s1 && s2 && s3 && s4)
-      ? "<span class='correct'>✔ Good job!</span>"
-      : "<span class='wrong'>✖ Complete all sentences.</span>";
-
-    result += "<div class='answer'>Example: My name is Peter. I am 30 years old. I work as a teacher. I am from Mozambique.</div>";
-    document.getElementById("resultSpeaking").innerHTML = result;
-  }
-
-  function checkReading1() {
-    document.getElementById("resultReading1").innerHTML =
-      "<span class='answer'>Correct answers: Peter / Mozambique / Read and listen to music</span>";
-  }
-
-  function checkReading2() {
-    document.getElementById("resultReading2").innerHTML =
-      "<span class='answer'>Correct answers: Teacher / English / To improve her skills</span>";
-  }
-
-  function checkVocabulary() {
-    document.getElementById("resultVocabulary").innerHTML =
-      "<span class='answer'>Correct answers: Teacher=Professor, Work=Trabalho, School=Escola, Friend=Amigo, House=Casa, Morning=Manhã</span>";
-  }
-</script>
-
-</body>
-</html>
-
-
-
-  <footer>
+<footer>
     <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
     tiago-missace</p>
   </footer>
