@@ -1,151 +1,303 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Aulas de Inglês Online</title>
   <style>
     * {
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
+      margin:0; padding:0; box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
     }
-    html {
-      scroll-behavior: smooth;
-    }
-    /* fundo gradiente azul para verde */
+    html { scroll-behavior: smooth; }
     body {
       background: linear-gradient(to right, #002345, #00b496);
-      color:#333;
-      line-height:1.6;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-    /* slide-in mais rápido */
     header {
-      background-color: rgba(255,255,255,0.9);
-      padding:20px;
-      text-align:center;
-      transform:translateY(-100%);
-      opacity:0;
-      transition: transform 0.5s ease, opacity 0.5s ease; /* mais rápido */
+      background-color: rgba(255,255,255,0.95);
+      padding: 20px;
+      text-align: center;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
     header.show {
-      transform:translateY(0);
-      opacity:1;
+      transform: translateY(0);
+      opacity: 1;
     }
-
     header h1 {
       font-size: clamp(1.5rem, 5vw, 2.5rem);
-      color:#0041c2;
+      color: #0041c2;
+      margin-bottom: 0.3rem;
     }
     header p {
-      font-size: clamp(1rem, 3.5vw, 1.2rem);
-      color:#555;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #555;
     }
-
-    .container {
-      max-width:1200px;
-      margin:30px auto;
-      padding:0 20px;
+    main.container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex-grow: 1;
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     }
     .cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-      gap:20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 20px;
+      margin-bottom: 30px;
     }
     .card {
-      background:#fff;
-      border-radius:10px;
-      padding:20px;
-      text-align:center;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #004d40;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
-    .card h3 { margin-bottom:10px; color:#00b496; }
-    .card p { font-size:0.95rem; color:#666; }
-
     .intro {
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:2rem;
-      margin-top:40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 40px;
     }
+    /* Animação profissional aplicada aqui */
+    @keyframes floatZoom {
+      0%, 100% {
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+      }
+      50% {
+        transform: scale(1.05) translateY(-8px);
+        filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+      }
+    }
+
     .intro img {
-      width:400px;
-      border-radius:15px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+      /* Aplicando animação */
+      animation: floatZoom 6s ease-in-out infinite;
+      transition: box-shadow 0.3s ease;
+      will-change: transform;
+      
+    }
+    .texto {
+      flex: 1;
+      color: #004d40;
     }
     .texto h2 {
-      margin-bottom:1rem;
-      font-size:1.8rem;
-      color:#000000;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
     }
-    .texto p { color:#00997d; }
-
-    .formulario {
-      background:#fff;
-      margin:40px auto;
-      padding:30px;
-      border-radius:10px;
-      max-width:500px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1);
-    }
-    .formulario h2 {
-      text-align:center;
-      color:#0041c2;
-      margin-bottom:20px;
-    }
-    .formulario label {
-      display:block;
-      margin-top:15px;
-      font-weight:bold;
-      color:#333;
-    }
-    .formulario input {
-      width:100%;
-      padding:10px;
-      margin-top:5px;
-      border:1px solid #ccc;
-      border-radius:5px;
+    .texto p {
+      color: #00997d;
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.4;
     }
     .btn {
-      display:inline-block;
-      width:auto;
-      margin-top:20px;
-      padding:12px 20px;
-      background-color:#00b496;
-      color:#fff;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-      font-size:1rem;
-      text-decoration:none;
-      text-align:center;
+      display: inline-block;
+      background-color: #00b496;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      font-weight: 600;
     }
-    .btn:hover { background-color:#00997d; }
-
-    .outras-info {
-      margin:40px auto;
-      padding:20px;
-      background: rgba(255,255,255,0.8);
-      border-radius:10px;
-      max-width:800px;
+    .btn:hover {
+      background-color: #00997d;
     }
-    .outras-info h2 {
-      text-align:center;
-      color:#0045c2;
-      margin-bottom:15px;
+    section.beneficios {
+      margin-bottom: 40px;
     }
-    .outras-info ul {
-      list-style:inside disc;
-      line-height:1.8;
+    section.beneficios h2 {
+      color: #0041c2;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .beneficios .cards .card {
+      font-size: 1rem;
+      background: #e0f7f5;
+      color: #004d40;
+      font-weight: 600;
+      padding: 15px;
+      box-shadow: none;
+    }
+    section.formulario {
+      background: #fff;
+      margin: 0 auto 40px;
+      padding: 30px;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #004d40;
+    }
+    section.formulario h2 {
+      text-align: center;
+      color: #0041c2;
+      margin-bottom: 20px;
+    }
+    section.formulario label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    section.formulario input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    section.outras-info {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 20px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 10px;
+      color: #004d40;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+    section.outras-info h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #0041c2;
+    }
+    section.outras-info ul {
+      list-style: inside disc;
+      line-height: 1.8;
+      font-size: 1rem;
+      font-weight: 500;
     }
     footer {
-      text-align:center;
-      color:#fff;
-      padding:20px;
-      font-size:0.9rem;
+      text-align: center;
+      background: #004d40;
+      color: white;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      margin-top: auto;
+      user-select: none;
+    }
+    /* --- Quiz Styles --- */
+    .quiz-section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      margin: 40px auto 60px;
+      border-radius: 10px;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      color: #004d40;
+    }
+    .quiz-section h2 {
+      margin-bottom: 20px;
+      color: #0041c2;
+    }
+    .quiz-option {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      width: 90%;
+      max-width: 350px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #004d40;
+      user-select: none;
+    }
+    .quiz-option:hover {
+      background: #17a673;
+      color: #fff;
+    }
+    .quiz-option.correct {
+      background: #17a673;
+      color: #fff;
+    }
+    .quiz-option.wrong {
+      background: #c9302c;
+      color: #fff;
+    }
+    .quiz-menu {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn-audio {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 24px;
+      background: #1cc88a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      user-select: none;
+    }
+    .btn-audio:hover {
+      background: #17a673;
+    }
+    #user-input {
+      padding: 8px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #004d40;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-weight: 700;
+      min-height: 30px;
+    }
+    #score {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0041c2;
+    }
+    @media (max-width: 700px) {
+      .intro {
+        flex-direction: column;
+      }
+      .intro img {
+        max-width: 100%;
+      }
+      .quiz-option {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -155,233 +307,88 @@
     <p>Aprenda inglês do zero ao avançado no conforto de casa</p>
   </header>
 
-  <script>
-    // Mostra o header com slide-in mais rápido assim que a página carrega
-    window.addEventListener('load', () => {
-      document.querySelector('header').classList.add('show');
-    });
-  </script>
-</body>
-</html>
+  <main class="container" role="main">
+    <section class="cards" aria-label="Serviços e vantagens">
+      <article class="card" tabindex="0">
+        📚 Materiais Exclusivos: Conteúdos atualizados para acelerar seu aprendizado.
+      </article>
+      <article class="card" tabindex="0">
+        ⏰ Flexibilidade: Estude no seu ritmo com horários flexíveis.
+      </article>
+    </section>
 
-
-
-  <div class="container">
-    <div class="cards">
-      <div class="card">
-        <h3>Materiais Exclusivos</h3>
-        <p>Conteúdos atualizados para acelerar seu aprendizado.</p>
-      </div>
-      <div class="card">
-        <h3>Flexibilidade</h3>
-        <p>Estude no seu ritmo com horários flexíveis.</p>
-      </div>
-    </div>
-
-    <main>
-      <section class="intro">
-        <img src="https://uploads.onecompiler.io/43xfyv2u7/44e4h87ry/ChatGPT%20Image%20Feb%2019,%202026,%2010_36_28%20PM.png"  alt="Professor de Inglês Online">
-        <div class="texto">
+    <section class="intro" aria-label="Introdução">
       
-      <div class="card" style="margin-bottom:30px;">
-          <h1>Por que escolher nossas aulas?</h1>
-          <p>
-            
-            <div class="card"> 
-            Nossas aulas online foram criadas para todos os níveis, do iniciante ao avançado. 
-            Você terá contacto directo com professor Tiago Missace, materiais interativos e uma 
-            comunidade de apoio no WhatsApp que vai ajudar na sua jornada.
-          </p>
-           </div>
-          
-          <!-- Botão centralizado -->
-          <div style="display:flex; justify-content:center; margin-top:20px;">
-            <a href="#inscricao" class="btn" id="btnInfo">Quero começar!</a>
-          </div>
-        </div>
-      </section>
-
-    <div class="card" style="margin-top:20px;">
-      <section class="beneficios">
-        <h1>Benefícios</h1> 
+      <img src="https://uploads.onecompiler.io/43xfyv2u7/44e4h87ry/ChatGPT%20Image%20Feb%2019,%202026,%2010_36_28%20PM.png" alt="Professor de Inglês Online Tiago António Missace" />
+      <div class="texto">
+        <h2>Por que escolher nossas aulas?</h2>
+        <p>
+          Nossas aulas online foram criadas para todos os níveis, do iniciante ao avançado.
+          Você terá contato direto com professor Tiago Missace, materiais interativos e uma comunidade de apoio no WhatsApp que vai ajudar na sua jornada.
         </p>
-           </div>
-        
-        <div class="cards" style="margin-top:20px;">
-          <div class="card">📚 Material completo</div>
-          <div class="card">💻 Acesso 24/7</div>
-          <div class="card">👩‍🏫 Professor experiente</div>
-          <div class="card">🌍 Estude de qualquer lugar</div>
-          <div class="card">📝 Exercícios práticos</div>
-          <div class="card">💬 Suporte via WhatsApp</div>
-        </div>
-      </section>
+        <a href="#inscricao" class="btn" id="btnInfo">Quero começar!</a>
+      </div>
+    </section>
 
-      <section class="formulario" id="inscricao">
-        <h2>Inscreva-se para aulas de Inglês</h2>
-        <form action="https://formspree.io/f/mqayzbrr" method="POST">
-          <label>Nome:</label>
-          <input type="text" name="nome" required>
-          <label>Email:</label>
-          <input type="email" name="email" required>
-          <label>WhatsApp:</label>
-          <input type="text" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
-          <button type="submit" class="btn">Enviar inscrição</button>
-        </form>
-      </section>
+    <section class="beneficios" aria-labelledby="beneficios-title">
+      <h2 id="beneficios-title">Benefícios</h2>
+      <div class="cards" role="list">
+        <div class="card" role="listitem">💻 Acesso 24/7</div>
+        <div class="card" role="listitem">👩‍🏫 Professor experiente</div>
+        <div class="card" role="listitem">🌍 Estude de qualquer lugar</div>
+        <div class="card" role="listitem">📝 Exercícios práticos</div>
+        <div class="card" role="listitem">💬 Suporte via WhatsApp</div>
+      </div>
+    </section>
 
-      <section class="outras-info">
-        <h2>Mais sobre nossas aulas de inglês online</h2>
-        <ul>
-          <li>Aulas ao vivo.</li>
-          <li>Aprendizado baseado em conversação prática, não apenas teoria.</li>
-          <li>Acompanhamento individualizado para identificar suas dificuldades.</li>
-          <li>Certificado de conclusão para alunos que completarem o curso.</li>
-          <li>Acesso a materiais extras.</li>
-        </ul>
-      </section>
-    </main>
-  </div>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz de Inglês com Áudio</title>
-<style>
-  font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #1E90FF, #00b496);
-      color: #333;
-      line-height: 1.2;
-      margin: 0;
-      padding: 0;
-    }
+    <section class="formulario" id="inscricao" aria-label="Formulário de inscrição">
+      <h2>Inscreva-se para aulas de Inglês</h2>
+      <form action="https://formspree.io/f/mqayzbrr" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required aria-required="true" />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required aria-required="true" />
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" />
+        <button type="submit" class="btn">Enviar inscrição</button>
+      </form>
+    </section>
 
-    .quiz-section {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      margin: 40px auto;
-      border-radius: 10px;
-      max-width: 700px;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .quiz-section h2 {
-      color: #ffffff;
-      margin-bottom: 20px;
-    }
-
-    /* opções do quiz */
-    .quiz-option {
-      display: block;
-      margin: 10px 0;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-      width: 100%;
-    }
-
-    .quiz-option:hover {
-      background: #17a673;
-      color: #fff;
-    }
-
-    .quiz-option.correct {
-      background: #17a673; /* verde ao acertar */
-      color: #fff;
-    }
-
-    .quiz-option.wrong {
-      background: #c9302c; /* vermelho ao errar */
-      color: #fff;
-    }
-
-    /* menu */
-    .quiz-menu {
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    /* botões do menu */
-    .btn {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 8px;
-      background: #1cc88a;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .btn:hover {
-      background: #17a673;
-    }
-
-    /* botão próximo */
-    .btn-audio {
-      display: block;
-      margin: 20px auto 0; /* centraliza */
-      padding: 12px 24px;
-      background: #1cc88a; /* verde */
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .btn-audio:hover {
-      background: #17a673;
-    }
-
-    #user-input {
-      padding: 8px;
-      width: 70%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-    }
-
-    #feedback {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Áudio para sons correto e errado -->
+    <section class="outras-info" aria-label="Informações adicionais">
+      <h2>Mais sobre nossas aulas de inglês online</h2>
+      <ul>
+        <li>Aulas ao vivo.</li>
+        <li>Aprendizado baseado em conversação prática, não apenas teoria.</li>
+        <li>Acompanhamento individualizado para identificar suas dificuldades.</li>
+        <li>Certificado de conclusão para alunos que completarem o curso.</li>
+        <li>Acesso a materiais extras.</li>
+      </ul>
+    </section>
+    
+ <!-- Áudio para sons correto e errado -->
   <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
   <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
 
-  <section class="quiz-section">
-    <h2>Teste seu Inglês 🎯</h2>
-
-    <div class="quiz-menu">
-      <button class="btn" onclick="startQuiz('vocab')">Vocabulário</button>
-      <button class="btn" onclick="startQuiz('grammar')">Gramática</button>
-      <button class="btn" onclick="startQuiz('expressions')">Expressões</button>
-      <button class="btn" onclick="startQuiz('translations')">Traduções</button>
-      <button class="btn" onclick="startQuiz('listening')">Listening</button>
-    </div>
-
-   <div id="quiz-container" style="display:block;">
-    <div class="card"> <!-- Added card here -->
-      <p id="question">Carregando pergunta...</p>
-      <div id="options"></div>
-      <div id="audio-box" style="margin-top:15px;"></div>
-      <p id="feedback"></p>
-      <p id="score"></p>
-      <button id="nextBtn" class="btn-audio hidden" onclick="nextQuestion()">➡ Próximo</button>
-    </div>
-  </section>
+    <!-- Quiz Section -->
+    <section class="quiz-section" aria-label="Quiz de Inglês">
+      <h2>Teste seu Inglês 🎯</h2>
+      <nav class="quiz-menu" aria-label="Menu do Quiz">
+        <button class="btn" type="button" onclick="startQuiz('vocab')">Vocabulário</button>
+        <button class="btn" type="button" onclick="startQuiz('grammar')">Gramática</button>
+        <button class="btn" type="button" onclick="startQuiz('expressions')">Expressões</button>
+        <button class="btn" type="button" onclick="startQuiz('translations')">Traduções</button>
+        <button class="btn" type="button" onclick="startQuiz('listening')">Listening</button>
+      </nav>
+      <article id="quiz-container" role="region" aria-live="polite" tabindex="0">
+        <p id="question">Clique em um tema para iniciar o quiz.</p>
+        <div id="options"></div>
+        <div id="audio-box" style="margin-top:15px;"></div>
+        <p id="feedback"></p>
+        <p id="score"></p>
+        <button id="nextBtn" class="btn-audio hidden" type="button" onclick="nextQuestion()">➡ Próximo</button>
+      </article>
+    </section>
+  </main>
 
 <script>
 const quizzes = {
@@ -655,7 +662,7 @@ const quizzes = {
   { question: "Traduza para português: 'He is very tall'", answer: "ele é muito alto", audio: "He is very tall" },
   { question: "Traduza para português: 'I am going to the park'", answer: "eu estou indo ao parque", audio: "I am going to the park" },
   { question: "Traduza para português: 'She is my neighbor'", answer: "ela é minha vizinha", audio: "She is my neighbor" },
-  { question: "Traduza para português: 'We have two dogs'", answer: "nós temos dois cachorros", audio: "We have two dogs" },
+  { question: "Traduza para português: 'We have two dogs'", answer: "nós temos dois cães", audio: "We have two dogs" },
   { question: "Traduza para português: 'He likes pizza'", answer: "ele gosta de pizza", audio: "He likes pizza" },
   { question: "Traduza para português: 'I am listening to music'", answer: "eu estou ouvindo música", audio: "I am listening to music" },
   { question: "Traduza para português: 'She is working in the office'", answer: "ela está trabalhando no escritório", audio: "She is working in the office" },
@@ -1005,18 +1012,1117 @@ function nextQuestion() {
 </body>
 </html>
 
-<footer>
-    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados.
-    tiago-missace</p>
+ <footer>
+    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados. | tiago-missace</p>
   </footer>
 
-  <script>
-    window.addEventListener('load', () => {
-      const header = document.querySelector('header');
+<script>
+  const header = document.querySelector('header');
+  let lastScroll = 0;
+
+  // Mostrar cabeçalho ao carregar a página
+  window.addEventListener('load', () => {
+    header.classList.add('show');
+  });
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if(currentScroll <= 0) {
+      header.classList.add('show'); // mostrar no topo
+      return;
+    }
+
+    if(currentScroll > lastScroll) {
+      // Rolando para baixo - esconder header
+      header.classList.remove('show');
+    } else {
+      // Rolando para cima - mostrar header
       header.classList.add('show');
-    });
-  </script>
+    }
+
+    lastScroll = currentScroll;
+  });
+
+  // Aqui você deve inserir a lógica do seu quiz existente para manter a funcionalidade.
+  // Exemplo (simplificado, substitua pelo seu código do quiz):
+  /*
+  const quizzes = { ... };
+
+  function startQuiz(topic) {
+    // seu código para iniciar o quiz
+  }
+
+  function nextQuestion() {
+    // seu código para próxima pergunta
+  }
+  */
+
+</script>
 
 </body>
+</html>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aulas de Inglês Online</title>
+  <style>
+    * {
+      margin:0; padding:0; box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: linear-gradient(to right, #002345, #00b496);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: rgba(255,255,255,0.95);
+      padding: 20px;
+      text-align: center;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    header.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    header h1 {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      color: #0041c2;
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: #555;
+    }
+    main.container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex-grow: 1;
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #004d40;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .intro {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 40px;
+    }
+    /* Animação profissional aplicada aqui */
+    @keyframes floatZoom {
+      0%, 100% {
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+      }
+      50% {
+        transform: scale(1.05) translateY(-8px);
+        filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+      }
+    }
 
+    .intro img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+      /* Aplicando animação */
+      animation: floatZoom 6s ease-in-out infinite;
+      transition: box-shadow 0.3s ease;
+      will-change: transform;
+      
+    }
+    .texto {
+      flex: 1;
+      color: #004d40;
+    }
+    .texto h2 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .texto p {
+      color: #00997d;
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #00b496;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+    .btn:hover {
+      background-color: #00997d;
+    }
+    section.beneficios {
+      margin-bottom: 40px;
+    }
+    section.beneficios h2 {
+      color: #0041c2;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .beneficios .cards .card {
+      font-size: 1rem;
+      background: #e0f7f5;
+      color: #004d40;
+      font-weight: 600;
+      padding: 15px;
+      box-shadow: none;
+    }
+    section.formulario {
+      background: #fff;
+      margin: 0 auto 40px;
+      padding: 30px;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #004d40;
+    }
+    section.formulario h2 {
+      text-align: center;
+      color: #0041c2;
+      margin-bottom: 20px;
+    }
+    section.formulario label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    section.formulario input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    section.outras-info {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 20px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 10px;
+      color: #004d40;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+    section.outras-info h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #0041c2;
+    }
+    section.outras-info ul {
+      list-style: inside disc;
+      line-height: 1.8;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    footer {
+      text-align: center;
+      background: #004d40;
+      color: white;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      margin-top: auto;
+      user-select: none;
+    }
+    /* --- Quiz Styles --- */
+    .quiz-section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      margin: 40px auto 60px;
+      border-radius: 10px;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      color: #004d40;
+    }
+    .quiz-section h2 {
+      margin-bottom: 20px;
+      color: #0041c2;
+    }
+    .quiz-option {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      width: 90%;
+      max-width: 350px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #004d40;
+      user-select: none;
+    }
+    .quiz-option:hover {
+      background: #17a673;
+      color: #fff;
+    }
+    .quiz-option.correct {
+      background: #17a673;
+      color: #fff;
+    }
+    .quiz-option.wrong {
+      background: #c9302c;
+      color: #fff;
+    }
+    .quiz-menu {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn-audio {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 24px;
+      background: #1cc88a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      user-select: none;
+    }
+    .btn-audio:hover {
+      background: #17a673;
+    }
+    #user-input {
+      padding: 8px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #004d40;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-weight: 700;
+      min-height: 30px;
+    }
+    #score {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0041c2;
+    }
+    @media (max-width: 700px) {
+      .intro {
+        flex-direction: column;
+      }
+      .intro img {
+        max-width: 100%;
+      }
+      .quiz-option {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Aulas de Inglês com Tiago António Missace</h1>
+    <p>Aprenda inglês do zero ao avançado no conforto de casa</p>
+  </header>
+
+  <main class="container" role="main">
+    <section class="cards" aria-label="Serviços e vantagens">
+      <article class="card" tabindex="0">
+        📚 Materiais Exclusivos: Conteúdos atualizados para acelerar seu aprendizado.
+      </article>
+      <article class="card" tabindex="0">
+        ⏰ Flexibilidade: Estude no seu ritmo com horários flexíveis.
+      </article>
+    </section>
+
+    <section class="intro" aria-label="Introdução">
+      
+      <img src="https://uploads.onecompiler.io/43xfyv2u7/44e4h87ry/ChatGPT%20Image%20Feb%2019,%202026,%2010_36_28%20PM.png" alt="Professor de Inglês Online Tiago António Missace" />
+      <div class="texto">
+        <h2>Por que escolher nossas aulas?</h2>
+        <p>
+          Nossas aulas online foram criadas para todos os níveis, do iniciante ao avançado.
+          Você terá contato direto com professor Tiago Missace, materiais interativos e uma comunidade de apoio no WhatsApp que vai ajudar na sua jornada.
+        </p>
+        <a href="#inscricao" class="btn" id="btnInfo">Quero começar!</a>
+      </div>
+    </section>
+
+    <section class="beneficios" aria-labelledby="beneficios-title">
+      <h2 id="beneficios-title">Benefícios</h2>
+      <div class="cards" role="list">
+        <div class="card" role="listitem">💻 Acesso 24/7</div>
+        <div class="card" role="listitem">👩‍🏫 Professor experiente</div>
+        <div class="card" role="listitem">🌍 Estude de qualquer lugar</div>
+        <div class="card" role="listitem">📝 Exercícios práticos</div>
+        <div class="card" role="listitem">💬 Suporte via WhatsApp</div>
+      </div>
+    </section>
+
+    <section class="formulario" id="inscricao" aria-label="Formulário de inscrição">
+      <h2>Inscreva-se para aulas de Inglês</h2>
+      <form action="https://formspree.io/f/mqayzbrr" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required aria-required="true" />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required aria-required="true" />
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="text" id="whatsapp" name="whatsapp" placeholder="(xx) xxxxx-xxxx" />
+        <button type="submit" class="btn">Enviar inscrição</button>
+      </form>
+    </section>
+
+    <section class="outras-info" aria-label="Informações adicionais">
+      <h2>Mais sobre nossas aulas de inglês online</h2>
+      <ul>
+        <li>Aulas ao vivo.</li>
+        <li>Aprendizado baseado em conversação prática, não apenas teoria.</li>
+        <li>Acompanhamento individualizado para identificar suas dificuldades.</li>
+        <li>Certificado de conclusão para alunos que completarem o curso.</li>
+        <li>Acesso a materiais extras.</li>
+      </ul>
+    </section>
+    
+ <!-- Áudio para sons correto e errado -->
+  <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg" preload="auto"></audio>
+  <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section" aria-label="Quiz de Inglês">
+      <h2>Teste seu Inglês 🎯</h2>
+      <nav class="quiz-menu" aria-label="Menu do Quiz">
+        <button class="btn" type="button" onclick="startQuiz('vocab')">Vocabulário</button>
+        <button class="btn" type="button" onclick="startQuiz('grammar')">Gramática</button>
+        <button class="btn" type="button" onclick="startQuiz('expressions')">Expressões</button>
+        <button class="btn" type="button" onclick="startQuiz('translations')">Traduções</button>
+        <button class="btn" type="button" onclick="startQuiz('listening')">Listening</button>
+      </nav>
+      <article id="quiz-container" role="region" aria-live="polite" tabindex="0">
+        <p id="question">Clique em um tema para iniciar o quiz.</p>
+        <div id="options"></div>
+        <div id="audio-box" style="margin-top:15px;"></div>
+        <p id="feedback"></p>
+        <p id="score"></p>
+        <button id="nextBtn" class="btn-audio hidden" type="button" onclick="nextQuestion()">➡ Próximo</button>
+      </article>
+    </section>
+  </main>
+
+<script>
+const quizzes = {
+  vocab: [
+     { question: "O que significa 'Apple'?", options: ["Banana","Maçã","Laranja"], answer: "Maçã" },
+    { question: "O que significa 'Dog'?", options: ["Gato","Cão","Pássaro"], answer: "Cão" },
+    { question: "O que significa 'Cat'?", options: ["Gato","Cachorro","Coelho"], answer: "Gato" },
+    { question: "O que significa 'Apple'?", options: ["Banana","Maçã","Laranja"], answer: "Maçã" },
+  { question: "O que significa 'Dog'?", options: ["Gato","Cão","Pássaro"], answer: "Cão" },
+  { question: "O que significa 'Cat'?", options: ["Gato","Cachorro","Coelho"], answer: "Gato" },
+  { question: "O que significa 'Book'?", options: ["Caderno","Livro","Caneta"], answer: "Livro" },
+  { question: "O que significa 'Chair'?", options: ["Mesa","Cadeira","Janela"], answer: "Cadeira" },
+  { question: "O que significa 'Table'?", options: ["Mesa","Cadeira","Sofá"], answer: "Mesa" },
+  { question: "O que significa 'House'?", options: ["Carro","Casa","Escola"], answer: "Casa" },
+  { question: "O que significa 'Car'?", options: ["Moto","Carro","Avião"], answer: "Carro" },
+  { question: "O que significa 'Water'?", options: ["Leite","Água","Suco"], answer: "Água" },
+  { question: "O que significa 'Milk'?", options: ["Água","Leite","Café"], answer: "Leite" },
+  { question: "O que significa 'Sun'?", options: ["Lua","Sol","Estrela"], answer: "Sol" },
+  { question: "O que significa 'Moon'?", options: ["Sol","Lua","Estrela"], answer: "Lua" },
+  { question: "O que significa 'Star'?", options: ["Estrela","Lua","Planeta"], answer: "Estrela" },
+  { question: "O que significa 'Teacher'?", options: ["Aluno","Professor","Diretor"], answer: "Professor" },
+  { question: "O que significa 'Student'?", options: ["Escola","Aluno","Livro"], answer: "Aluno" },
+  { question: "O que significa 'School'?", options: ["Mercado","Hospital","Escola"], answer: "Escola" },
+  { question: "O que significa 'Computer'?", options: ["Computador","Telefone","Tablet"], answer: "Computador" },
+  { question: "O que significa 'Phone'?", options: ["Telefone","Carro","Relógio"], answer: "Telefone" },
+  { question: "O que significa 'Door'?", options: ["Janela","Porta","Parede"], answer: "Porta" },
+  { question: "O que significa 'Window'?", options: ["Porta","Janela","Parede"], answer: "Janela" },
+  { question: "O que significa 'Bread'?", options: ["Pão","Arroz","Queijo"], answer: "Pão" },
+  { question: "O que significa 'Cheese'?", options: ["Queijo","Leite","Manteiga"], answer: "Queijo" },
+  { question: "O que significa 'Rice'?", options: ["Arroz","Feijão","Pão"], answer: "Arroz" },
+  { question: "O que significa 'Egg'?", options: ["Ovo","Carne","Leite"], answer: "Ovo" },
+  { question: "O que significa 'Fish'?", options: ["Peixe","Frango","Carne"], answer: "Peixe" },
+  { question: "O que significa 'Chicken'?", options: ["Peixe","Frango","Porco"], answer: "Frango" },
+  { question: "O que significa 'Apple juice'?", options: ["Suco de laranja","Suco de maçã","Água"], answer: "Suco de maçã" },
+  { question: "O que significa 'Coffee'?", options: ["Chá","Café","Leite"], answer: "Café" },
+  { question: "O que significa 'Tea'?", options: ["Chá","Café","Água"], answer: "Chá" },
+  { question: "O que significa 'Bed'?", options: ["Cama","Sofá","Mesa"], answer: "Cama" },
+  { question: "O que significa 'Sofa'?", options: ["Cama","Sofá","Cadeira"], answer: "Sofá" },
+  { question: "O que significa 'Bag'?", options: ["Mochila","Sapato","Bolsa"], answer: "Mochila" },
+  { question: "O que significa 'Shoes'?", options: ["Sapato","Meias","Camiseta"], answer: "Sapato" },
+  { question: "O que significa 'Hat'?", options: ["Chapéu","Camiseta","Calça"], answer: "Chapéu" },
+  { question: "O que significa 'Shirt'?", options: ["Camiseta","Calça","Sapato"], answer: "Camiseta" },
+  { question: "O que significa 'Pants'?", options: ["Calça","Camiseta","Chapéu"], answer: "Calça" },
+  { question: "O que significa 'Rain'?", options: ["Sol","Chuva","Neve"], answer: "Chuva" },
+  { question: "O que significa 'Snow'?", options: ["Chuva","Neve","Sol"], answer: "Neve" },
+  { question: "O que significa 'Cloud'?", options: ["Nuvem","Chuva","Céu"], answer: "Nuvem" },
+  { question: "O que significa 'Tree'?", options: ["Árvore","Planta","Flor"], answer: "Árvore" },
+  { question: "O que significa 'Flower'?", options: ["Árvore","Flor","Planta"], answer: "Flor" },
+  { question: "O que significa 'Grass'?", options: ["Grama","Flor","Árvore"], answer: "Grama" },
+  { question: "O que significa 'Street'?", options: ["Rua","Avenida","Praça"], answer: "Rua" },
+  { question: "O que significa 'Market'?", options: ["Mercado","Escola","Praça"], answer: "Mercado" },
+  { question: "O que significa 'Hospital'?", options: ["Hospital","Escola","Mercado"], answer: "Hospital" },
+  { question: "O que significa 'Bank'?", options: ["Banco","Loja","Escola"], answer: "Banco" },
+  { question: "O que significa 'Park'?", options: ["Parque","Praça","Rua"], answer: "Parque" },
+  { question: "O que significa 'Cinema'?", options: ["Cinema","Teatro","Escola"], answer: "Cinema" },
+  { question: "O que significa 'Library'?", options: ["Biblioteca","Escola","Mercado"], answer: "Biblioteca" },
+  { question: "O que significa 'Airport'?", options: ["Aeroporto","Estação","Praça"], answer: "Aeroporto" },
+  { question: "O que significa 'Station'?", options: ["Estação","Parque","Aeroporto"], answer: "Estação" },
+  { question: "O que significa 'Taxi'?", options: ["Táxi","Ônibus","Carro"], answer: "Táxi" },
+    { question: "O que significa 'Fast'?", options: ["Lento","Rápido","Pesado"], answer: "Rápido" },
+{ question: "O que significa 'Strong'?", options: ["Fraco","Forte","Cansado"], answer: "Forte" },
+{ question: "O que significa 'Easy'?", options: ["Difícil","Fácil","Confuso"], answer: "Fácil" },
+{ question: "O que significa 'Hard'?", options: ["Mole","Difícil","Rápido"], answer: "Difícil" },
+{ question: "O que significa 'Clean'?", options: ["Sujo","Limpo","Molhado"], answer: "Limpo" },
+{ question: "O que significa 'Open'?", options: ["Fechado","Aberto","Cheio"], answer: "Aberto" },
+{ question: "O que significa 'Close'?", options: ["Longe","Perto","Fechado"], answer: "Fechado" },
+{ question: "O que significa 'Buy'?", options: ["Vender","Comprar","Trocar"], answer: "Comprar" },
+{ question: "O que significa 'Sell'?", options: ["Comprar","Vender","Guardar"], answer: "Vender" },
+{ question: "O que significa 'Start'?", options: ["Parar","Começar","Terminar"], answer: "Começar" },
+
+{ question: "O que significa 'Finish'?", options: ["Iniciar","Continuar","Terminar"], answer: "Terminar" },
+{ question: "O que significa 'Help'?", options: ["Ajudar","Ignorar","Recusar"], answer: "Ajudar" },
+{ question: "O que significa 'Learn'?", options: ["Ensinar","Aprender","Esquecer"], answer: "Aprender" },
+{ question: "O que significa 'Teach'?", options: ["Aprender","Ensinar","Copiar"], answer: "Ensinar" },
+{ question: "O que significa 'Think'?", options: ["Pensar","Dormir","Falar"], answer: "Pensar" },
+{ question: "O que significa 'Speak'?", options: ["Ouvir","Escrever","Falar"], answer: "Falar" },
+{ question: "O que significa 'Listen'?", options: ["Falar","Ouvir","Responder"], answer: "Ouvir" },
+{ question: "O que significa 'Write'?", options: ["Ler","Escrever","Apagar"], answer: "Escrever" },
+{ question: "O que significa 'Read'?", options: ["Escrever","Ler","Contar"], answer: "Ler" },
+{ question: "O que significa 'Watch'?", options: ["Ver","Correr","Fechar"], answer: "Ver" },
+
+{ question: "O que significa 'Build'?", options: ["Destruir","Construir","Quebrar"], answer: "Construir" },
+{ question: "O que significa 'Create'?", options: ["Copiar","Criar","Apagar"], answer: "Criar" },
+{ question: "O que significa 'Improve'?", options: ["Piorar","Melhorar","Parar"], answer: "Melhorar" },
+{ question: "O que significa 'Change'?", options: ["Mudar","Manter","Perder"], answer: "Mudar" },
+{ question: "O que significa 'Problem'?", options: ["Solução","Problema","Plano"], answer: "Problema" },
+{ question: "O que significa 'Solution'?", options: ["Erro","Solução","Problema"], answer: "Solução" },
+{ question: "O que significa 'Important'?", options: ["Sem valor","Importante","Simples"], answer: "Importante" },
+{ question: "O que significa 'Necessary'?", options: ["Opcional","Necessário","Inútil"], answer: "Necessário" },
+{ question: "O que significa 'Possible'?", options: ["Impossível","Possível","Difícil"], answer: "Possível" },
+{ question: "O que significa 'Impossible'?", options: ["Possível","Impossível","Fácil"], answer: "Impossível" },
+
+{ question: "O que significa 'Ubiquitous'?", options: ["Raro","Presente em todos os lugares","Temporário"], answer: "Presente em todos os lugares" },
+{ question: "O que significa 'Meticulous'?", options: ["Descuidado","Muito detalhista","Preguiçoso"], answer: "Muito detalhista" },
+{ question: "O que significa 'Ephemeral'?", options: ["Duradouro","Passageiro","Eterno"], answer: "Passageiro" },
+{ question: "O que significa 'Resilient'?", options: ["Frágil","Capaz de se recuperar","Instável"], answer: "Capaz de se recuperar" },
+{ question: "O que significa 'Inevitable'?", options: ["Evitável","Certo de acontecer","Opcional"], answer: "Certo de acontecer" },
+{ question: "O que significa 'Pragmatic'?", options: ["Idealista","Prático","Emocional"], answer: "Prático" },
+{ question: "O que significa 'Ambiguous'?", options: ["Claro","Ambíguo","Objetivo"], answer: "Ambíguo" },
+{ question: "O que significa 'Coherent'?", options: ["Confuso","Lógico","Desorganizado"], answer: "Lógico" },
+{ question: "O que significa 'Subtle'?", options: ["Óbvio","Sutil","Grosseiro"], answer: "Sutil" },
+{ question: "O que significa 'Comprehensive'?", options: ["Limitado","Abrangente","Simples"], answer: "Abrangente" }
+  ],
+  
+  
+  grammar: [
+    { question: "Escolha a frase correta:", options: ["She go to school","She goes to school","She going school"], answer: "She goes to school" },
+    { question: "Complete: I ___ happy.", options: ["am","is","are"], answer: "am" },
+    { question: "Escolha a frase correta:", options: ["She go to school","She goes to school","She going school"], answer: "She goes to school" },
+  { question: "Complete: I ___ happy.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a frase correta:", options: ["They is tired","They are tired","They am tired"], answer: "They are tired" },
+  { question: "Complete: Teresa ___ my sister.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a forma correta do verbo:", options: ["I goes","I go","I going"], answer: "I go" },
+  { question: "Complete: We ___ at home.", options: ["is","are","am"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["She have a cat","She has a cat","She haves a cat"], answer: "She has a cat" },
+  { question: "Complete: You ___ a good friend.", options: ["is","are","am"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["They goes to school","They go to school","They going to school"], answer: "They go to school" },
+  { question: "Complete: I ___ from Tete.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a frase correta:", options: ["He don't like pizza","He doesn't like pizza","He not like pizza"], answer: "He doesn't like pizza" },
+  { question: "Complete: We ___ happy today.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["She don't speak English","She doesn't speak English","She not speak English"], answer: "She doesn't speak English" },
+  { question: "Complete: I ___ a teacher.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a frase correta:", options: ["They plays football","They play football","They playing football"], answer: "They play football" },
+  { question: "Complete: Tiago ___ very tall.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a forma correta:", options: ["We doesn't like milk","We don't like milk","We not like milk"], answer: "We don't like milk" },
+  { question: "Complete: You ___ my friend.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["I has a car","I have a car","I haves a car"], answer: "I have a car" },
+  { question: "Complete: She ___ a doctor.", options: ["is","are","am"], answer: "is" },
+  { question: "Complete: They ___ very busy.", options: ["is","are","am"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["He walk to school","He walks to school","He walking to school"], answer: "He walks to school" },
+  { question: "Complete: I ___ tired now.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a frase correta:", options: ["She like chocolate","She likes chocolate","She liking chocolate"], answer: "She likes chocolate" },
+  { question: "Complete: We ___ at the park.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["He don't know","He doesn't know","He not know"], answer: "He doesn't know" },
+  { question: "Complete: Tiago and Teresa ___ ready to go home.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["They plays tennis","They play tennis","They playing tennis"], answer: "They play tennis" },
+  { question: "Complete: She ___ very kind.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a forma correta:", options: ["We doesn't understand","We don't understand","We not understand"], answer: "We don't understand" },
+  { question: "Complete: You ___ late today.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["I has two brothers","I have two brothers","I haves two brothers"], answer: "I have two brothers" },
+  { question: "Complete: He ___ a good student.", options: ["is","are","am"], answer: "is" },
+  { question: "Complete: They ___ in the garden.", options: ["is","are","am"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["She don't like tea","She doesn't like tea","She not like tea"], answer: "She doesn't like tea" },
+  { question: "Complete: I ___ hungry.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a frase correta:", options: ["He plays football","He play football","He playing football"], answer: "He plays football" },
+  { question: "Complete: We ___ happy.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["They doesn't go to school","They don't go to school","They not go to school"], answer: "They don't go to school" },
+  { question: "Complete: She ___ my sister.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a frase correta:", options: ["I walks to school","I walk to school","I walking to school"], answer: "I walk to school" },
+  { question: "Complete: He ___ very strong.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a forma correta:", options: ["We doesn't eat meat","We don't eat meat","We not eat meat"], answer: "We don't eat meat" },
+  { question: "Complete: You ___ my best friend.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a frase correta:", options: ["They has a dog","They have a dog","They haves a dog"], answer: "They have a dog" },
+  { question: "Complete: I ___ a student.", options: ["am","is","are"], answer: "am" },
+  { question: "Escolha a forma correta:", options: ["She don't speak French","She doesn't speak French","She not speak French"], answer: "She doesn't speak French" },
+  { question: "Complete: He ___ in Beira.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a frase correta:", options: ["I likes pizza","I like pizza","I liking pizza"], answer: "I like pizza" },
+  { question: "Complete: We ___ at home now.", options: ["am","is","are"], answer: "are" },
+  { question: "Escolha a forma correta:", options: ["They doesn't have a car","They don't have a car","They not have a car"], answer: "They don't have a car" },
+  { question: "Complete: She ___ a teacher.", options: ["is","are","am"], answer: "is" },
+  { question: "Escolha a frase correta:", options: ["I has a pen","I have a pen","I haves a pen"], answer: "I have a pen" },
+  { question: "Complete: He ___ very smart.", options: ["is","are","am"], answer: "is" },
+{ question: "Complete: She ___ finish her homework before dinner.", options: ["must","can","might"], answer: "must" },
+{ question: "Complete: I ___ see him yesterday at the market.", options: ["could","saw","see"], answer: "saw" },
+{ question: "Complete: They ___ playing football when it started raining.", options: ["were","was","are"], answer: "were" },
+{ question: "Complete: Right now, I ___ reading a very interesting book.", options: ["am","is","are"], answer: "am" },
+{ question: "Complete: The letter has already ___ sent to the office.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: You ___ study harder if you want to pass the exam.", options: ["should","could","might"], answer: "should" },
+{ question: "Complete: We ___ visit them last weekend.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: While I ___ watching TV, the phone rang.", options: ["was","were","am"], answer: "was" },
+{ question: "Complete: At this moment, they ___ preparing for the presentation.", options: ["are","is","was"], answer: "are" },
+{ question: "Complete: The work has ___ completed by the team.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: He ___ be at home now; he usually leaves at this time.", options: ["cannot","should","might"], answer: "cannot" },
+{ question: "Complete: I ___ meet her yesterday, but she was busy.", options: ["could","can","may"], answer: "could" },
+{ question: "Complete: They ___ studying when I arrived.", options: ["were","was","are"], answer: "were" },
+{ question: "Complete: Listen! I ___ hearing something strange.", options: ["am","is","are"], answer: "am" },
+{ question: "Complete: The documents have ___ signed by the manager.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: You ___ ask for help if you don’t understand.", options: ["should","must","might"], answer: "should" },
+{ question: "Complete: She ___ travel to Tete last summer.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: While we ___ walking in the park, it began to rain.", options: ["were","was","are"], answer: "were" },
+{ question: "Complete: At the moment, I ___ trying to solve a problem.", options: ["am","is","are"], answer: "am" },
+{ question: "Complete: All the work has ___ finished on time.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: He ___ come to the party if he is invited.", options: ["might","should","must"], answer: "might" },
+{ question: "Complete: I ___ see that movie last week.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: She ___ cooking when I entered the kitchen.", options: ["was","were","am"], answer: "was" },
+{ question: "Complete: Right now, they ___ discussing the project.", options: ["are","is","was"], answer: "are" },
+{ question: "Complete: The report has ___ reviewed by the supervisor.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: You ___ be more careful when crossing the street.", options: ["should","can","might"], answer: "should" },
+{ question: "Complete: We ___ visit the museum yesterday.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: While Tiago ___ sleeping, the phone rang.", options: ["was","were","am"], answer: "was" },
+{ question: "Complete: At this moment, she ___ reading her emails.", options: ["is","are","am"], answer: "is" },
+{ question: "Complete: The letters have ___ delivered already.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: He ___ speak French fluently.", options: ["can","must","should"], answer: "can" },
+{ question: "Complete: I ___ finish my homework last night.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: They ___ playing video games when their parents came home.", options: ["were","was","are"], answer: "were" },
+{ question: "Complete: Look! He ___ running very fast.", options: ["is","am","are"], answer: "is" },
+{ question: "Complete: The homework has ___ done by the students.", options: ["been","be","was"], answer: "been" },
+{ question: "Complete: You ___ study more if you want to improve.", options: ["should","must","might"], answer: "should" },
+{ question: "Complete: We ___ meet them last Friday.", options: ["did","do","done"], answer: "did" },
+{ question: "Complete: While I ___ driving, I received a phone call.", options: ["was","were","am"], answer: "was" },
+{ question: "Complete: Right now, I ___ working on my English exercises.", options: ["am","is","are"], answer: "am" },
+{ question: "Complete: The project has ___ completed successfully.", options: ["been","be","was"], answer: "been" }
+  
+   ],
+  expressions: [
+  { question: "O que significa 'Break a leg'?", options: ["Quebrar a perna","Boa sorte","Correr rápido"], answer: "Boa sorte" },
+    { question: "O que significa 'Piece of cake'?", options: ["Muito fácil","Difícil","Impossível"], answer: "Muito fácil" },
+    { question: "O que significa 'Break a leg'?", options: ["Quebrar a perna","Boa sorte","Correr rápido"], answer: "Boa sorte" },
+  { question: "O que significa 'Piece of cake'?", options: ["Muito fácil","Difícil","Impossível"], answer: "Muito fácil" },
+  { question: "O que significa 'Hit the books'?", options: ["Bater nos livros","Estudar muito","Quebrar livros"], answer: "Estudar muito" },
+  { question: "O que significa 'Under the weather'?", options: ["Debaixo do tempo","Doente","Chovendo muito"], answer: "Doente" },
+  { question: "O que significa 'Once in a blue moon'?", options: ["Raramente","Sempre","Frequentemente"], answer: "Raramente" },
+  { question: "O que significa 'Spill the beans'?", options: ["Derramar feijão","Contar um segredo","Cozinhar feijão"], answer: "Contar um segredo" },
+  { question: "O que significa 'Let the cat out of the bag'?", options: ["Soltar o gato","Revelar segredo","Fechar a bolsa"], answer: "Revelar segredo" },
+  { question: "O que significa 'Costs an arm and a leg'?", options: ["Custa muito caro","Custa pouco","É grátis"], answer: "Custa muito caro" },
+  { question: "O que significa 'Bite the bullet'?", options: ["Morder a bala","Enfrentar a situação","Fugir do problema"], answer: "Enfrentar a situação" },
+  { question: "O que significa 'Break the ice'?", options: ["Quebrar o gelo","Começar uma conversa","Beber água gelada"], answer: "Começar uma conversa" },
+  { question: "O que significa 'Call it a day'?", options: ["Chamar o dia","Encerrar o trabalho","Começar o dia"], answer: "Encerrar o trabalho" },
+  { question: "O que significa 'Hit the sack'?", options: ["Bater no saco","Ir dormir","Brigar com alguém"], answer: "Ir dormir" },
+  { question: "O que significa 'Cut corners'?", options: ["Cortar cantos","Fazer algo pela metade","Reduzir custos"], answer: "Fazer algo pela metade" },
+  { question: "O que significa 'Up in the air'?", options: ["No ar","Indeciso","Voando alto"], answer: "Indeciso" },
+  { question: "O que significa 'Burn the midnight oil'?", options: ["Queimar óleo","Trabalhar até tarde","Acender lâmpada"], answer: "Trabalhar até tarde" },
+  { question: "O que significa 'Under the table'?", options: ["Debaixo da mesa","Em segredo","Escondido"], answer: "Em segredo" },
+  { question: "O que significa 'Barking up the wrong tree'?", options: ["Latindo para a árvore errada","Acusar a pessoa errada","Procurar o gato"], answer: "Acusar a pessoa errada" },
+  { question: "O que significa 'Beat around the bush'?", options: ["Bater na moita","Falar indiretamente","Evitar problemas"], answer: "Falar indiretamente" },
+  { question: "O que significa 'Sit tight'?", options: ["Sentar firme","Esperar pacientemente","Sentar na cadeira"], answer: "Esperar pacientemente" },
+  { question: "O que significa 'Go the extra mile'?", options: ["Ir mais longe","Esforçar-se além","Correr muito"], answer: "Esforçar-se além" },
+  { question: "O que significa 'On cloud nine'?", options: ["Nas nuvens","Muito feliz","Sonhando"], answer: "Muito feliz" },
+  { question: "O que significa 'Hit the nail on the head'?", options: ["Bater no prego","Acertar em cheio","Errar o alvo"], answer: "Acertar em cheio" },
+  { question: "O que significa 'Face the music'?", options: ["Encarar a música","Encarar as consequências","Tocar violão"], answer: "Encarar as consequências" },
+  { question: "O que significa 'Keep your chin up'?", options: ["Mantenha o queixo erguido","Fique animado","Levante a cabeça"], answer: "Fique animado" },
+  { question: "O que significa 'Throw in the towel'?", options: ["Lançar a toalha","Desistir","Secar o suor"], answer: "Desistir" },
+  { question: "O que significa 'Hit the road'?", options: ["Bater na estrada","Começar viagem","Sair de casa"], answer: "Começar viagem" },
+  { question: "O que significa 'Know the ropes'?", options: ["Saber amarrar cordas","Saber como funciona","Aprender devagar"], answer: "Saber como funciona" },
+  { question: "O que significa 'Pull someone's leg'?", options: ["Puxar a perna","Brincar com alguém","Enganar fisicamente"], answer: "Brincar com alguém" },
+  { question: "O que significa 'On thin ice'?", options: ["No gelo fino","Em situação arriscada","Frágil"], answer: "Em situação arriscada" },
+  { question: "O que significa 'Hit below the belt'?", options: ["Abaixo do cinto","Desonesto","Agressivo"], answer: "Desonesto" },
+  { question: "O que significa 'Burn bridges'?", options: ["Queimar pontes","Romper relações","Ir embora"], answer: "Romper relações" },
+  { question: "O que significa 'Jump the gun'?", options: ["Antecipar-se","Pular cedo","Correr rápido"], answer: "Antecipar-se" },
+  { question: "O que significa 'Keep an eye on'?", options: ["Manter um olho","Observar","Cuidar"], answer: "Observar" },
+  { question: "O que significa 'Out of the blue'?", options: ["Do nada","Surpreendentemente","De repente"], answer: "Do nada" },
+  { question: "O que significa 'Pull yourself together'?", options: ["Segure a si mesmo","Recupere-se","Fique firme"], answer: "Recupere-se" },
+  { question: "O que significa 'Sit on the fence'?", options: ["Sentar na cerca","Indeciso","Não se envolver"], answer: "Indeciso" },
+  { question: "O que significa 'Bite off more than you can chew'?", options: ["Morder mais do que consegue mastigar","Exagerar","Aceitar desafio"], answer: "Exagerar" },
+  { question: "O que significa 'Cry over spilt milk'?", options: ["Chorar sobre leite derramado","Lamentar algo perdido","Ficar triste"], answer: "Lamentar algo perdido" },
+  { question: "O que significa 'Every cloud has a silver lining'?", options: ["Todo nuvem tem prata","Há sempre algo bom","Nunca desista"], answer: "Há sempre algo bom" },
+  { question: "O que significa 'Actions speak louder than words'?", options: ["Ações falam mais que palavras","Fale menos e faça mais","Comunique-se bem"], answer: "Ações falam mais que palavras" },
+  { question: "O que significa 'Back to square one'?", options: ["Voltar à estaca zero","Voltar ao início","Recomeçar"], answer: "Voltar à estaca zero" },
+  { question: "O que significa 'Birds of a feather flock together'?", options: ["Pássaros juntos","Pessoas semelhantes se juntam","Amigos voam juntos"], answer: "Pessoas semelhantes se juntam" },
+  { question: "O que significa 'Don't judge a book by its cover'?", options: ["Não julgue um livro pela capa","Não julgue ninguém","Aparência engana"], answer: "Não julgue um livro pela capa" },
+  { question: "O que significa 'Hit the jackpot'?", options: ["Ganhar na loteria","Ter sorte","Acertar tudo"], answer: "Ganhar na loteria" },
+  { question: "O que significa 'Keep your fingers crossed'?", options: ["Cruzar os dedos","Ter esperança","Desejar sorte"], answer: "Ter esperança" },
+  { question: "O que significa 'Miss the boat'?", options: ["Perder o barco","Perder oportunidade","Ficar para trás"], answer: "Perder oportunidade" },
+  { question: "O que significa 'No pain, no gain'?", options: ["Sem dor, sem ganho","Trabalhar duro","Esforço vale a pena"], answer: "Sem dor, sem ganho" },
+  { question: "O que significa 'On the ball'?", options: ["Atento","Competente","Rápido"], answer: "Atento" },
+  { question: "O que significa 'The ball is in your court'?", options: ["A bola está com você","Sua vez de agir","Decisão sua"], answer: "Sua vez" }
+
+  
+  ],
+  translations: [
+     { question: "Traduza para português: 'I am happy'", answer: "eu estou feliz", audio: "I am happy" },
+    { question: "Traduza para português: 'She is my friend'", answer: "ela é minha amiga", audio: "She is my friend" },
+    { question: "Traduza para português: 'We went to the market'", answer: "nós fomos ao mercado", audio: "We went to the market" },
+    { question: "Traduza para português: 'I am reading a book'", answer: "eu estou lendo um livro", audio: "I am reading a book" },
+  { question: "Traduza para português: 'She is cooking dinner'", answer: "ela está preparando o jantar", audio: "She is cooking dinner" },
+  { question: "Traduza para português: 'We are going to school'", answer: "nós estamos indo para a escola", audio: "We are going to school" },
+  { question: "Traduza para português: 'He is playing football'", answer: "ele está jogando futebol", audio: "He is playing football" },
+  { question: "Traduza para português: 'I like to swim'", answer: "eu gosto de nadar", audio: "I like to swim" },
+  { question: "Traduza para português: 'She has a bicycle'", answer: "ela tem uma bicicleta", audio: "She has a bicycle" },
+  { question: "Traduza para português: 'We are watching TV'", answer: "nós estamos assistindo TV", audio: "We are watching TV" },
+  { question: "Traduza para português: 'He is very tall'", answer: "ele é muito alto", audio: "He is very tall" },
+  { question: "Traduza para português: 'I am going to the park'", answer: "eu estou indo ao parque", audio: "I am going to the park" },
+  { question: "Traduza para português: 'She is my neighbor'", answer: "ela é minha vizinha", audio: "She is my neighbor" },
+  { question: "Traduza para português: 'We have two dogs'", answer: "nós temos dois cães", audio: "We have two dogs" },
+  { question: "Traduza para português: 'He likes pizza'", answer: "ele gosta de pizza", audio: "He likes pizza" },
+  { question: "Traduza para português: 'I am listening to music'", answer: "eu estou ouvindo música", audio: "I am listening to music" },
+  { question: "Traduza para português: 'She is working in the office'", answer: "ela está trabalhando no escritório", audio: "She is working in the office" },
+  { question: "Traduza para português: 'We are learning English'", answer: "nós estamos aprendendo inglês", audio: "We are learning English" },
+  { question: "Traduza para português: 'He has a new phone'", answer: "ele tem um telefone novo", audio: "He has a new phone" },
+  { question: "Traduza para português: 'I like chocolate'", answer: "eu gosto de chocolate", audio: "I like chocolate" },
+  { question: "Traduza para português: 'She is drinking water'", answer: "ela está bebendo água", audio: "She is drinking water" },
+  { question: "Traduza para português: 'We went to the cinema'", answer: "nós fomos ao cinema", audio: "We went to the cinema" },
+  { question: "Traduza para português: 'He is my teacher'", answer: "ele é meu professor", audio: "He is my teacher" },
+  { question: "Traduza para português: 'I am feeling sick'", answer: "eu estou me sentindo doente", audio: "I am feeling sick" },
+  { question: "Traduza para português: 'She likes to dance'", answer: "ela gosta de dançar", audio: "She likes to dance" },
+  { question: "Traduza para português: 'We are having breakfast'", answer: "nós estamos tomando café da manhã", audio: "We are having breakfast" },
+  { question: "Traduza para português: 'He is very funny'", answer: "ele é muito engraçado", audio: "He is very funny" },
+  { question: "Traduza para português: 'I have a big house'", answer: "eu tenho uma casa grande", audio: "I have a big house" },
+  { question: "Traduza para português: 'She is my cousin'", answer: "ela é minha prima", audio: "She is my cousin" },
+  { question: "Traduza para português: 'We like to read books'", answer: "nós gostamos de ler livros", audio: "We like to read books" },
+  { question: "Traduza para português: 'He is watching a movie'", answer: "ele está assistindo a um filme", audio: "He is watching a movie" },
+  { question: "Traduza para português: 'I am very tired'", answer: "eu estou muito cansado", audio: "I am very tired" },
+  { question: "Traduza para português: 'She has a new bag'", answer: "ela tem uma bolsa nova", audio: "She has a new bag" },
+  { question: "Traduza para português: 'We are going to the zoo'", answer: "nós estamos indo ao zoológico", audio: "We are going to the zoo" },
+  { question: "Traduza para português: 'He likes to play guitar'", answer: "ele gosta de tocar guitarra", audio: "He likes to play guitar" },
+  { question: "Traduza para português: 'I am cooking dinner'", answer: "eu estou preparando o jantar", audio: "I am cooking dinner" },
+  { question: "Traduza para português: 'She is cleaning her room'", answer: "ela está limpando o quarto dela", audio: "She is cleaning her room" },
+  { question: "Traduza para português: 'We have a car'", answer: "nós temos um carro", audio: "We have a car" },
+  { question: "Traduza para português: 'He is reading a newspaper'", answer: "ele está lendo um jornal", audio: "He is reading a newspaper" },
+  { question: "Traduza para português: 'I like to play football'", answer: "eu gosto de jogar futebol", audio: "I like to play football" },
+  { question: "Traduza para português: 'She is going to school'", answer: "ela está indo para a escola", audio: "She is going to school" },
+  { question: "Traduza para português: 'We are very happy today'", answer: "nós estamos muito felizes hoje", audio: "We are very happy today" },
+  { question: "Traduza para português: 'He has two sisters'", answer: "ele tem duas irmãs", audio: "He has two sisters" },
+  { question: "Traduza para português: 'I am listening to the radio'", answer: "eu estou ouvindo rádio", audio: "I am listening to the radio" },
+  { question: "Traduza para português: 'She likes ice cream'", answer: "ela gosta de sorvete", audio: "She likes ice cream" },
+  { question: "Traduza para português: 'We are playing in the garden'", answer: "nós estamos brincando no jardim", audio: "We are playing in the garden" },
+  { question: "Traduza para português: 'He is my neighbor'", answer: "ele é meu vizinho", audio: "He is my neighbor" },
+  { question: "Traduza para português: 'I have a meeting today'", answer: "eu tenho uma reunião hoje", audio: "I have a meeting today" },
+  { question: "Traduza para português: 'She is very friendly'", answer: "ela é muito simpática", audio: "She is very friendly" },
+  { question: "Traduza para português: 'We are going shopping'", answer: "nós estamos indo fazer compras", audio: "We are going shopping" },
+  { question: "Traduza para português: 'He is my best friend'", answer: "ele é meu melhor amigo", audio: "He is my best friend" },
+  { question: "Traduza para português: 'I am reading a magazine'", answer: "eu estou lendo uma revista", audio: "I am reading a magazine" },
+  { question: "Traduza para português: 'She likes to travel'", answer: "ela gosta de viajar", audio: "She likes to travel" },
+  { question: "Traduza para português: 'We are having lunch now'", answer: "nós estamos almoçando agora", audio: "We are having lunch now" },
+  { question: "Traduza para português: 'He is studying for the test'", answer: "ele está estudando para a prova", audio: "He is studying for the test" },
+  { question: "Traduza para português: 'I am reading a book'", answer: "eu estou lendo um livro", audio: "I am reading a book" },
+  { question: "Traduza para português: 'She is cooking dinner'", answer: "ela está preparando o jantar", audio: "She is cooking dinner" },
+  { question: "Traduza para português: 'We are going to school'", answer: "nós estamos indo para a escola", audio: "We are going to school" },
+  { question: "Traduza para português: 'He is playing football'", answer: "ele está jogando futebol", audio: "He is playing football" },
+  { question: "Traduza para português: 'I like to swim'", answer: "eu gosto de nadar", audio: "I like to swim" },
+  { question: "Traduza para português: 'She has a bicycle'", answer: "ela tem uma bicicleta", audio: "She has a bicycle" },
+  { question: "Traduza para português: 'We are watching TV'", answer: "nós estamos assistindo TV", audio: "We are watching TV" },
+  { question: "Traduza para português: 'He is very tall'", answer: "ele é muito alto", audio: "He is very tall" },
+  { question: "Traduza para português: 'I am going to the park'", answer: "eu estou indo ao parque", audio: "I am going to the park" },
+  { question: "Traduza para português: 'She is my neighbor'", answer: "ela é minha vizinha", audio: "She is my neighbor" },
+  { question: "Traduza para português: 'We have two dogs'", answer: "nós temos dois cachorros", audio: "We have two dogs" },
+  { question: "Traduza para português: 'He likes pizza'", answer: "ele gosta de pizza", audio: "He likes pizza" },
+  { question: "Traduza para português: 'I am listening to music'", answer: "eu estou ouvindo música", audio: "I am listening to music" },
+  { question: "Traduza para português: 'She is working in the office'", answer: "ela está trabalhando no escritório", audio: "She is working in the office" },
+  { question: "Traduza para português: 'We are learning English'", answer: "nós estamos aprendendo inglês", audio: "We are learning English" },
+  { question: "Traduza para português: 'He has a new phone'", answer: "ele tem um telefone novo", audio: "He has a new phone" },
+  { question: "Traduza para português: 'I like chocolate'", answer: "eu gosto de chocolate", audio: "I like chocolate" },
+  { question: "Traduza para português: 'She is drinking water'", answer: "ela está bebendo água", audio: "She is drinking water" },
+  { question: "Traduza para português: 'We went to the cinema'", answer: "nós fomos ao cinema", audio: "We went to the cinema" },
+  { question: "Traduza para português: 'He is my teacher'", answer: "ele é meu professor", audio: "He is my teacher" },
+  { question: "Traduza para português: 'I am feeling sick'", answer: "eu estou me sentindo doente", audio: "I am feeling sick" },
+  { question: "Traduza para português: 'She likes to dance'", answer: "ela gosta de dançar", audio: "She likes to dance" },
+  { question: "Traduza para português: 'We are having breakfast'", answer: "nós estamos tomando café da manhã", audio: "We are having breakfast" },
+  { question: "Traduza para português: 'He is very funny'", answer: "ele é muito engraçado", audio: "He is very funny" },
+  { question: "Traduza para português: 'I have a big house'", answer: "eu tenho uma casa grande", audio: "I have a big house" },
+  { question: "Traduza para português: 'She is my cousin'", answer: "ela é minha prima", audio: "She is my cousin" },
+  { question: "Traduza para português: 'We like to read books'", answer: "nós gostamos de ler livros", audio: "We like to read books" },
+  { question: "Traduza para português: 'He is watching a movie'", answer: "ele está assistindo a um filme", audio: "He is watching a movie" },
+  { question: "Traduza para português: 'I am very tired'", answer: "eu estou muito cansado", audio: "I am very tired" },
+  { question: "Traduza para português: 'She has a new bag'", answer: "ela tem uma bolsa nova", audio: "She has a new bag" },
+  { question: "Traduza para português: 'We are going to the zoo'", answer: "nós estamos indo ao zoológico", audio: "We are going to the zoo" },
+  { question: "Traduza para português: 'He likes to play guitar'", answer: "ele gosta de tocar guitarra", audio: "He likes to play guitar" },
+  { question: "Traduza para português: 'I am cooking dinner'", answer: "eu estou preparando o jantar", audio: "I am cooking dinner" },
+  { question: "Traduza para português: 'She is cleaning her room'", answer: "ela está limpando o quarto dela", audio: "She is cleaning her room" },
+  { question: "Traduza para português: 'We have a car'", answer: "nós temos um carro", audio: "We have a car" },
+  { question: "Traduza para português: 'He is reading a newspaper'", answer: "ele está lendo um jornal", audio: "He is reading a newspaper" },
+  { question: "Traduza para português: 'I like to play football'", answer: "eu gosto de jogar futebol", audio: "I like to play football" },
+  { question: "Traduza para português: 'She is going to school'", answer: "ela está indo para a escola", audio: "She is going to school" },
+  { question: "Traduza para português: 'We are very happy today'", answer: "nós estamos muito felizes hoje", audio: "We are very happy today" },
+  { question: "Traduza para português: 'He has two sisters'", answer: "ele tem duas irmãs", audio: "He has two sisters" },
+  { question: "Traduza para português: 'I am listening to the radio'", answer: "eu estou ouvindo rádio", audio: "I am listening to the radio" },
+  { question: "Traduza para português: 'She likes ice cream'", answer: "ela gosta de sorvete", audio: "She likes ice cream" },
+  { question: "Traduza para português: 'We are playing in the garden'", answer: "nós estamos brincando no jardim", audio: "We are playing in the garden" },
+  { question: "Traduza para português: 'He is my neighbor'", answer: "ele é meu vizinho", audio: "He is my neighbor" },
+  { question: "Traduza para português: 'I have a meeting today'", answer: "eu tenho uma reunião hoje", audio: "I have a meeting today" },
+  { question: "Traduza para português: 'She is very friendly'", answer: "ela é muito simpática", audio: "She is very friendly" },
+  { question: "Traduza para português: 'We are shopping'", answer: "nós estamos a fazer compras", audio: "We are going shopping" },
+  { question: "Traduza para português: 'He is my best friend'", answer: "ele é meu melhor amigo", audio: "He is my best friend" },
+  { question: "Traduza para português: 'I am reading a magazine'", answer: "eu estou lendo uma revista", audio: "I am reading a magazine" },
+  { question: "Traduza para português: 'She likes to travel'", answer: "ela gosta de viajar", audio: "She likes to travel" },
+  { question: "Traduza para português: 'We are having lunch now'", answer: "nós estamos almoçando agora", audio: "We are having lunch now" },
+  { question: "Traduza para português: 'He is studying for the test'", answer: "ele está estudando para a prova", audio: "He is studying for the test" }
+
+
+  ],
+  listening: [
+     { audio: "Good morning, how are you?", question: "O que significa?", options: ["Boa noite, como vai?","Bom dia, como vai?","Boa tarde, como vai?"], answer: "Bom dia, como vai?" },
+    { audio: "Where is the bus stop?", question: "O que significa?", options: ["Onde fica a escola?","Onde fica a parada de ônibus?","Onde fica o mercado?"], answer: "Onde fica a parada de ônibus?" },
+  { audio: "Good morning, how are you?", question: "O que significa?", options: ["Boa noite, como vai?","Bom dia, como vai?","Boa tarde, como vai?"], answer: "Bom dia, como vai?" },
+  { audio: "Where is the bus stop?", question: "O que significa?", options: ["Onde fica a escola?","Onde fica a parada de ônibus?","Onde fica o mercado?"], answer: "Onde fica a parada de ônibus?" },
+  { audio: "I am very tired", question: "O que significa?", options: ["Estou muito feliz","Estou muito cansado","Estou com fome"], answer: "Estou muito cansado" },
+  { audio: "What time is it?", question: "O que significa?", options: ["Que horas são?","Onde estamos?","Qual é o seu nome?"], answer: "Que horas são?" },
+  { audio: "I like pizza", question: "O que significa?", options: ["Eu gosto de pizza","Eu não gosto de pizza","Eu quero pizza"], answer: "Eu gosto de pizza" },
+  { audio: "She is my friend", question: "O que significa?", options: ["Ela é minha amiga","Ela é minha irmã","Ela é minha vizinha"], answer: "Ela é minha amiga" },
+  { audio: "Can you help me?", question: "O que significa?", options: ["Você pode me ajudar?","Você pode me ouvir?","Você pode me ver?"], answer: "Você pode me ajudar?" },
+  { audio: "I am learning English", question: "O que significa?", options: ["Eu estou aprendendo inglês","Eu estou ensinando inglês","Eu estou falando inglês"], answer: "Eu estou aprendendo inglês" },
+  { audio: "Where do you live?", question: "O que significa?", options: ["Onde você mora?","Onde você trabalha?","Onde você estuda?"], answer: "Onde você mora?" },
+  { audio: "I need water", question: "O que significa?", options: ["Eu preciso de água","Eu quero água","Eu tenho água"], answer: "Eu preciso de água" },
+  { audio: "She is reading a book", question: "O que significa?", options: ["Ela está lendo um livro","Ela está escrevendo um livro","Ela está comprando um livro"], answer: "Ela está lendo um livro" },
+  { audio: "We are friends", question: "O que significa?", options: ["Nós somos amigos","Nós somos vizinhos","Nós somos colegas"], answer: "Nós somos amigos" },
+  { audio: "He plays football", question: "O que significa?", options: ["Ele joga futebol","Ele joga basquete","Ele corre rápido"], answer: "Ele joga futebol" },
+  { audio: "I want to go home", question: "O que significa?", options: ["Eu quero ir para casa","Eu quero ir para escola","Eu quero ir para o trabalho"], answer: "Eu quero ir para casa" },
+  { audio: "She is very kind", question: "O que significa?", options: ["Ela é muito gentil","Ela é muito rápida","Ela é muito forte"], answer: "Ela é muito gentil" },
+  { audio: "We are learning new things", question: "O que significa?", options: ["Nós estamos aprendendo coisas novas","Nós estamos ensinando coisas novas","Nós estamos esquecendo coisas novas"], answer: "Nós estamos aprendendo coisas novas" },
+  { audio: "He is my brother", question: "O que significa?", options: ["Ele é meu irmão","Ele é meu primo","Ele é meu amigo"], answer: "Ele é meu irmão" },
+  { audio: "I like coffee", question: "O que significa?", options: ["Eu gosto de café","Eu não gosto de café","Eu quero café"], answer: "Eu gosto de café" },
+  { audio: "They are watching TV", question: "O que significa?", options: ["Eles estão assistindo TV","Eles estão brincando","Eles estão estudando"], answer: "Eles estão assistindo TV" },
+  { audio: "She is cooking dinner", question: "O que significa?", options: ["Ela está cozinhando o jantar","Ela está comendo o jantar","Ela está lavando a louça"], answer: "Ela está cozinhando o jantar" },
+  { audio: "I have a dog", question: "O que significa?", options: ["Eu tenho um cachorro","Eu tenho um gato","Eu tenho um pássaro"], answer: "Eu tenho um cachorro" },
+  { audio: "We went to the beach", question: "O que significa?", options: ["Nós fomos à praia","Nós fomos à escola","Nós fomos ao mercado"], answer: "Nós fomos à praia" },
+  { audio: "He likes music", question: "O que significa?", options: ["Ele gosta de música","Ele gosta de filmes","Ele gosta de esportes"], answer: "Ele gosta de música" },
+  { audio: "I am very tired", question: "O que significa?", options: ["Eu estou muito cansado","Eu estou muito feliz","Eu estou com fome"], answer: "Eu estou muito cansado" },
+  { audio: "She has two cats", question: "O que significa?", options: ["Ela tem dois gatos","Ela tem dois cachorros","Ela tem dois pássaros"], answer: "Ela tem dois gatos" },
+  { audio: "We are going to the park", question: "O que significa?", options: ["Nós estamos indo ao parque","Nós estamos indo ao cinema","Nós estamos indo à escola"], answer: "Nós estamos indo ao parque" },
+  { audio: "He is studying English", question: "O que significa?", options: ["Ele está estudando inglês","Ele está estudando matemática","Ele está estudando história"], answer: "Ele está estudando inglês" },
+  { audio: "I need help", question: "O que significa?", options: ["Eu preciso de ajuda","Eu preciso de água","Eu preciso de comida"], answer: "Eu preciso de ajuda" },
+  { audio: "She likes apples", question: "O que significa?", options: ["Ela gosta de maçãs","Ela gosta de laranjas","Ela gosta de bananas"], answer: "Ela gosta de maçãs" },
+  { audio: "We are very happy today", question: "O que significa?", options: ["Nós estamos muito felizes hoje","Nós estamos muito cansados hoje","Nós estamos muito ocupados hoje"], answer: "Nós estamos muito felizes hoje" },
+  { audio: "He is playing the guitar", question: "O que significa?", options: ["Ele está tocando guitarra","Ele está tocando piano","Ele está tocando violino"], answer: "Ele está tocando guitarra" },
+  { audio: "I am reading a newspaper", question: "O que significa?", options: ["Eu estou lendo um jornal","Eu estou lendo um livro","Eu estou lendo uma revista"], answer: "Eu estou lendo um jornal" },
+  { audio: "She is my sister", question: "O que significa?", options: ["Ela é minha irmã","Ela é minha amiga","Ela é minha prima"], answer: "Ela é minha irmã" },
+  { audio: "We like to travel", question: "O que significa?", options: ["Nós gostamos de viajar","Nós gostamos de estudar","Nós gostamos de cozinhar"], answer: "Nós gostamos de viajar" },
+  { audio: "He is very funny", question: "O que significa?", options: ["Ele é muito engraçado","Ele é muito sério","Ele é muito tímido"], answer: "Ele é muito engraçado" },
+  { audio: "I am drinking water", question: "O que significa?", options: ["Eu estou bebendo água","Eu estou bebendo suco","Eu estou bebendo café"], answer: "Eu estou bebendo água" },
+  { audio: "She is working at the office", question: "O que significa?", options: ["Ela está trabalhando no escritório","Ela está trabalhando em casa","Ela está estudando na escola"], answer: "Ela está trabalhando no escritório" },
+  { audio: "We have a big house", question: "O que significa?", options: ["Nós temos uma casa grande","Nós temos um apartamento pequeno","Nós temos uma casa média"], answer: "Nós temos uma casa grande" },
+  { audio: "He is sleeping now", question: "O que significa?", options: ["Ele está dormindo agora","Ele está estudando agora","Ele está comendo agora"], answer: "Ele está dormindo agora" },
+  { audio: "I am very excited", question: "O que significa?", options: ["Eu estou muito animado","Eu estou muito triste","Eu estou muito cansado"], answer: "Eu estou muito animado" },
+  { audio: "She likes to read books", question: "O que significa?", options: ["Ela gosta de ler livros","Ela gosta de assistir filmes","Ela gosta de cozinhar"], answer: "Ela gosta de ler livros" },
+  { audio: "We are having lunch", question: "O que significa?", options: ["Nós estamos almoçando","Nós estamos jantando","Nós estamos tomando café da manhã"], answer: "Nós estamos almoçando" },
+  { audio: "He has a new car", question: "O que significa?", options: ["Ele tem um carro novo","Ele tem uma bicicleta nova","Ele tem uma moto nova"], answer: "Ele tem um carro novo" },
+  { audio: "I am watching a movie", question: "O que significa?", options: ["Eu estou assistindo a um filme","Eu estou assistindo TV","Eu estou jogando videogame"], answer: "Eu estou assistindo a um filme" },
+  { audio: "She is very kind to me", question: "O que significa?", options: ["Ela é muito gentil comigo","Ela é muito séria comigo","Ela é muito tímida comigo"], answer: "Ela é muito gentil comigo" },
+  { audio: "We went to the zoo", question: "O que significa?", options: ["Nós fomos ao zoológico","Nós fomos ao parque","Nós fomos ao cinema"], answer: "Nós fomos ao zoológico" },
+  { audio: "He likes to play football", question: "O que significa?", options: ["Ele gosta de jogar futebol","Ele gosta de jogar basquete","Ele gosta de nadar"], answer: "Ele gosta de jogar futebol" },
+  { audio: "I have a meeting tomorrow", question: "O que significa?", options: ["Eu tenho uma reunião amanhã","Eu tenho uma festa amanhã","Eu tenho um passeio amanhã"], answer: "Eu tenho uma reunião amanhã" },
+  { audio: "She is very beautiful", question: "O que significa?", options: ["Ela é muito bonita","Ela é muito feia","Ela é muito séria"], answer: "Ela é muito bonita" },
+  { audio: "We are going shopping", question: "O que significa?", options: ["Nós estamos indo fazer compras","Nós estamos indo à escola","Nós estamos indo ao parque"], answer: "Nós estamos indo fazer compras" },
+  { audio: "He is my best friend", question: "O que significa?", options: ["Ele é meu melhor amigo","Ele é meu colega","Ele é meu vizinho"], answer: "Ele é meu melhor amigo" },
+  { audio: "I am going to the park", question: "O que significa?", options: ["Eu estou indo ao parque","Eu estou indo à escola","Eu estou indo ao mercado"], answer: "Eu estou indo ao parque" },
+  { audio: "She is cooking lunch", question: "O que significa?", options: ["Ela está preparando o almoço","Ela está limpando a cozinha","Ela está comprando comida"], answer: "Ela está preparando o almoço" },
+  { audio: "We are learning English", question: "O que significa?", options: ["Nós estamos aprendendo inglês","Nós estamos ensinando inglês","Nós estamos esquecendo inglês"], answer: "Nós estamos aprendendo inglês" },
+  { audio: "He is reading a book", question: "O que significa?", options: ["Ele está lendo um livro","Ele está escrevendo um livro","Ele está comprando um livro"], answer: "Ele está lendo um livro" },
+  { audio: "I like chocolate", question: "O que significa?", options: ["Eu gosto de chocolate","Eu não gosto de chocolate","Eu quero chocolate"], answer: "Eu gosto de chocolate" },
+  { audio: "She has a new phone", question: "O que significa?", options: ["Ela tem um telefone novo","Ela tem um telefone antigo","Ela tem um tablet novo"], answer: "Ela tem um telefone novo" },
+  { audio: "We are playing football", question: "O que significa?", options: ["Nós estamos jogando futebol","Nós estamos jogando basquete","Nós estamos jogando vôlei"], answer: "Nós estamos jogando futebol" },
+  { audio: "He is very happy today", question: "O que significa?", options: ["Ele está muito feliz hoje","Ele está muito triste hoje","Ele está cansado hoje"], answer: "Ele está muito feliz hoje" },
+  { audio: "I am drinking water", question: "O que significa?", options: ["Eu estou bebendo água","Eu estou bebendo suco","Eu estou bebendo café"], answer: "Eu estou bebendo água" },
+  { audio: "She is my sister", question: "O que significa?", options: ["Ela é minha irmã","Ela é minha amiga","Ela é minha prima"], answer: "Ela é minha irmã" },
+  { audio: "We are going to the supermarket", question: "O que significa?", options: ["Nós estamos indo ao supermercado","Nós estamos indo à farmácia","Nós estamos indo à escola"], answer: "Nós estamos indo ao supermercado" },
+  { audio: "He likes to play the guitar", question: "O que significa?", options: ["Ele gosta de tocar guitarra","Ele gosta de tocar piano","Ele gosta de tocar violino"], answer: "Ele gosta de tocar guitarra" },
+  { audio: "I am taking a shower", question: "O que significa?", options: ["Eu estou tomando banho","Eu estou lavando a roupa","Eu estou lavando a louça"], answer: "Eu estou tomando banho" },
+  { audio: "She is reading a magazine", question: "O que significa?", options: ["Ela está lendo uma revista","Ela está lendo um jornal","Ela está lendo um livro"], answer: "Ela está lendo uma revista" },
+  { audio: "We are watching a movie", question: "O que significa?", options: ["Nós estamos assistindo a um filme","Nós estamos assistindo TV","Nós estamos jogando videogame"], answer: "Nós estamos assistindo a um filme" },
+  { audio: "He is studying for the exam", question: "O que significa?", options: ["Ele está estudando para a prova","Ele está jogando futebol","Ele está dormindo"], answer: "Ele está estudando para a prova" },
+  { audio: "I like to read books", question: "O que significa?", options: ["Eu gosto de ler livros","Eu gosto de assistir filmes","Eu gosto de cozinhar"], answer: "Eu gosto de ler livros" },
+  { audio: "She is very friendly", question: "O que significa?", options: ["Ela é muito simpática","Ela é muito séria","Ela é muito tímida"], answer: "Ela é muito simpática" },
+  { audio: "We have a big house", question: "O que significa?", options: ["Nós temos uma casa grande","Nós temos um apartamento pequeno","Nós temos uma casa média"], answer: "Nós temos uma casa grande" },
+  { audio: "He is very tall", question: "O que significa?", options: ["Ele é muito alto","Ele é muito baixo","Ele é médio"], answer: "Ele é muito alto" },
+  { audio: "I am going to school", question: "O que significa?", options: ["Eu estou indo para a escola","Eu estou indo para casa","Eu estou indo ao trabalho"], answer: "Eu estou indo para a escola" },
+  { audio: "She likes ice cream", question: "O que significa?", options: ["Ela gosta de sorvete","Ela gosta de bolo","Ela gosta de chocolate"], answer: "Ela gosta de sorvete" },
+  { audio: "We are going for a walk", question: "O que significa?", options: ["Nós estamos indo dar um passeio","Nós estamos indo correr","Nós estamos indo estudar"], answer: "Nós estamos indo dar um passeio" },
+  { audio: "He is my neighbor", question: "O que significa?", options: ["Ele é meu vizinho","Ele é meu amigo","Ele é meu colega"], answer: "Ele é meu vizinho" },
+  { audio: "I have a meeting tomorrow", question: "O que significa?", options: ["Eu tenho uma reunião amanhã","Eu tenho uma festa amanhã","Eu tenho um compromisso amanhã"], answer: "Eu tenho uma reunião amanhã" },
+  { audio: "She is very beautiful", question: "O que significa?", options: ["Ela é muito bonita","Ela é muito feia","Ela é muito séria"], answer: "Ela é muito bonita" },
+  { audio: "We are having breakfast", question: "O que significa?", options: ["Nós estamos tomando café da manhã","Nós estamos jantando","Nós estamos almoçando"], answer: "Nós estamos tomando café da manhã" },
+  { audio: "He has a new car", question: "O que significa?", options: ["Ele tem um carro novo","Ele tem uma moto nova","Ele tem uma bicicleta nova"], answer: "Ele tem um carro novo" },
+  { audio: "I am watching TV", question: "O que significa?", options: ["Eu estou assistindo TV","Eu estou jogando videogame","Eu estou lendo"], answer: "Eu estou assistindo TV" },
+  { audio: "She is very kind to me", question: "O que significa?", options: ["Ela é muito gentil comigo","Ela é muito séria comigo","Ela é muito tímida comigo"], answer: "Ela é muito gentil comigo" },
+  { audio: "We went to the zoo", question: "O que significa?", options: ["Nós fomos ao zoológico","Nós fomos ao parque","Nós fomos ao cinema"], answer: "Nós fomos ao zoológico" },
+  { audio: "He likes to play basketball", question: "O que significa?", options: ["Ele gosta de jogar basquete","Ele gosta de jogar futebol","Ele gosta de nadar"], answer: "Ele gosta de jogar basquete" },
+  { audio: "I have a cup of coffee", question: "O que significa?", options: ["Eu estou tomando uma xícara de café","Eu estou tomando chá","Eu estou tomando suco"], answer: "Eu estou tomando uma xícara de café" },
+  { audio: "She is studying English", question: "O que significa?", options: ["Ela está estudando inglês","Ela está estudando matemática","Ela está estudando história"], answer: "Ela está estudando inglês" },
+  { audio: "We are going to the beach", question: "O que significa?", options: ["Nós estamos indo à praia","Nós estamos indo à escola","Nós estamos indo ao parque"], answer: "Nós estamos indo à praia" },
+  { audio: "He is very friendly", question: "O que significa?", options: ["Ele é muito amigável","Ele é muito sério","Ele é muito tímido"], answer: "Ele é muito amigável" },
+  { audio: "I am playing football with my friends", question: "O que significa?", options: ["Eu estou jogando futebol com meus amigos","Eu estou jogando basquete","Eu estou jogando vôlei"], answer: "Eu estou jogando futebol com meus amigos" },
+  { audio: "She is listening to music", question: "O que significa?", options: ["Ela está ouvindo música","Ela está cantando","Ela está dançando"], answer: "Ela está ouvindo música" },
+  { audio: "We are reading a book", question: "O que significa?", options: ["Nós estamos lendo um livro","Nós estamos escrevendo um livro","Nós estamos estudando matemática"], answer: "Nós estamos lendo um livro" },
+  { audio: "He is drinking tea", question: "O que significa?", options: ["Ele está bebendo chá","Ele está bebendo café","Ele está bebendo água"], answer: "Ele está bebendo chá" },
+  { audio: "I am very busy today", question: "O que significa?", options: ["Eu estou muito ocupado hoje","Eu estou muito feliz hoje","Eu estou muito cansado hoje"], answer: "Eu estou muito ocupado hoje" },
+  { audio: "She has two brothers", question: "O que significa?", options: ["Ela tem dois irmãos","Ela tem dois amigos","Ela tem dois primos"], answer: "Ela tem dois irmãos" },
+  { audio: "We are going to the library", question: "O que significa?", options: ["Nós estamos indo à biblioteca","Nós estamos indo à escola","Nós estamos indo ao parque"], answer: "Nós estamos indo à biblioteca" },
+  { audio: "He is playing the piano", question: "O que significa?", options: ["Ele está tocando piano","Ele está tocando guitarra","Ele está tocando violino"], answer: "Ele está tocando piano" },
+  { audio: "I am reading a story", question: "O que significa?", options: ["Eu estou lendo uma história","Eu estou escrevendo uma história","Eu estou contando uma história"], answer: "Eu estou lendo uma história" },
+  { audio: "She likes to swim", question: "O que significa?", options: ["Ela gosta de nadar","Ela gosta de correr","Ela gosta de pular"], answer: "Ela gosta de nadar" },
+  { audio: "We are having dinner", question: "O que significa?", options: ["Nós estamos jantando","Nós estamos almoçando","Nós estamos tomando café da manhã"], answer: "Nós estamos jantando" }
+
+
+  ]
+};
+
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
+let currentAudioText = "";
+let currentType = "";
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const scoreEl = document.getElementById("score");
+const quizContainer = document.getElementById("quiz-container");
+const audioBox = document.getElementById("audio-box");
+const feedbackEl = document.getElementById("feedback");
+const nextBtn = document.getElementById("nextBtn");
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function startQuiz(type) {
+  currentQuiz = shuffleArray([...quizzes[type]]);
+  currentType = type;
+  currentQuestion = 0;
+  score = 0;
+  quizContainer.style.display = "block";
+  scoreEl.textContent = "";
+  feedbackEl.textContent = "";
+  loadQuestion();
+}
+
+function playAudio(text) {
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "en-US";
+  speechSynthesis.speak(utter);
+}
+
+function loadQuestion() {
+  const current = currentQuiz[currentQuestion];
+  questionEl.textContent = current.question;
+  optionsEl.innerHTML = "";
+  audioBox.innerHTML = "";
+  feedbackEl.textContent = "";
+  nextBtn.classList.add("hidden");
+
+  if (currentType === "translations" || currentType === "listening") {
+    currentAudioText = current.audio || current.question;
+    playAudio(currentAudioText);
+
+    if (currentType === "translations") {
+      audioBox.innerHTML = `
+        <button class="btn-audio" onclick="playAudio(currentAudioText)">🔊 Repetir Áudio</button><br><br>
+        <input type="text" id="user-input" placeholder="Escreva a tradução aqui">
+        <button class="btn-audio" onclick="checkTranslation()">✅ Enviar</button>
+      `;
+    } else {
+      audioBox.innerHTML = `<button class="btn-audio" onclick="playAudio(currentAudioText)">🔊 Repetir Áudio</button>`;
+      shuffleArray(current.options).forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.classList.add("quiz-option");
+        btn.onclick = () => checkAnswer(btn, option);
+        optionsEl.appendChild(btn);
+      });
+    }
+  } else {
+    shuffleArray(current.options).forEach(option => {
+      const btn = document.createElement("button");
+      btn.textContent = option;
+      btn.classList.add("quiz-option");
+      btn.onclick = () => checkAnswer(btn, option);
+      optionsEl.appendChild(btn);
+    });
+  }
+}
+
+function checkAnswer(button, selected) {
+  const correct = currentQuiz[currentQuestion].answer;
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
+
+  if (selected === correct) {
+    button.classList.add("correct");
+    score++;
+    feedbackEl.textContent = "✅ Correto!";
+    feedbackEl.style.color = "#1cc88a";
+    feedbackEl.style.backgroundColor = "#e6f4ea";
+    feedbackEl.style.padding = "5px 10px";
+    feedbackEl.style.borderRadius = "20px";
+
+    correctSound.currentTime = 0;
+    correctSound.play();
+  } else {
+    button.classList.add("wrong");
+    feedbackEl.textContent = "❌ Errado! Resposta correta: " + correct;
+    feedbackEl.style.color = "#e74a3b";
+
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+  }
+  Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
+  nextBtn.classList.remove("hidden");
+}
+
+function checkTranslation() {
+  const userInput = document.getElementById("user-input").value.trim().toLowerCase();
+  const correct = currentQuiz[currentQuestion].answer.toLowerCase();
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
+
+  if (userInput === correct) {
+    feedbackEl.textContent = "✅ Correto!";
+    feedbackEl.style.color = "#1cc88a";
+    score++;
+
+    correctSound.currentTime = 0;
+    correctSound.play();
+  } else {
+    feedbackEl.textContent = "❌ Errado! Resposta correta: " + currentQuiz[currentQuestion].answer;
+    feedbackEl.style.color = "#e74a3b";
+
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+  }
+  nextBtn.classList.remove("hidden");
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion < currentQuiz.length) {
+    loadQuestion();
+  } else {
+    questionEl.textContent = "Quiz finalizado! 🎉";
+    optionsEl.innerHTML = "";
+    audioBox.innerHTML = "";
+    nextBtn.classList.add("hidden");
+    feedbackEl.textContent = "";
+    scoreEl.textContent = `Você acertou ${score} de ${currentQuiz.length} questões.`;
+  }
+}
+</script>
+</body>
+</html>
+
+ <footer>
+    <p>&copy; 2025 Inglês para Todos. Todos os direitos reservados. | tiago-missace</p>
+  </footer>
+
+<script>
+  const header = document.querySelector('header');
+  let lastScroll = 0;
+
+  // Mostrar cabeçalho ao carregar a página
+  window.addEventListener('load', () => {
+    header.classList.add('show');
+  });
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if(currentScroll <= 0) {
+      header.classList.add('show'); // mostrar no topo
+      return;
+    }
+
+    if(currentScroll > lastScroll) {
+      // Rolando para baixo - esconder header
+      header.classList.remove('show');
+    } else {
+      // Rolando para cima - mostrar header
+      header.classList.add('show');
+    }
+
+    lastScroll = currentScroll;
+  });
+
+  // Aqui você deve inserir a lógica do seu quiz existente para manter a funcionalidade.
+  // Exemplo (simplificado, substitua pelo seu código do quiz):
+  /*
+  const quizzes = { ... };
+
+  function startQuiz(topic) {
+    // seu código para iniciar o quiz
+  }
+
+  function nextQuestion() {
+    // seu código para próxima pergunta
+  }
+  */
+
+</script>
+
+</body>
 </html>
