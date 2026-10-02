@@ -5,7 +5,15 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Aulas de Inglês Online</title>
-<style>
+
+<style id="academy-styles">
+
+/* =========================================================
+   TIAGO MISSACE ENGLISH ACADEMY — ORGANIZED CSS
+   All previous style layers are preserved in their original
+   cascade order, but now live in one stylesheet.
+   ========================================================= */
+
     * {
       margin:0; padding:0; box-sizing:border-box;
       font-family: Arial, Helvetica, sans-serif;
@@ -45,13 +53,15 @@
       color: #555;
     }
     main.container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: clamp(20px, 2.5vw, 34px) clamp(22px, 3.2vw, 56px) 42px;
       flex-grow: 1;
-      background: rgba(255,255,255,0.9);
-      border-radius: 15px;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      background: #f4f7fb;
+      border-radius: 0;
+      box-shadow: none;
+      box-sizing: border-box;
     }
     .cards {
       display: grid;
@@ -306,6 +316,85 @@
 .academy-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0 25px}
 .academy-nav a{color:#fff;background:#0041c2;padding:9px 14px;border-radius:20px;text-decoration:none;font-weight:700;font-size:.9rem}
 .academy-section{background:#fff;border-radius:18px;padding:28px;margin:28px auto;box-shadow:0 4px 18px rgba(0,0,0,.10)}
+/* ===== COURSE: SINGLE FULL-SCREEN LAYER ===== */
+#curso.academy-section{
+  width:100%;
+  max-width:1500px;
+  margin:0 auto;
+  padding:clamp(24px,3vw,42px) clamp(18px,2.8vw,44px) 48px;
+  box-sizing:border-box;
+  border-radius:0;
+  box-shadow:none;
+  background:#fff;
+}
+#curso .lesson-grid{display:block;}
+#curso .editable-course-content,
+#curso .lesson-builder{
+  width:100%;
+  margin:0;
+  padding:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+#curso .lesson-study{
+  margin-top:18px;
+  padding:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+#curso .lesson-practice-box{
+  margin-top:26px;
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+#curso .lesson-practice-head{
+  padding-bottom:14px;
+  border-bottom:1px solid #e3ebf3;
+}
+#curso .lesson-question{
+  margin:22px 0 0;
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+#curso .lesson-question-number{
+  margin-bottom:10px;
+}
+#curso .lesson-options{
+  margin-top:14px;
+}
+#curso .lesson-option{
+  border-radius:10px;
+}
+#curso .lesson-reference{
+  margin-top:16px;
+}
+#curso .lesson-actions-enhanced{
+  margin-top:22px;
+}
+#curso .lesson-complete-note{
+  margin-top:20px;
+}
+
+/* ===== LESSON PROGRESS ===== */
+.lesson-progress-wrap{margin-top:14px}
+.lesson-progress-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px;font-size:.84rem;font-weight:700;color:#31506f}
+.lesson-progress-status{color:#087f5b;display:none}
+.lesson-progress-bar{width:100%;height:9px;background:#e7eef5;border-radius:999px;overflow:hidden}
+.lesson-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#0b8f4d,#16b364);border-radius:999px;transition:width .35s ease}
+.lesson-enhanced.lesson-completed{border-color:#79d5a5;box-shadow:0 4px 18px rgba(8,127,91,.10)}
+.lesson-enhanced.lesson-completed .lesson-progress-status{display:inline}
+.lesson-study .lesson-progress-wrap{margin:0 0 22px;padding:12px 14px;background:#f7fbff;border:1px solid #dce8f7;border-radius:12px}
+.lesson-enhanced .lesson-progress-wrap{display:block!important;visibility:visible!important;opacity:1!important;margin-top:14px}
+@media(max-width:650px){.lesson-progress-row{font-size:.78rem}}
+
 .academy-section h2{text-align:center;color:#0041c2;margin-bottom:10px}
 .academy-subtitle{text-align:center;color:#555;margin-bottom:22px}
 .hero-badge{display:inline-block;background:#e8f7f2;color:#007b5e;padding:6px 12px;border-radius:20px;font-weight:700;margin-bottom:10px}
@@ -339,7 +428,12 @@
 .challenge-item.done{background:#e8f7f2;color:#087f5b;text-decoration:line-through}
 .record-box{text-align:center}
 #recordStatus{font-weight:700;margin:10px}
-@media(max-width:700px){.academy-section{padding:18px}.flashcard .word{font-size:1.8rem}}
+@media(max-width:700px){
+  main.container{padding:12px 10px 28px}
+  .academy-section{padding:18px}
+  #curso.academy-section{padding:20px 14px 34px;border-radius:0}
+  .flashcard .word{font-size:1.8rem}
+}
 
 
     /* ===== MENU LATERAL / HAMBURGUER ===== */
@@ -363,8 +457,80 @@
     .academy-nav{display:none}
     @media(max-width:700px){.brand-mini strong{font-size:.95rem}.brand-mini span{font-size:.75rem}}
 
-  </style>
-<style>
+  
+/* ===== JANELA INDIVIDUAL DA AULA ===== */
+.lesson-window{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:none;
+  flex-direction:column;
+  background:#f4f7fb;
+  overflow:hidden;
+}
+.lesson-window.open{display:flex}
+.lesson-window-header{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px clamp(16px,3vw,40px);
+  background:#fff;
+  border-bottom:1px solid #dbe5ef;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.lesson-window-title{
+  min-width:0;
+  color:#063a78;
+}
+.lesson-window-title strong{
+  display:block;
+  font-size:1.15rem;
+}
+.lesson-window-title span{
+  display:block;
+  margin-top:3px;
+  color:#687789;
+  font-size:.9rem;
+}
+.lesson-window-close{
+  flex:0 0 auto;
+  border:0;
+  border-radius:10px;
+  padding:10px 18px;
+  background:#0b237f;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+.lesson-window-close:hover{filter:brightness(1.08)}
+.lesson-window-body{
+  flex:1 1 auto;
+  overflow-y:auto;
+  padding:clamp(18px,3vw,40px);
+}
+.lesson-window-inner{
+  width:100%;
+  max-width:1250px;
+  margin:0 auto;
+}
+.lesson-window-inner .lesson-study{
+  width:100%;
+}
+@media(max-width:700px){
+  .lesson-window-header{padding:11px 12px}
+  .lesson-window-title strong{font-size:1rem}
+  .lesson-window-close{padding:9px 12px}
+  .lesson-window-body{padding:12px}
+}
+
+
+body.lesson-window-active{overflow:hidden}
+
+
+
+
 /* ===== V3: DASHBOARD LIMPO + CONTEÚDO ORGANIZADO POR MENU ===== */
 .dashboard-view { padding: 28px 0 10px; }
 .dashboard-hero { display:grid; grid-template-columns:1.15fr .85fr; gap:32px; align-items:center; padding:32px; border-radius:22px; background:linear-gradient(135deg,#eef7ff,#ffffff); box-shadow:0 8px 30px rgba(0,0,0,.08); margin-bottom:28px; }
@@ -406,7 +572,9 @@
   .dashboard-hero { padding:22px; }
   .dashboard-photo { order:-1; }
 }
-</style><style>
+
+
+
 /* ===== V4 INTERACTIVE LEARNING ===== */
 .back-arrow {
   display:inline-flex; align-items:center; gap:8px; border:0; background:transparent;
@@ -488,7 +656,9 @@
 @media(max-width:700px){
   .lesson-actions .small-btn { width:100%; }
 }
-</style><style>
+
+
+
 /* ===== V5 PRACTICE PAGES ===== */
 .practice-home-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:24px;
@@ -574,13 +744,13 @@
 @media(max-width:650px){
   .practice-home-grid{grid-template-columns:1fr}
 }
-</style>
-<style>
+
+
+
 .practice-score,.practice-progress{display:none !important;}
-</style>
 
 
-<style id="v8-cleanup-css">
+
 .practice-score,.practice-progress,.practice-page-header .practice-score{display:none!important}
 #listeningPractice .audio-buttons{display:none!important}
 #listeningPractice .listen-box .audio-buttons{display:none!important}
@@ -592,17 +762,524 @@
 .v8-mic-error{background:#fff7ed!important;border:1px solid #fdba74!important;color:#9a3412!important}
 .v8-mic-ok{background:#ecfdf5!important;border:1px solid #86efac!important;color:#166534!important}
 .record-box .btn:disabled{opacity:.55;cursor:not-allowed}
-</style>
 
 
-<style>
+
 .english-type-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
 .english-type-select{border:1px solid #b9cfe2;border-radius:10px;padding:10px 13px;background:#fff;color:#17344d;font-weight:700;font-size:.98rem;cursor:pointer}
 .v9-auto-note{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#eef7ff;color:#174a73;font-size:.92rem}
-</style>
 
-<style>
+
+
 .mic-permission-note{font-size:.9rem;color:#52677a;background:#f5f8fb;border:1px solid #d8e3ec;border-radius:10px;padding:10px 12px;margin:10px auto;max-width:720px}
+
+
+
+/* ===== MENU ORGANIZADO EM CARDS ===== */
+.side-menu{
+  width:min(380px,92vw);
+  background:#f5f8fc;
+  overflow-y:auto;
+}
+.side-head{
+  padding:22px 20px 20px;
+  background:linear-gradient(135deg,#002345,#1202c7);
+  color:#fff;
+}
+.side-head h2{font-size:1.35rem;line-height:1.25;margin:0 42px 5px 0}
+.side-head p{font-size:.88rem;opacity:.9;margin:0}
+.close-menu{right:16px;top:16px;width:40px;height:40px;font-size:23px}
+.menu-cards{padding:14px 12px 22px;display:flex;flex-direction:column;gap:10px}
+.menu-card{
+  background:#fff;
+  border:1px solid #e2eaf2;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(10,45,80,.06);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.menu-card:hover{
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px rgba(10,45,80,.10);
+  border-color:#cbdceb;
+}
+.menu-card-header,.menu-card-link,.menu-card-title{
+  width:100%;
+  min-height:68px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.menu-card-header{
+  border:0;
+  background:#fff;
+  color:#15304d;
+  cursor:pointer;
+  text-align:left;
+  font:inherit;
+}
+a.menu-card-link{color:#15304d;text-decoration:none}
+.menu-card-icon{
+  width:40px;height:40px;flex:0 0 40px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  background:#eef5ff;
+  font-size:1.18rem;
+}
+.menu-card-text{min-width:0;flex:1}
+.menu-card-text strong{display:block;color:#073c76;font-size:.98rem;line-height:1.2}
+.menu-card-text small{display:block;color:#718096;font-size:.76rem;margin-top:4px;font-weight:500}
+.menu-card-arrow{margin-left:auto;color:#7b8794;font-weight:900;font-size:1.15rem;transition:transform .2s ease}
+.menu-card-header[aria-expanded="true"] .menu-card-arrow{transform:rotate(180deg)}
+.menu-card-links{padding:0 10px 10px}
+.menu-item-link{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 11px;margin:3px 0;
+  border-radius:9px;color:#40566b;text-decoration:none;
+  font-size:.88rem;font-weight:650;
+  transition:background .18s,color .18s,transform .18s;
+}
+.menu-item-link span{width:24px;text-align:center}
+.menu-item-link:hover{background:#eef5ff;color:#0041c2;transform:translateX(2px)}
+.menu-card-submenu{
+  display:none;
+  padding:0 12px 11px 66px;
+}
+.menu-card-submenu.open{display:block;animation:menuSubOpen .2s ease}
+.menu-card-submenu a{
+  display:block;padding:9px 10px;margin:3px 0;
+  border-radius:8px;color:#52677a;text-decoration:none;
+  font-size:.84rem;font-weight:600;
+  border-left:2px solid #dbe7f2;
+}
+.menu-card-submenu a:hover{background:#eef5ff;color:#0041c2;border-left-color:#0041c2}
+@keyframes menuSubOpen{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media(max-width:700px){
+  .side-menu{width:min(370px,94vw)}
+  .menu-cards{padding:12px 10px 20px}
+  .menu-card-header,.menu-card-link,.menu-card-title{min-height:64px;padding:11px 12px}
+}
+
+
+
+/* ===== AULA EM UM ÚNICO CARD RESPONSIVO ===== */
+.lesson-window{
+  background:#eef3f8;
+}
+.lesson-window-header{
+  width:min(1250px, calc(100% - 32px));
+  box-sizing:border-box;
+  margin:24px auto 0;
+  padding:18px clamp(16px,2.5vw,32px);
+  background:#fff;
+  border:1px solid #dbe5ef;
+  border-bottom:0;
+  border-radius:20px 20px 0 0;
+  box-shadow:0 8px 28px rgba(0,0,0,.07);
+}
+.lesson-window-body{
+  width:min(1250px, calc(100% - 32px));
+  box-sizing:border-box;
+  margin:0 auto 24px;
+  padding:0 clamp(16px,2.5vw,32px) 30px;
+  background:#fff;
+  border:1px solid #dbe5ef;
+  border-top:0;
+  border-radius:0 0 20px 20px;
+  box-shadow:0 8px 28px rgba(0,0,0,.07);
+}
+.lesson-window-inner{
+  max-width:none;
+  margin:0;
+}
+.lesson-window-inner .lesson-study{
+  margin-top:0;
+  padding:0;
+}
+
+/* Remove the visual feeling of nested cards inside the main lesson card. */
+.lesson-window-inner .lesson-study > h4{
+  margin-top:0;
+  padding-top:4px;
+}
+.lesson-window-inner .lesson-study .lesson-progress-wrap,
+.lesson-window-inner .lesson-study .lesson-section,
+.lesson-window-inner .lesson-study .lesson-practice-box,
+.lesson-window-inner .lesson-study .lesson-complete-note{
+  border-radius:12px;
+}
+.lesson-window-inner .lesson-study .lesson-section{
+  margin-left:0;
+  margin-right:0;
+}
+
+/* The exercise area remains in the same main card instead of becoming
+   another floating card. */
+.lesson-window-inner .lesson-practice-box{
+  width:100%;
+  box-sizing:border-box;
+  margin-top:24px;
+}
+
+/* Mobile: use almost the entire screen and reduce outer margins. */
+@media(max-width:700px){
+  .lesson-window-header{
+    width:calc(100% - 16px);
+    margin:8px auto 0;
+    padding:13px 12px;
+    border-radius:16px 16px 0 0;
+  }
+  .lesson-window-body{
+    width:calc(100% - 16px);
+    margin:0 auto 8px;
+    padding:0 12px 18px;
+    border-radius:0 0 16px 16px;
+  }
+  .lesson-window-title strong{font-size:1rem}
+  .lesson-window-title span{font-size:.82rem}
+  .lesson-window-close{
+    padding:8px 10px;
+    white-space:nowrap;
+    font-size:.82rem;
+  }
+  .lesson-window-inner .lesson-study > h4{
+    font-size:1.15rem;
+    padding-top:2px;
+  }
+}
+
+
+
+/* =========================================================
+   MOBILE UX — Tiago Missace English Academy
+   Final responsive layer
+   ========================================================= */
+
+/* Keep the desktop experience unchanged; these rules focus on <= 760px. */
+@media (max-width: 760px){
+
+  html, body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  /* 1. More compact side menu */
+  .side-menu,
+  #sideMenu{
+    width:min(82vw, 320px) !important;
+    max-width:320px !important;
+  }
+
+  .side-menu .menu-section,
+  #sideMenu .menu-section{
+    margin:10px 10px !important;
+  }
+
+  .side-menu .menu-section-title,
+  #sideMenu .menu-section-title{
+    font-size:.72rem !important;
+    letter-spacing:.12em !important;
+    padding:8px 12px !important;
+  }
+
+  .side-menu a,
+  .side-menu button,
+  #sideMenu a,
+  #sideMenu button{
+    min-height:48px !important;
+    padding:11px 13px !important;
+    border-radius:11px !important;
+    font-size:.95rem !important;
+  }
+
+  .side-menu .menu-card,
+  #sideMenu .menu-card{
+    padding:8px !important;
+    margin:6px 0 !important;
+  }
+
+  /* 2. Lesson window uses almost all of the phone screen */
+  .lesson-window-header{
+    width:calc(100% - 8px) !important;
+    margin:4px auto 0 !important;
+    padding:10px 10px !important;
+    border-radius:14px 14px 0 0 !important;
+    gap:8px !important;
+  }
+
+  .lesson-window-body{
+    width:calc(100% - 8px) !important;
+    margin:0 auto 4px !important;
+    padding:0 8px 14px !important;
+    border-radius:0 0 14px 14px !important;
+  }
+
+  .lesson-window-title{
+    min-width:0;
+    flex:1 1 auto;
+  }
+
+  .lesson-window-title strong{
+    font-size:clamp(.92rem,4vw,1.05rem) !important;
+    line-height:1.2 !important;
+  }
+
+  .lesson-window-title span{
+    font-size:.76rem !important;
+    line-height:1.25 !important;
+  }
+
+  .lesson-window-close{
+    min-height:44px !important;
+    padding:9px 11px !important;
+    border-radius:10px !important;
+    font-size:.78rem !important;
+    white-space:nowrap !important;
+  }
+
+  /* 3. One-column lesson content with less empty space */
+  .lesson-window-inner,
+  .lesson-window-inner .lesson-study,
+  .lesson-window-inner .lesson-practice-box{
+    width:100% !important;
+    max-width:none !important;
+    box-sizing:border-box !important;
+  }
+
+  .lesson-window-inner .lesson-study{
+    padding:10px 8px !important;
+  }
+
+  .lesson-window-inner .lesson-study > h4{
+    font-size:clamp(1.12rem,5vw,1.35rem) !important;
+    line-height:1.22 !important;
+    margin:4px 0 12px !important;
+  }
+
+  .lesson-window-inner .lesson-section{
+    margin:8px 0 !important;
+    padding:12px !important;
+  }
+
+  .lesson-window-inner .lesson-section p,
+  .lesson-window-inner .lesson-section li{
+    font-size:.95rem !important;
+    line-height:1.5 !important;
+  }
+
+  /* 4. Progress stays visible while the learner scrolls */
+  .lesson-window-inner .lesson-progress-wrap{
+    position:sticky !important;
+    top:0 !important;
+    z-index:30 !important;
+    margin:0 0 10px !important;
+    padding:10px 11px !important;
+    background:rgba(255,255,255,.97) !important;
+    backdrop-filter:blur(8px) !important;
+    border:1px solid #dbe5ef !important;
+    box-shadow:0 3px 12px rgba(0,0,0,.08) !important;
+  }
+
+  .lesson-window-inner .lesson-progress-wrap strong{
+    font-size:.88rem !important;
+  }
+
+  .lesson-window-inner .lesson-progress-bar{
+    height:9px !important;
+  }
+
+  /* 5. Exercise card fills the available width */
+  .lesson-window-inner .lesson-practice-box{
+    margin:10px 0 0 !important;
+    padding:12px !important;
+    border-radius:14px !important;
+  }
+
+  .lesson-window-inner .lesson-practice-box h3,
+  .lesson-window-inner .lesson-practice-box h4{
+    font-size:clamp(1.05rem,4.8vw,1.25rem) !important;
+    line-height:1.25 !important;
+  }
+
+  .lesson-window-inner .lesson-practice-box p{
+    font-size:.92rem !important;
+    line-height:1.45 !important;
+  }
+
+  /* 6. Questions and answers become touch-friendly */
+  .lesson-window-inner .lesson-question,
+  .lesson-window-inner [class*="question"]{
+    font-size:clamp(1.02rem,4.7vw,1.25rem) !important;
+    line-height:1.35 !important;
+  }
+
+  .lesson-window-inner .lesson-option,
+  .lesson-window-inner .answer-option,
+  .lesson-window-inner .quiz-option,
+  .lesson-window-inner .option,
+  .lesson-window-inner button[data-answer],
+  .lesson-window-inner button[class*="option"]{
+    width:100% !important;
+    min-height:52px !important;
+    margin:8px 0 !important;
+    padding:13px 14px !important;
+    box-sizing:border-box !important;
+    border-radius:11px !important;
+    font-size:clamp(.94rem,4vw,1.05rem) !important;
+    line-height:1.35 !important;
+    text-align:left !important;
+    white-space:normal !important;
+    touch-action:manipulation !important;
+  }
+
+  /* Generic answer buttons, if the lesson uses a different class name. */
+  .lesson-window-inner .lesson-practice-box button{
+    min-height:50px !important;
+    touch-action:manipulation !important;
+  }
+
+  /* 7. Next-question controls: large, full-width and easy to reach */
+  .lesson-window-inner .next-question,
+  .lesson-window-inner .next-btn,
+  .lesson-window-inner .btn-next,
+  .lesson-window-inner button[id*="next" i],
+  .lesson-window-inner button[class*="next" i]{
+    width:100% !important;
+    min-height:54px !important;
+    margin:14px 0 4px !important;
+    padding:13px 16px !important;
+    border-radius:12px !important;
+    font-size:1rem !important;
+    font-weight:800 !important;
+    touch-action:manipulation !important;
+  }
+
+  /* Keep the last action comfortably above the phone's bottom edge. */
+  .lesson-window-inner .lesson-practice-box{
+    padding-bottom:20px !important;
+  }
+
+  /* 8. Completion message is compact and readable */
+  .lesson-window-inner .lesson-complete-note{
+    margin:10px 0 !important;
+    padding:12px !important;
+    font-size:.92rem !important;
+    line-height:1.4 !important;
+  }
+
+  /* 9. Reduce decorative spacing in common cards */
+  .lesson-window-inner .card,
+  .lesson-window-inner [class*="card"]{
+    max-width:100% !important;
+  }
+
+  /* 10. Prevent buttons/labels from forcing horizontal scrolling */
+  .lesson-window-inner button,
+  .lesson-window-inner a,
+  .lesson-window-inner label{
+    max-width:100% !important;
+    overflow-wrap:anywhere;
+  }
+}
+
+/* Very small phones */
+@media (max-width:390px){
+  .lesson-window-close{
+    font-size:.72rem !important;
+    padding:8px 9px !important;
+  }
+
+  .lesson-window-title span{
+    display:none !important;
+  }
+
+  .lesson-window-body{
+    padding-left:5px !important;
+    padding-right:5px !important;
+  }
+
+  .lesson-window-inner .lesson-study{
+    padding:7px 5px !important;
+  }
+
+  .lesson-window-inner .lesson-practice-box{
+    padding:10px !important;
+  }
+}
+
+
+
+/* ===== CATEGORIAS DO MENU PRINCIPAL ===== */
+.menu-category-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:18px 8px 8px;
+  padding:0 8px;
+  color:#6b7787;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.menu-category-label:first-child{margin-top:4px}
+.menu-category-label span{font-size:.9rem;letter-spacing:0}
+.menu-category-label + .menu-card{margin-top:0}
+
+@media(max-width:760px){
+  .menu-category-label{
+    margin:13px 6px 6px;
+    font-size:.68rem;
+    padding:0 7px;
+  }
+}
+
+
+
+/* ===== LESSON EXPERIENCE: EXPLANATION -> PRACTICE -> FEEDBACK ===== */
+.lesson-card.lesson-enhanced{position:relative;overflow:hidden}
+.lesson-card.lesson-enhanced .lesson-content{display:none}
+.lesson-card.lesson-enhanced .lesson-content.open{display:block}
+/* Single-question lesson practice */
+.lesson-practice-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:12px}
+.lesson-question-counter{background:#eaf2ff;color:#063a78;border-radius:999px;padding:7px 11px;font-weight:800;font-size:.82rem;white-space:nowrap}
+.lesson-question-number{font-size:.82rem;font-weight:800;color:#15803d;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.lesson-single-question .lesson-question{margin:0}
+.lesson-options{margin-top:8px}
+.lesson-next-btn{margin-top:14px}
+@media(max-width:650px){.lesson-practice-head{display:block}.lesson-question-counter{display:inline-block;margin-top:6px}}
+.lesson-study{background:linear-gradient(135deg,#f7fbff,#ffffff);border:1px solid #dbe8f5;border-radius:16px;padding:20px;margin-top:18px}
+.lesson-study h4{color:#063a78;margin:0 0 12px;font-size:1.15rem}
+.lesson-section{margin:15px 0;padding:15px;border-radius:13px;background:#fff;border:1px solid #e7eef5}
+.lesson-section h5{color:#063a78;margin:0 0 8px;font-size:1rem}
+.lesson-section p{color:#334e68;line-height:1.7;margin:7px 0}
+.lesson-keypoints{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
+.lesson-keypoint{padding:12px;border-radius:11px;background:#eef7ff;color:#24445f;font-size:.93rem}
+.lesson-example{background:#eefbf4!important;border-left:4px solid #15803d!important}
+.lesson-example strong{color:#166534}
+.lesson-practice-box{margin-top:18px;border:2px solid #e1ebf4;border-radius:16px;padding:18px;background:#fbfdff}
+.lesson-practice-box h4{color:#063a78;margin-bottom:6px}
+.lesson-practice-intro{color:#607386;font-size:.92rem;margin-bottom:15px}
+.lesson-question{padding:15px;margin:12px 0;border-radius:13px;background:#fff;border:1px solid #e1e9f1}
+.lesson-question p{font-weight:800;color:#183b5b;margin-bottom:10px}
+.lesson-option{display:block;width:100%;text-align:left;padding:10px 12px;margin:7px 0;border:1px solid #d5e1eb;border-radius:9px;background:#f8fbfd;color:#17344d;cursor:pointer;font-weight:600}
+.lesson-option:hover{background:#edf5ff;border-color:#8bb8e0}
+.lesson-option.selected{border-color:#063a78;background:#eaf2ff}
+.lesson-option.correct{background:#dcfce7;border-color:#22c55e;color:#166534}
+.lesson-option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+.lesson-feedback{display:none;margin-top:10px;padding:12px 13px;border-radius:10px;font-size:.92rem;line-height:1.55}
+.lesson-feedback.show{display:block}
+.lesson-feedback.correct{background:#ecfdf5;color:#166534;border:1px solid #86efac}
+.lesson-feedback.wrong{background:#fff7ed;color:#9a3412;border:1px solid #fdba74}
+.lesson-reference{margin-top:10px;padding:11px 13px;border-radius:10px;background:#f5f7fa;color:#52677a;font-size:.88rem;border-left:4px solid #94a3b8}
+.lesson-actions-enhanced{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.lesson-actions-enhanced .small-btn{min-width:135px}
+.lesson-exercise-btn{background:#15803d!important}
+.lesson-reference strong{color:#29445d}
+.lesson-complete-note{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:#ecfdf5;color:#166534;font-weight:700}
+.lesson-complete-note.show{display:block}
+@media(max-width:650px){.lesson-actions-enhanced .small-btn{width:100%}.lesson-study{padding:15px}}
+
 </style>
 </head>
 <body>
@@ -615,63 +1292,97 @@
 </header>
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside aria-label="Menu principal" class="side-menu" id="sideMenu">
-<div class="side-head">
-<button aria-label="Fechar menu" class="close-menu" id="closeMenu">×</button>
-<h2>Tiago Missace English Academy</h2>
-<p>Menu principal</p>
-</div>
-<div class="menu-section">
-<div class="menu-section-title">INÍCIO</div>
-<a class="menu-link" data-view="dashboard" href="#inicio">
-<span class="menu-icon"> </span> Dashboard
-    </a>
-</div>
-<div class="menu-section">
-<div class="menu-section-title"> APRENDER INGLÊS</div>
-<button class="menu-link submenu-toggle" type="button">
-<span class="menu-icon"> </span> Curso <span class="menu-arrow">⌄</span>
-</button>
-<div class="submenu">
-<a data-view="curso" href="#curso"> Visão geral do curso</a>
-<a data-view="curso" href="#unit1">Unit 1 — Fundamentals</a>
-<a data-view="curso" href="#unit2">Unit 2 — Everyday English</a>
-<a data-view="curso" href="#unit3">Unit 3 — Communication</a>
-<a data-view="curso" href="#unit4">Unit 4 — Pre-Intermediate</a>
-</div>
+  <div class="side-head">
+    <button aria-label="Fechar menu" class="close-menu" id="closeMenu">×</button>
+    <h2>Tiago Missace English Academy</h2>
+    <p>Menu principal</p>
+  </div>
+
+  <div class="menu-cards">
+
+    <div class="menu-card single-card">
+      <a class="menu-card-link" data-view="dashboard" href="#inicio">
+        <span class="menu-card-icon">🏠</span>
+        <span class="menu-card-text"><strong>Dashboard</strong><small>Página inicial</small></span>
+        <span class="menu-card-arrow">›</span>
+      </a>
+    </div>
 
 
-<div class="menu-section">
-<div class="menu-section-title"> PRÁTICA</div>
-<button class="menu-link submenu-toggle" type="button" onclick="showView('pratica'); this.nextElementSibling.classList.add('open');">
-<span class="menu-icon"> </span> Praticar <span class="menu-arrow">⌄</span>
-</button>
-<div class="submenu">
-<a data-view="pratica" href="#pratica"> Área de Prática</a>
-<a data-view="vocabPractice" href="#vocabPractice"> Vocabulary</a>
-<a data-view="grammarPractice" href="#grammarPractice"> Grammar</a>
-<a data-view="listeningPractice" href="#listeningPractice"> Listening</a>
-<a data-view="speaking" href="#speaking"> Speaking</a>
-<a data-view="writingPractice" href="#writingPractice"> Writing</a>
-<a data-view="translationPractice" href="#translationPractice"> Tradução</a>
-</div>
-</div>
-<a class="menu-link" data-view="flashcards" href="#flashcards"><span class="menu-icon"> </span> Flashcards</a>
-<a class="menu-link" data-view="dialogos" href="#dialogos"><span class="menu-icon"> </span> Real-Life Dialogues</a>
-<a class="menu-link" data-view="speaking" href="#speaking"><span class="menu-icon"> </span> Speaking &amp; Pronunciation</a>
-<a class="menu-link" data-view="palavra" href="#palavra"><span class="menu-icon"> </span> Palavra do Dia</a>
-</div>
-<div class="menu-section">
-<div class="menu-section-title"> TESTES &amp; DESAFIOS</div>
-<a class="menu-link" data-view="desafio" href="#desafio"><span class="menu-icon"> </span> Desafio Diário</a>
-</div>
-<div class="menu-section">
-<div class="menu-section-title"> ACOMPANHAMENTO</div>
-<a class="menu-link" data-view="progresso" href="#progresso"><span class="menu-icon"> </span> Meu Progresso</a>
-</div>
-<div class="menu-section">
-<div class="menu-section-title"> INSCRIÇÃO &amp; CONTACTO</div>
-<a class="menu-link" data-view="inscricao" href="#inscricao"><span class="menu-icon"> </span> Inscrever-se</a>
-</div>
+    <div class="menu-card">
+      <button class="menu-card-header submenu-toggle" type="button">
+        <span class="menu-card-icon">📘</span>
+        <span class="menu-card-text"><strong>Curso</strong><small>32 aulas • 4 unidades</small></span>
+        <span class="menu-card-arrow">⌄</span>
+      </button>
+      <div class="submenu menu-card-submenu">
+        <a data-view="curso" href="#curso">Visão geral do curso</a>
+        <a data-view="curso" href="#unit1">Unit 1 — Fundamentals</a>
+        <a data-view="curso" href="#unit2">Unit 2 — Everyday English</a>
+        <a data-view="curso" href="#unit3">Unit 3 — Communication</a>
+        <a data-view="curso" href="#unit4">Unit 4 — Pre-Intermediate</a>
+      </div>
+    </div>
+
+    <div class="menu-card single-card">
+      <a class="menu-card-link" data-view="progresso" href="#progresso">
+        <span class="menu-card-icon">📈</span>
+        <span class="menu-card-text"><strong>Meu Progresso</strong><small>Acompanhe a sua evolução</small></span>
+        <span class="menu-card-arrow">›</span>
+      </a>
+    </div>
+
+
+
+    <div class="menu-card">
+      <div class="menu-card-title">
+        <span class="menu-card-icon">✏️</span>
+        <span class="menu-card-text"><strong>Prática</strong><small>Desenvolva todas as habilidades</small></span>
+      </div>
+      <div class="menu-card-links">
+        <a class="menu-item-link" data-view="grammarPractice" href="#grammarPractice"><span>📝</span> Grammar</a>
+        <a class="menu-item-link" data-view="vocabPractice" href="#vocabPractice"><span>🔤</span> Vocabulary</a>
+        <a class="menu-item-link" data-view="listeningPractice" href="#listeningPractice"><span>🎧</span> Listening</a>
+        <a class="menu-item-link" data-view="speaking" href="#speaking"><span>🗣️</span> Speaking</a>
+        <a class="menu-item-link" data-view="writingPractice" href="#writingPractice"><span>✍️</span> Writing</a>
+        <a class="menu-item-link" data-view="translationPractice" href="#translationPractice"><span>🌐</span> Translation</a>
+        <a class="menu-item-link" data-view="flashcards" href="#flashcards"><span>🃏</span> Flashcards</a>
+        <a class="menu-item-link" data-view="dialogos" href="#dialogos"><span>💬</span> Real-Life Dialogues</a>
+      </div>
+    </div>
+
+
+
+    <div class="menu-card">
+      <div class="menu-card-title">
+        <span class="menu-card-icon">🎯</span>
+        <span class="menu-card-text"><strong>Desafios & Leitura</strong><small>Teste, desafie-se e leia em inglês</small></span>
+      </div>
+      <div class="menu-card-links">
+        <a class="menu-item-link" data-view="desafio" href="#desafio"><span>🔥</span> Desafio Diário</a>
+        <a class="menu-item-link" data-view="nivel" href="#nivel"><span>📊</span> Teste de Nível</a>
+        <a class="menu-item-link" data-view="historias" href="#historias"><span>📖</span> English Stories</a>
+      </div>
+    </div>
+
+    <div class="menu-card single-card">
+      <a class="menu-card-link" data-view="inscricao" href="#inscricao">
+        <span class="menu-card-icon">📝</span>
+        <span class="menu-card-text"><strong>Inscrever-se</strong><small>Informações e inscrição</small></span>
+        <span class="menu-card-arrow">›</span>
+      </a>
+    </div>
+
+    <div class="menu-card single-card">
+      <a class="menu-card-link" data-view="dashboard" href="#inicio"
+         onclick="setTimeout(()=>document.querySelector('.teacher-card')?.scrollIntoView({behavior:'smooth',block:'start'}),120)">
+        <span class="menu-card-icon">👨‍🏫</span>
+        <span class="menu-card-text"><strong>Sobre o Professor</strong><small>Conheça o professor Tiago</small></span>
+        <span class="menu-card-arrow">›</span>
+      </a>
+    </div>
+
+  </div></div>
 </aside>
 <main class="container" id="inicio" role="main"><section class="dashboard-view" id="dashboard">
 <div class="dashboard-hero">
@@ -785,14 +1496,13 @@
 <!-- PROGRESSO -->
 <section class="academy-section app-view" id="progresso"><div class="view-back"><button class="back-arrow" onclick="showView('dashboard')" type="button">← Voltar</button></div>
 <h2> Meu Progresso</h2>
-<p class="academy-subtitle">O progresso abaixo é guardado neste navegador. Clique em "Marcar aula concluída" ao terminar uma aula.</p>
+<p class="academy-subtitle">O progresso é atualizado automaticamente quando você conclui todos os exercícios de uma aula.</p>
 <div class="progress-stats">
 <span id="lessonProgressText">0 de 32 aulas concluídas</span>
 <span id="xpText">0 XP</span>
 <span id="levelText">Nível 1</span>
 </div>
 <div class="course-progress"><div class="course-progress-bar" id="courseProgressBar"></div></div>
-<button class="btn" onclick="markLessonComplete()" type="button">✅ Marcar próxima aula como concluída</button>
 <button class="btn" onclick="resetAcademyProgress()" type="button">↺ Reiniciar progresso</button>
 </section>
 <!-- WORD OF THE DAY -->
@@ -952,15 +1662,7 @@
 <!-- Áudio para sons correto e errado -->
 <audio id="correct-sound" preload="auto" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
 <audio id="wrong-sound" preload="auto" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
-<script>
-  // Volume dos sons de feedback usados no menu Praticar e nas aulas.
-  document.addEventListener('DOMContentLoaded',function(){
-    ['correct-sound','wrong-sound'].forEach(function(id){
-      const a=document.getElementById(id);
-      if(a){a.volume=1.0;a.muted=false;}
-    });
-  });
-</script>
+
 <!-- Quiz Section -->
 <section aria-label="Quiz de Inglês" class="quiz-section app-view" id="quiz"><div class="view-back"><button class="back-arrow" onclick="showView('dashboard')" type="button">← Voltar</button></div>
 <h2>Teste seu Inglês </h2>
@@ -1022,7 +1724,463 @@
 <a class="btn" href="https://wa.me/" rel="noopener" target="_blank">💬 Contactar via WhatsApp</a>
 </div>
 </section></main>
-<script>
+
+
+<footer class="site-footer"><p>© 2026 Tiago Missace English Academy. Todos os direitos reservados. | Professor: Tiago António Missace</p></footer>
+
+
+
+
+
+
+
+<!-- Janela individual da aula: o curso fica por trás e apenas esta aula fica visível. -->
+<div id="lessonWindow" class="lesson-window" aria-hidden="true">
+  <div class="lesson-window-header">
+    <div class="lesson-window-title">
+      <strong id="lessonWindowTitle">Aula</strong>
+      <span id="lessonWindowSubtitle">Aula de Inglês</span>
+    </div>
+    <button id="lessonWindowClose" class="lesson-window-close" type="button">← Voltar ao curso</button>
+  </div>
+  <div class="lesson-window-body">
+    <div id="lessonWindowInner" class="lesson-window-inner"></div>
+  </div>
+</div>
+
+<script id="academy-core">
+
+
+
+/* =========================================================
+   TIAGO MISSACE ENGLISH ACADEMY — ORGANIZED JAVASCRIPT
+   ========================================================= */
+
+const ACADEMY_DATA = {"lessons":[{"number":1,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 1 — Greetings & Introductions","objective":"Learn to greet people and introduce yourself.","content":"Key language: Hello, Hi, Good morning, Good afternoon, Good evening, My name is..., I am..., Nice to meet you.","example":"Hello! My name is Tiago. Nice to meet you.","purpose":"Aprender a cumprimentar pessoas e apresentar-se em inglês.","explanation":"Usamos greetings para iniciar uma conversa. Em situações formais ou educadas, podemos usar Good morning, Good afternoon e Good evening. Para apresentar-se, usamos My name is... ou I am.... Para responder, podemos dizer Nice to meet you.","points":["Hello / Hi = Olá","Good morning = Bom dia","My name is... = O meu nome é...","Nice to meet you = Prazer em conhecer-te"],"questions":[{"question":"Qual frase usamos para dizer 'O meu nome é Ana'?","options":["My name Ana.","My name is Ana.","I name Ana."],"answer":1,"explanation":"Depois de My name usamos is: My name is Ana."},{"question":"Como respondemos educadamente a 'Nice to meet you'?","options":["Nice to meet you too.","Good night too.","My name is too."],"answer":0,"explanation":"Too significa 'também' e completa a resposta."},{"question":"Qual cumprimento é normalmente usado de manhã?","options":["Good morning","Good evening","Good night"],"answer":0,"explanation":"Good morning significa 'Bom dia'."}]},{"number":2,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 2 — Alphabet A–Z","objective":"Recognise and pronounce the English alphabet.","content":"Practise A–Z, spelling names and asking: How do you spell it?","example":"How do you spell your name? — T-I-A-G-O.","purpose":"Reconhecer, pronunciar e soletrar as letras do alfabeto inglês.","explanation":"O alfabeto inglês tem 26 letras. Para pedir a soletração, usamos How do you spell...? Quando soletramos um nome, pronunciamos cada letra individualmente.","points":["26 letters: A–Z","How do you spell...? = Como se soletra...?","Spell = soletrar","Use letters individually when spelling"],"questions":[{"question":"Quantas letras tem o alfabeto inglês?","options":["24","26","28"],"answer":1,"explanation":"O alfabeto inglês moderno tem 26 letras."},{"question":"Como perguntamos 'Como se soletra o teu nome?'","options":["How do you spell your name?","How are your name?","What spell your name?"],"answer":0,"explanation":"A estrutura correta é How do you spell...?"},{"question":"O que significa spell?","options":["Ler","Soletrar","Escrever uma história"],"answer":1,"explanation":"Spell significa soletrar uma palavra letra por letra."}]},{"number":3,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 3 — Numbers 0–20","objective":"Use numbers in everyday communication.","content":"Practise 0–20, ages, telephone numbers and simple quantities.","example":"I am twenty-five years old.","purpose":"Usar números para idade, telefone e quantidades simples.","explanation":"Os números aparecem em informações pessoais e situações do dia a dia. Pratique especialmente números usados para dizer idade, números de telefone e pequenas quantidades.","points":["0 zero","1–10: one to ten","11–20: eleven to twenty","How old are you? = Quantos anos tens?"],"questions":[{"question":"Qual é 15 em inglês?","options":["Fifteen","Fifty","Five"],"answer":0,"explanation":"15 = fifteen. Não confunda fifteen com fifty."},{"question":"Complete: I am ___ years old.","options":["twenty","twentys","twenty years"],"answer":0,"explanation":"A forma correta é I am twenty years old."},{"question":"Qual pergunta significa 'Quantos anos tens?'","options":["How many are you?","How old are you?","What old you?"],"answer":1,"explanation":"How old are you? pergunta a idade."}]},{"number":4,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 4 — Verb To Be","objective":"Use am, is and are correctly.","content":"I am, you are, he is, she is, it is, we are, they are.","example":"She is a teacher. They are students.","purpose":"Usar am, is e are em frases afirmativas.","explanation":"O verbo to be muda conforme o sujeito: I am; you are; he/she/it is; we/they are. Ele é muito usado para identidade, profissão, estado e localização.","points":["I → am","He / She / It → is","You / We / They → are","Ex.: She is a teacher."],"questions":[{"question":"Complete: I ___ a student.","options":["am","is","are"],"answer":0,"explanation":"Com I usamos am."},{"question":"Complete: She ___ a teacher.","options":["am","is","are"],"answer":1,"explanation":"Com she usamos is."},{"question":"Complete: They ___ students.","options":["am","is","are"],"answer":2,"explanation":"Com they usamos are."}]},{"number":5,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 5 — Personal Information","objective":"Give and ask for basic personal information.","content":"Name, age, country, city, job and contact information.","example":"Where are you from? — I am from Mozambique.","purpose":"Dar e pedir informações pessoais básicas.","explanation":"Para conversar com alguém, podemos perguntar nome, idade, origem, cidade e profissão. Use What is your name?, Where are you from?, How old are you? e What do you do? conforme a informação desejada.","points":["What is your name?","Where are you from?","How old are you?","What do you do?"],"questions":[{"question":"Qual pergunta pede a origem de uma pessoa?","options":["Where are you from?","What is your age?","What is your name?"],"answer":0,"explanation":"Where are you from? pergunta de onde a pessoa é."},{"question":"Como dizer 'Sou de Moçambique'?","options":["I am Mozambique.","I am from Mozambique.","I from Mozambique."],"answer":1,"explanation":"Usamos am from + lugar."},{"question":"What is your name? pergunta pelo...","options":["nome","idade","país"],"answer":0,"explanation":"Name significa nome."}]},{"number":6,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 6 — Classroom English","objective":"Understand common classroom instructions.","content":"Listen, repeat, open your book, close your book, work in pairs, answer the question.","example":"Please open your book.","purpose":"Compreender e usar instruções comuns da sala de aula.","explanation":"Classroom English são expressões usadas durante a aula. Memorizar estas instruções ajuda o aluno a participar sem precisar traduzir cada palavra.","points":["Open your book = Abra o livro","Listen = Ouça","Repeat = Repita","Work in pairs = Trabalhe em pares"],"questions":[{"question":"Open your book significa...","options":["Feche o livro","Abra o livro","Compre o livro"],"answer":1,"explanation":"Open significa abrir."},{"question":"Repeat significa...","options":["Repita","Leia","Pare"],"answer":0,"explanation":"Repeat = repetir/repita."},{"question":"Qual expressão significa 'trabalhe em pares'?","options":["Work alone","Work in pairs","Read in silence"],"answer":1,"explanation":"Pairs significa pares."}]},{"number":7,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 7 — Review & Speaking","objective":"Review Unit 1 and practise a short introduction.","content":"Combine greetings, personal information, numbers and the verb to be.","example":"Hello. My name is Ana. I am from Tete. I am a student.","purpose":"Combinar os conteúdos da Unit 1 numa apresentação curta.","explanation":"Uma apresentação básica pode juntar greeting, name, country, city, occupation e age. O objetivo é comunicar uma mensagem simples e clara.","points":["Greeting","Name","Country / city","Age / occupation"],"questions":[{"question":"Qual frase começa corretamente uma apresentação?","options":["Hello, my name is Ana.","Hello, my Ana name.","My is Ana hello."],"answer":0,"explanation":"My name is + nome é uma estrutura correta."},{"question":"I am from Tete fala sobre...","options":["origem/local","idade","profissão"],"answer":0,"explanation":"from + lugar indica origem."},{"question":"Qual verbo aparece em 'I am a student'?","options":["to have","to be","to do"],"answer":1,"explanation":"am é uma forma do verbo to be."}]},{"number":8,"unit":"Unit 1 — Fundamentals of English","title":"Lesson 8 — Unit Test","objective":"Check understanding of Unit 1.","content":"Review vocabulary, grammar and communication from Lessons 1–7.","example":"Complete the unit test in the Quiz section.","purpose":"Rever greetings, alphabet, numbers, personal information, classroom English e to be.","explanation":"Antes de avançar, verifique se consegue apresentar-se, usar am/is/are, compreender instruções simples e usar números e perguntas pessoais.","points":["Greetings","Alphabet & spelling","Numbers","Verb to be"],"questions":[{"question":"Choose: She ___ a teacher.","options":["am","is","are"],"answer":1,"explanation":"She usa is."},{"question":"Como dizer 'Bom dia'?","options":["Good morning","Good evening","Good night"],"answer":0,"explanation":"Good morning = Bom dia."},{"question":"How do you spell it? pede para...","options":["traduzir","soletrar","desenhar"],"answer":1,"explanation":"Spell significa soletrar."}]},{"number":9,"unit":"Unit 2 — Everyday English","title":"Lesson 9 — Family & Relationships","objective":"Talk about family members.","content":"mother, father, sister, brother, husband, wife, son, daughter.","example":"This is my sister.","purpose":"Falar sobre membros da família e relações usando vocabulário básico.","explanation":"Family vocabulary inclui mother, father, brother, sister, husband, wife, son e daughter. Para indicar posse, podemos usar my, your, his, her, our e their.","points":["mother / father","brother / sister","husband / wife","my / your / his / her"],"questions":[{"question":"My sister significa...","options":["minha irmã","meu irmão","minha mãe"],"answer":0,"explanation":"my indica posse; sister = irmã."},{"question":"Her name significa...","options":["o nome dele","o nome dela","o nosso nome"],"answer":1,"explanation":"Her é possessivo para she."},{"question":"Father significa...","options":["pai","filho","tio"],"answer":0,"explanation":"Father = pai."}]},{"number":10,"unit":"Unit 2 — Everyday English","title":"Lesson 10 — My House","objective":"Describe rooms and common objects.","content":"house, bedroom, kitchen, bathroom, living room and basic household objects.","example":"There is a table in the kitchen.","purpose":"Descrever divisões da casa, móveis e localização.","explanation":"Use bedroom, bathroom, kitchen, living room e garden para falar de lugares. Prepositions como in, on e under ajudam a indicar localização.","points":["bedroom / kitchen","living room / bathroom","in / on / under","furniture"],"questions":[{"question":"Kitchen significa...","options":["cozinha","quarto","garagem"],"answer":0,"explanation":"Kitchen = cozinha."},{"question":"The book is on the table significa que o livro está...","options":["debaixo da mesa","sobre a mesa","dentro da mesa"],"answer":1,"explanation":"on indica contacto/superfície."},{"question":"Bedroom é...","options":["sala","quarto","cozinha"],"answer":1,"explanation":"Bedroom = quarto."}]},{"number":11,"unit":"Unit 2 — Everyday English","title":"Lesson 11 — Daily Routine","objective":"Talk about everyday routines.","content":"wake up, get up, have breakfast, go to work, study, have dinner, go to bed.","example":"I get up at six o'clock.","purpose":"Falar sobre ações habituais do dia a dia e horários.","explanation":"Expressões como wake up, have breakfast, go to work, study, have dinner e go to bed descrevem uma rotina. Para hábitos usamos normalmente o Present Simple.","points":["wake up","have breakfast","go to work/school","go to bed"],"questions":[{"question":"Wake up significa...","options":["acordar","dormir","chegar"],"answer":0,"explanation":"Wake up = acordar."},{"question":"I go to work fala de...","options":["uma rotina","uma ação neste segundo","uma ação passada"],"answer":0,"explanation":"A rotina é normalmente expressa no Present Simple."},{"question":"Go to bed significa...","options":["ir para a cama","ir para o trabalho","levantar"],"answer":0,"explanation":"Go to bed = ir para a cama."}]},{"number":12,"unit":"Unit 2 — Everyday English","title":"Lesson 12 — Present Simple","objective":"Use the Present Simple for routines and facts.","content":"Affirmative, negative and questions with do/does.","example":"She works at a school. Does he work here?","purpose":"Formar frases afirmativas, negativas e perguntas sobre hábitos e factos.","explanation":"O Present Simple é usado para hábitos, rotinas e factos. Com he, she e it, o verbo normalmente recebe -s/-es na afirmativa. Nas perguntas e negativas usamos do/does.","points":["I/You/We/They work","He/She/It works","do/does for questions","don't/doesn't for negatives"],"questions":[{"question":"Choose: He ___ English.","options":["study","studies","studying"],"answer":1,"explanation":"Com he, study torna-se studies."},{"question":"___ you work here?","options":["Do","Does","Are"],"answer":0,"explanation":"Com you usamos Do."},{"question":"She ___ like coffee.","options":["don't","doesn't","isn't"],"answer":1,"explanation":"Com she usamos doesn't + verbo na forma base."}]},{"number":13,"unit":"Unit 2 — Everyday English","title":"Lesson 13 — Present Continuous","objective":"Talk about actions happening now.","content":"am/is/are + verb-ing.","example":"I am studying English now.","purpose":"Falar sobre ações que estão acontecendo agora.","explanation":"O Present Continuous é formado por am/is/are + verbo-ing. É usado principalmente para ações em progresso no momento da fala.","points":["I am working","He is working","They are working","verb + -ing"],"questions":[{"question":"Look! They ___ football.","options":["play","are playing","plays"],"answer":1,"explanation":"They + are + playing."},{"question":"I ___ studying now.","options":["am","is","are"],"answer":0,"explanation":"Com I usamos am."},{"question":"Present Continuous usa...","options":["be + verb-ing","do + verb","past + ing"],"answer":0,"explanation":"A estrutura é am/is/are + verb-ing."}]},{"number":14,"unit":"Unit 2 — Everyday English","title":"Lesson 14 — Food & Shopping","objective":"Use English in simple shopping situations.","content":"food vocabulary, prices, quantities and polite requests.","example":"How much is this? — It is 200 meticais.","purpose":"Usar vocabulário de comida, preços, quantidades e compras.","explanation":"Em compras, precisamos de nomes de alimentos, preços e quantidades. Expressões úteis incluem How much is it?, How much are they? e I'd like....","points":["food vocabulary","How much...?","I'd like...","quantities and prices"],"questions":[{"question":"I'd like significa...","options":["Eu gostaria de","Eu odeio","Eu já comi"],"answer":0,"explanation":"I'd like é uma forma educada de pedir algo."},{"question":"How much is it? pergunta...","options":["o preço de algo singular","a idade","a hora"],"answer":0,"explanation":"How much pode perguntar preço."},{"question":"Two apples significa...","options":["duas maçãs","dois pães","duas laranjas"],"answer":0,"explanation":"Two = duas; apples = maçãs."}]},{"number":15,"unit":"Unit 2 — Everyday English","title":"Lesson 15 — Likes & Preferences","objective":"Talk about things you like and dislike.","content":"like, love, enjoy, don't like, hate + everyday vocabulary.","example":"I enjoy listening to English.","purpose":"Expressar gostos, preferências e coisas que não gostamos.","explanation":"Use like, love, prefer e hate para falar de preferências. Com he/she/it no Present Simple, usamos likes, loves, prefers e hates.","points":["I like...","I love...","I prefer...","I hate..."],"questions":[{"question":"I like tea significa...","options":["Eu gosto de chá","Eu compro chá","Eu preparo chá"],"answer":0,"explanation":"like = gostar."},{"question":"She ___ coffee.","options":["like","likes","liking"],"answer":1,"explanation":"Com she usamos likes."},{"question":"Prefer significa...","options":["preferir","perder","procurar"],"answer":0,"explanation":"prefer = preferir."}]},{"number":16,"unit":"Unit 2 — Everyday English","title":"Lesson 16 — Unit Test","objective":"Check understanding of Unit 2.","content":"Review family, home, routines, Present Simple, Present Continuous and shopping.","example":"Complete the unit test in the Quiz section.","purpose":"Verificar compreensão de família, casa, rotina, Present Simple, Present Continuous, comida e preferências.","explanation":"A revisão combina vocabulário e estruturas da Unit 2. Preste atenção à diferença entre hábitos e ações acontecendo agora.","points":["Family & house","Present Simple","Present Continuous","Shopping"],"questions":[{"question":"She ___ every day.","options":["works","is work","work"],"answer":0,"explanation":"She + Present Simple: works."},{"question":"She is ___ now.","options":["study","studying","studies"],"answer":1,"explanation":"is + verb-ing indica ação em progresso."},{"question":"I prefer tea ___ coffee.","options":["than","to","at"],"answer":1,"explanation":"Prefer A to B é a estrutura básica."}]},{"number":17,"unit":"Unit 3 — Communication","title":"Lesson 17 — Past Simple","objective":"Talk about completed actions in the past.","content":"Regular and common irregular verbs; affirmative, negative and questions.","example":"I visited my friend yesterday. Did you go to school?","purpose":"Falar sobre ações concluídas no passado.","explanation":"O Past Simple descreve acontecimentos terminados. Verbos regulares geralmente recebem -ed; verbos irregulares têm formas próprias, como go → went e see → saw. Em perguntas usamos did + verbo base.","points":["worked / played","went / saw / had","did for questions","didn't + base verb"],"questions":[{"question":"Yesterday I ___ to school.","options":["go","went","going"],"answer":1,"explanation":"Go é irregular: go → went."},{"question":"Did you ___ him?","options":["saw","see","seen"],"answer":1,"explanation":"Depois de did usamos o verbo base: see."},{"question":"She ___ TV last night.","options":["watched","watch","watching"],"answer":0,"explanation":"Watch é regular: watched."}]},{"number":18,"unit":"Unit 3 — Communication","title":"Lesson 18 — Past Continuous","objective":"Describe actions in progress in the past.","content":"was/were + verb-ing.","example":"I was studying when he called.","purpose":"Descrever uma ação que estava acontecendo em determinado momento no passado.","explanation":"O Past Continuous usa was/were + verb-ing. É útil para uma ação em progresso no passado, muitas vezes interrompida por outra ação no Past Simple.","points":["I/he/she was + ing","you/we/they were + ing","action in progress","was/were + verb-ing"],"questions":[{"question":"I ___ studying at 8 pm.","options":["was","were","am"],"answer":0,"explanation":"Com I usamos was."},{"question":"They ___ watching TV.","options":["was","were","is"],"answer":1,"explanation":"Com they usamos were."},{"question":"Qual estrutura é correta?","options":["was study","was studying","did studying"],"answer":1,"explanation":"Past Continuous = was/were + verb-ing."}]},{"number":19,"unit":"Unit 3 — Communication","title":"Lesson 19 — Future with Will","objective":"Talk about predictions and decisions.","content":"will + base verb; short answers and contractions.","example":"I will help you.","purpose":"Falar sobre previsões, promessas e decisões espontâneas.","explanation":"Will + verbo base forma o futuro simples. Usamos will para previsões, promessas e decisões tomadas no momento da fala.","points":["will + base verb","I will help","predictions","promises"],"questions":[{"question":"I ___ call you tomorrow.","options":["will","am","did"],"answer":0,"explanation":"Will + verbo base forma o futuro."},{"question":"After will usamos...","options":["verb base","verb-ing","past verb"],"answer":0,"explanation":"Will é seguido pelo verbo na forma base."},{"question":"Will pode ser usado para...","options":["promessas","apenas passado","apenas lugares"],"answer":0,"explanation":"Promessas são um uso comum de will."}]},{"number":20,"unit":"Unit 3 — Communication","title":"Lesson 20 — Going To","objective":"Talk about plans and intentions.","content":"am/is/are going to + base verb.","example":"I am going to study tonight.","purpose":"Falar sobre planos e intenções futuras.","explanation":"Be going to + verbo base é usado para planos e intenções já pensados. Também pode indicar uma previsão baseada em evidência presente.","points":["am/is/are going to","plans","intentions","base verb after to"],"questions":[{"question":"I ___ going to travel.","options":["am","is","are"],"answer":0,"explanation":"Com I usamos am."},{"question":"She is going to ___ English.","options":["studies","study","studying"],"answer":1,"explanation":"Depois de going to usamos o verbo base."},{"question":"Going to é comum para...","options":["planos","ações concluídas","hábitos passados"],"answer":0,"explanation":"Going to expressa planos/intencões futuras."}]},{"number":21,"unit":"Unit 3 — Communication","title":"Lesson 21 — Can & Could","objective":"Express ability and make polite requests.","content":"can for present ability; could for past ability and polite requests.","example":"Could you help me, please?","purpose":"Expressar habilidade, permissão e pedidos educados.","explanation":"Can é usado para habilidade e alguns pedidos/permissões. Could pode falar de habilidade no passado e também tornar pedidos mais educados.","points":["can + base verb","could + base verb","Can you...?","Could you...?"],"questions":[{"question":"She can ___ English.","options":["speaks","speak","speaking"],"answer":1,"explanation":"Depois de can usamos o verbo base."},{"question":"Could you help me? é um...","options":["pedido educado","passado obrigatório","cumprimento"],"answer":0,"explanation":"Could pode tornar pedidos mais educados."},{"question":"Can significa, entre outras coisas...","options":["poder/conseguir","dever","ter de"],"answer":0,"explanation":"Can pode expressar capacidade ou permissão."}]},{"number":22,"unit":"Unit 3 — Communication","title":"Lesson 22 — Should & Must","objective":"Express advice and obligation.","content":"should for advice; must for strong obligation.","example":"You should practise every day. You must be on time.","purpose":"Dar conselhos, expressar obrigação e regras.","explanation":"Should é usado principalmente para conselho. Must expressa obrigação forte ou necessidade. Depois de ambos usamos o verbo base.","points":["should + base verb","must + base verb","advice","obligation"],"questions":[{"question":"You ___ study more. (conselho)","options":["should","musting","are"],"answer":0,"explanation":"Should é usado para conselho."},{"question":"Students ___ wear the uniform. (regra)","options":["must","shoulding","are must"],"answer":0,"explanation":"Must expressa obrigação/regra forte."},{"question":"Depois de must usamos...","options":["verbo base","-ing","past"],"answer":0,"explanation":"Must + base verb."}]},{"number":23,"unit":"Unit 3 — Communication","title":"Lesson 23 — Real-Life Conversations","objective":"Practise practical everyday conversations.","content":"Greetings, shopping, asking for directions and making requests.","example":"Excuse me, could you tell me where the bank is?","purpose":"Usar inglês em situações reais como restaurante, transporte, compras e direções.","explanation":"Conversas reais combinam perguntas educadas, pedidos, respostas e vocabulário contextual. Frases como Excuse me..., Could you tell me...? e I'd like... são muito úteis.","points":["Excuse me...","Could you tell me...?","I'd like...","asking for directions"],"questions":[{"question":"Excuse me é usado para...","options":["chamar a atenção educadamente","dizer adeus","falar do passado"],"answer":0,"explanation":"Excuse me é uma forma educada de iniciar uma pergunta/pedido."},{"question":"I'd like a coffee, please. é um...","options":["pedido educado","aviso","cumprimento"],"answer":0,"explanation":"I'd like é comum ao pedir algo."},{"question":"Where is the bank? pergunta por...","options":["localização","preço","idade"],"answer":0,"explanation":"Where pergunta localização."}]},{"number":24,"unit":"Unit 3 — Communication","title":"Lesson 24 — Unit Test","objective":"Check understanding of Unit 3.","content":"Review past, future, modal verbs and real-life communication.","example":"Complete the unit test in the Quiz section.","purpose":"Rever passado, futuro, modais e comunicação em situações reais.","explanation":"Nesta revisão, compare Past Simple/Past Continuous e will/going to. Também pratique can, could, should e must em contexto.","points":["Past Simple","Past Continuous","Future","Modals"],"questions":[{"question":"I ___ when he called.","options":["was working","worked now","am work"],"answer":0,"explanation":"A ação em progresso usa Past Continuous."},{"question":"You ___ wear a seatbelt. (obrigação)","options":["must","could","are"],"answer":0,"explanation":"Must expressa obrigação."},{"question":"I am going to travel. indica...","options":["plano","passado","hábito"],"answer":0,"explanation":"Going to é comum para planos."}]},{"number":25,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 25 — Present Perfect","objective":"Talk about experiences and recent events.","content":"have/has + past participle; ever, never, already, yet.","example":"I have visited Maputo.","purpose":"Falar sobre experiências e ações recentes ligadas ao presente.","explanation":"O Present Perfect é formado por have/has + past participle. É comum com ever, never, already e yet. O foco está na experiência ou ligação com o presente, não num momento passado terminado específico.","points":["have/has + past participle","ever / never","already / yet","experiences"],"questions":[{"question":"She ___ visited Maputo.","options":["has","have","is"],"answer":0,"explanation":"Com she usamos has."},{"question":"I have ___ that film.","options":["see","saw","seen"],"answer":2,"explanation":"O particípio de see é seen."},{"question":"Have you ever...? pergunta sobre...","options":["experiência","hora exata","rotina diária"],"answer":0,"explanation":"Ever é comum ao perguntar sobre experiências."}]},{"number":26,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 26 — Comparatives","objective":"Compare people, places and things.","content":"short and long adjective comparatives; than.","example":"English is easier than I expected.","purpose":"Comparar pessoas, lugares e coisas.","explanation":"Adjetivos curtos geralmente usam -er + than (taller than). Adjetivos longos usam more + adjective + than (more interesting than). Para extremos usamos superlativos, como the biggest.","points":["taller than","more interesting than","better than","the biggest"],"questions":[{"question":"Tall → comparative","options":["taller","more tall","tallest"],"answer":0,"explanation":"Adjetivo curto: tall → taller."},{"question":"Interesting → comparative","options":["interestinger","more interesting","most interesting"],"answer":1,"explanation":"Adjetivos longos normalmente usam more."},{"question":"Good → comparative","options":["gooder","better","best"],"answer":1,"explanation":"Good é irregular: better."}]},{"number":27,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 27 — Adjectives & Adverbs","objective":"Describe people, actions and situations.","content":"Adjectives describe nouns; adverbs describe actions and manner.","example":"She is a careful driver. She drives carefully.","purpose":"Descrever pessoas, coisas, ações e a maneira como algo acontece.","explanation":"Adjectives descrevem nouns: a careful driver. Adverbs frequentemente descrevem verbs: drives carefully. Muitos adverbs de modo terminam em -ly, embora existam exceções.","points":["adjective + noun","verb + adverb","careful / carefully","quick / quickly"],"questions":[{"question":"Careful descreve...","options":["driver (noun)","drives (verb)","yesterday"],"answer":0,"explanation":"Careful é adjective e descreve o noun driver."},{"question":"She drives ___.","options":["careful","carefully","care"],"answer":1,"explanation":"Carefully descreve como ela conduz."},{"question":"Adverb frequentemente descreve...","options":["uma ação","apenas um lugar","um número"],"answer":0,"explanation":"Adverbs podem modificar verbs."}]},{"number":28,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 28 — Determiners & Quantifiers","objective":"Use words that describe quantity and reference.","content":"a/an, the, some, any, much, many, a lot of, few, little.","example":"There are many students in the class.","purpose":"Usar palavras para indicar referência e quantidade.","explanation":"A/an e the ajudam a indicar nouns. Some, any, much, many, a lot of, few e little expressam quantidade. Many é comum com countable nouns; much com uncountable nouns.","points":["a / an / the","some / any","much / many","a lot of"],"questions":[{"question":"Many é normalmente usado com...","options":["countable plural nouns","uncountable nouns only","verbs"],"answer":0,"explanation":"Many é comum com nomes contáveis no plural."},{"question":"Much é comum com...","options":["uncountable nouns","plural countable nouns only","people only"],"answer":0,"explanation":"Much é usado com incontáveis."},{"question":"Complete: I have ___ books.","options":["much","many","little"],"answer":1,"explanation":"Books são contáveis no plural: many books."}]},{"number":29,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 29 — Connectors","objective":"Connect ideas clearly.","content":"and, but, because, so, although and other common connectors.","example":"I study English because I want to communicate better.","purpose":"Ligar ideias de forma clara e lógica.","explanation":"Connectors mostram relações entre ideias. And adiciona, but contrasta, because dá razão, so mostra resultado e although introduz contraste.","points":["and = adição","but = contraste","because = razão","so = resultado"],"questions":[{"question":"Because introduz...","options":["uma razão","um contraste","uma pergunta"],"answer":0,"explanation":"Because explica a razão."},{"question":"I was tired, ___ I studied.","options":["but","because","and?"],"answer":0,"explanation":"But mostra contraste entre ideias."},{"question":"It was raining, ___ I stayed home.","options":["so","because","although"],"answer":0,"explanation":"So introduz o resultado."}]},{"number":30,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 30 — Reading Strategies","objective":"Improve reading comprehension.","content":"Skimming, scanning, predicting meaning from context and identifying key ideas.","example":"Read the title first and predict what the text is about.","purpose":"Melhorar a compreensão de textos usando estratégias de leitura.","explanation":"Skimming significa ler rapidamente para captar a ideia geral. Scanning procura uma informação específica. Predicting usa título, imagens e contexto para antecipar o conteúdo.","points":["skimming = general idea","scanning = specific information","predicting","keywords"],"questions":[{"question":"Skimming procura principalmente...","options":["ideia geral","um número específico","uma palavra apenas"],"answer":0,"explanation":"Skimming é leitura rápida para ideia geral."},{"question":"Scanning procura...","options":["informação específica","apenas a ideia geral","gramática"],"answer":0,"explanation":"Scanning ajuda a localizar informação específica."},{"question":"Before reading, the title can help you...","options":["predict the topic","change the text","translate everything"],"answer":0,"explanation":"O título ajuda a prever o assunto."}]},{"number":31,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 31 — Speaking & Writing","objective":"Produce connected spoken and written English.","content":"Organise ideas, use connectors, give opinions and describe experiences.","example":"In my opinion, learning English is important because...","purpose":"Organizar ideias e produzir inglês oral e escrito mais conectado.","explanation":"Uma boa produção começa com uma ideia clara, usa conectores e exemplos e termina de forma coerente. Em speaking, pratique frases completas; em writing, organize início, desenvolvimento e conclusão.","points":["organise ideas","use connectors","give opinions","describe experiences"],"questions":[{"question":"In my opinion introduz...","options":["uma opinião","uma pergunta","uma data"],"answer":0,"explanation":"In my opinion = na minha opinião."},{"question":"Because ajuda a...","options":["dar uma razão","comparar tamanho","indicar passado"],"answer":0,"explanation":"Because introduz uma razão."},{"question":"Uma boa produção deve...","options":["organizar ideias","misturar palavras sem ordem","evitar exemplos"],"answer":0,"explanation":"Organização melhora clareza e comunicação."}]},{"number":32,"unit":"Unit 4 — Pre-Intermediate","title":"Lesson 32 — Final Review & Test","objective":"Review the complete course and prepare for the final test.","content":"Review vocabulary, grammar, listening, reading, speaking and writing.","example":"Complete the final assessment and review your progress.","purpose":"Rever o curso e preparar-se para a avaliação final.","explanation":"A revisão final reúne vocabulário, gramática, listening, reading, speaking e writing. Use os exercícios para identificar pontos que precisam de mais prática antes de avançar para o próximo nível.","points":["Vocabulary","Grammar","Reading & Listening","Speaking & Writing"],"questions":[{"question":"Qual habilidade envolve compreender textos escritos?","options":["Reading","Speaking","Shopping"],"answer":0,"explanation":"Reading é compreensão de textos escritos."},{"question":"Qual habilidade envolve produzir linguagem oral?","options":["Speaking","Reading","Scanning"],"answer":0,"explanation":"Speaking é produção oral."},{"question":"Depois da revisão final, o aluno deve...","options":["avaliar o que aprendeu","parar de praticar","ignorar os erros"],"answer":0,"explanation":"A avaliação ajuda a identificar o que já domina e o que precisa rever."}]}]};
+window.ACADEMY_DATA = ACADEMY_DATA;
+
+
+
+/* =========================================================
+   CORE 1 — CENTRAL DATA + PROGRESS
+   One source of truth for course lessons and progress.
+   ========================================================= */
+(function () {
+  const DATA = window.ACADEMY_DATA;
+  const ACADEMY_KEY = "tiagoAcademyProgress";
+  const LESSON_STORAGE = "tiago_english_lesson_progress_v1";
+
+  function lessonKey(title) {
+    return String(title || "").trim().replace(/\s+/g, " ").toLowerCase();
+  }
+
+  function readLessonProgress(key) {
+    try {
+      const all = JSON.parse(localStorage.getItem(LESSON_STORAGE) || "{}");
+      return Array.isArray(all[key]) ? all[key] : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveLessonProgress(key, answered) {
+    try {
+      const all = JSON.parse(localStorage.getItem(LESSON_STORAGE) || "{}");
+      all[key] = [...new Set(answered)].sort((a, b) => a - b);
+      localStorage.setItem(LESSON_STORAGE, JSON.stringify(all));
+    } catch (e) {}
+  }
+
+  function getCompletedLessons() {
+    return DATA.lessons.filter(lesson => {
+      const total = Array.isArray(lesson.questions) ? lesson.questions.length : 0;
+      if (!total) return false;
+      return readLessonProgress(lessonKey(lesson.title)).length >= total;
+    });
+  }
+
+  function updateDashboard() {
+    const completed = getCompletedLessons();
+    const lessons = completed.length;
+    const xp = lessons * 50;
+    const pct = (lessons / DATA.lessons.length) * 100;
+
+    const lessonText = document.getElementById("lessonProgressText");
+    const xpText = document.getElementById("xpText");
+    const levelText = document.getElementById("levelText");
+    const bar = document.getElementById("courseProgressBar");
+
+    if (lessonText) lessonText.textContent = `${lessons} de ${DATA.lessons.length} aulas concluídas`;
+    if (xpText) xpText.textContent = `${xp} XP`;
+    if (levelText) levelText.textContent = `Nível ${Math.floor(xp / 250) + 1}`;
+    if (bar) bar.style.width = pct + "%";
+
+    const state = {
+      lessons,
+      xp,
+      completedKeys: completed.map(l => lessonKey(l.title))
+    };
+    localStorage.setItem(ACADEMY_KEY, JSON.stringify(state));
+    return state;
+  }
+
+  function reset() {
+    if (!confirm("Tem certeza que deseja reiniciar o progresso?")) return;
+    localStorage.removeItem(LESSON_STORAGE);
+    localStorage.setItem(ACADEMY_KEY, JSON.stringify({
+      lessons: 0, xp: 0, completedKeys: []
+    }));
+    updateDashboard();
+    if (typeof window.refreshAllLessonProgress === "function") {
+      window.refreshAllLessonProgress();
+    }
+  }
+
+  window.AcademyProgress = Object.freeze({
+    STORAGE: LESSON_STORAGE,
+    key: lessonKey,
+    read: readLessonProgress,
+    save: saveLessonProgress,
+    completed: getCompletedLessons,
+    updateDashboard,
+    reset
+  });
+
+  window.syncAcademyProgressFromLessons = updateDashboard;
+  window.resetAcademyProgress = reset;
+
+  /* Existing public helper kept for compatibility with the HTML. */
+  window.speakAcademy = function (text) {
+    if (!("speechSynthesis" in window)) {
+      alert("O seu navegador não suporta áudio de voz.");
+      return;
+    }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    speechSynthesis.speak(u);
+  };
+})();
+
+const flashcards=[
+ ["Achieve","Alcançar / Conseguir"],["Improve","Melhorar"],["Journey","Jornada / Viagem"],["Confident","Confiante"],["Challenge","Desafio"],["Opportunity","Oportunidade"],["Knowledge","Conhecimento"],["Practice","Prática"],["Environment","Ambiente"],["Experience","Experiência"]
+];
+let flashIndex=0,flashFront=true;
+function renderFlash(){document.getElementById("flashWord").textContent=flashcards[flashIndex][0];document.getElementById("flashMeaning").textContent=flashcards[flashIndex][1];document.getElementById("flashMeaning").classList.add("hidden");flashFront=true;}
+function flipFlashcard(){flashFront=!flashFront;document.getElementById("flashMeaning").classList.toggle("hidden",flashFront);}
+function nextFlashcard(){flashIndex=(flashIndex+1)%flashcards.length;renderFlash();}
+function speakFlashcard(){speakAcademy(flashcards[flashIndex][0]);}
+const wordDays=[
+["Improve","/ɪmˈpruːv/","melhorar","I want to improve my English."],
+["Achieve","/əˈtʃiːv/","alcançar / conseguir","You can achieve your goals."],
+["Learn","/lɜːrn/","aprender","I learn English every day."],
+["Speak","/spiːk/","falar","I want to speak English confidently."],
+["Practice","/ˈpræk.tɪs/","praticar","Practice makes progress."]
+];
+const dayData=wordDays[new Date().getDate()%wordDays.length];
+document.getElementById("wordDayWord").textContent=dayData[0];document.getElementById("wordDayPron").textContent=dayData[1];document.getElementById("wordDayMeaning").textContent=dayData[2];document.getElementById("wordDayExample").textContent=dayData[3];
+
+let mediaRecorder,recordChunks=[];
+
+const levelQuestions=[
+ {q:"Choose the correct sentence:",o:["I am a teacher.","I is a teacher.","I are a teacher."],a:0,points:1},
+ {q:"What is the past of 'go'?",o:["goed","went","goes"],a:1,points:1},
+ {q:"Choose the correct sentence:",o:["She is studying now.","She studying now.","She are studying now."],a:0,points:1},
+ {q:"Which sentence talks about an experience?",o:["I have visited Maputo.","I visit Maputo every day.","I am visiting Maputo now."],a:0,points:2},
+ {q:"Choose the best connector: I was tired, ___ I finished my homework.",o:["but","because","or"],a:0,points:2},
+ {q:"Choose the correct sentence:",o:["He has lived here for five years.","He live here for five years.","He living here for five years."],a:0,points:2},
+ {q:"What does 'improve' mean?",o:["melhorar","esquecer","parar"],a:0,points:1},
+ {q:"Choose the most natural question:",o:["Where do you live?","Where you do live?","Where are you live?"],a:0,points:1}
+];
+let levelIndex=0,levelScore=0;
+function renderLevel(){
+ if(levelIndex>=levelQuestions.length){let level=levelScore<=3?"A1 — Iniciante":levelScore<=7?"A2 — Elementar":"B1 — Pré-Intermediário";document.getElementById("levelQuestion").textContent="Teste concluído!";document.getElementById("levelOptions").innerHTML="";document.getElementById("levelResult").innerHTML=`<div class="result-box">Seu resultado estimado: <strong>${level}</strong><br>Pontuação: ${levelScore}/${levelQuestions.reduce((s,x)=>s+x.points,0)}<br><small>Este teste é apenas uma estimativa. Para uma avaliação mais completa, faça as atividades do curso.</small></div>`;return;}
+ const item=levelQuestions[levelIndex];document.getElementById("levelQuestion").textContent=`${levelIndex+1}. ${item.q}`;const box=document.getElementById("levelOptions");box.innerHTML="";
+ item.o.forEach((opt,i)=>{const b=document.createElement("button");b.className="level-option";b.textContent=opt;b.onclick=()=>{if(i===item.a)levelScore+=item.points;levelIndex++;renderLevel();};box.appendChild(b);});
+}
+renderLevel();renderFlash();syncAcademyProgressFromLessons();
+
+
+
+/* =========================================================
+   CORE 2 — COURSE RENDERER
+   Reads the 32 lessons from ACADEMY_DATA only.
+   ========================================================= */
+(function () {
+  const DATA = window.ACADEMY_DATA;
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+    }[c]));
+  }
+
+  function loadLessons() {
+    let extra = [];
+    try {
+      extra = JSON.parse(localStorage.getItem("tiago_extra_lessons") || "[]");
+    } catch (e) {}
+    return DATA.lessons.concat(Array.isArray(extra) ? extra : []);
+  }
+
+  window.renderCourseLessons = function () {
+    const host = document.getElementById("courseLessons");
+    if (!host) return;
+
+    const groups = {};
+    loadLessons().forEach(lesson => {
+      (groups[lesson.unit] ||= []).push(lesson);
+    });
+
+    host.innerHTML = "";
+
+    Object.entries(groups).forEach(([unit, unitLessons]) => {
+      const section = document.createElement("div");
+      section.className = "course-unit";
+      section.innerHTML = `<h3 style="color:#063a78;margin-top:24px">${escapeHTML(unit)}</h3>`;
+
+      unitLessons.forEach((lesson, index) => {
+        const id = `lesson_${lesson.number || "extra"}_${Date.now()}_${index}`;
+        const card = document.createElement("article");
+        card.className = "lesson-card";
+        card.innerHTML = `
+          <h4>${escapeHTML(lesson.title)}</h4>
+          <div class="lesson-meta">
+            <span>${escapeHTML(lesson.objective || "Learning objective")}</span>
+            <span>🇬🇧 British English</span>
+          </div>
+          <div class="lesson-actions">
+            <button class="small-btn" type="button" onclick="toggleLesson('${id}')">Abrir aula</button>
+            <button class="small-btn green" type="button"
+              onclick="speakText('${escapeHTML((lesson.example || lesson.content || "Welcome to your English lesson.")).replace(/'/g, "&#39;")}')">🔊 Ouvir</button>
+          </div>
+          <div class="lesson-content" id="${id}">
+            <p><strong>Objetivo:</strong> ${escapeHTML(lesson.objective || "")}</p>
+            <p><strong>Conteúdo:</strong> ${escapeHTML(lesson.content || "")}</p>
+            <p><strong>Example:</strong> <em>${escapeHTML(lesson.example || "")}</em></p>
+            <div class="practice-question">
+              <strong>Mini check:</strong> Você entendeu esta aula?
+              <button class="small-btn light" type="button" onclick="lessonFeedback(this,true)">✓ Sim, entendi</button>
+              <button class="small-btn light" type="button" onclick="lessonFeedback(this,false)">✗ Preciso rever</button>
+              <div class="feedback"></div>
+            </div>
+          </div>`;
+        section.appendChild(card);
+      });
+
+      host.appendChild(section);
+    });
+  };
+
+  window.toggleLesson = function (id) {
+    document.getElementById(id)?.classList.toggle("open");
+  };
+
+  window.lessonFeedback = function (button, correct) {
+    const card = button.closest(".lesson-card");
+    const feedback = card?.querySelector(".feedback");
+    if (!feedback) return;
+    feedback.className = "feedback show " + (correct ? "correct" : "wrong");
+    feedback.textContent = correct
+      ? "✓ Excelente! Você marcou que entendeu."
+      : "↻ Tudo bem! Reveja a explicação e tente novamente.";
+  };
+
+  window.checkPractice = function (boxId, name, expected, explanation) {
+    const box = document.getElementById(boxId);
+    const chosen = document.querySelector(`input[name="${name}"]:checked`);
+    const feedback = box?.querySelector(".feedback");
+    if (!box || !feedback) return;
+
+    if (!chosen) {
+      feedback.className = "feedback show wrong";
+      feedback.textContent = "⚠ Escolha uma resposta primeiro.";
+      return;
+    }
+
+    const correct = chosen.value === expected;
+    feedback.className = "feedback show " + (correct ? "correct" : "wrong");
+    feedback.textContent = correct
+      ? "✓ Correct! Well done! " + explanation
+      : "✗ Not quite. " + explanation;
+  };
+
+  window.speakText = function (text) {
+    if (!("speechSynthesis" in window)) {
+      alert("O seu navegador não suporta reprodução de voz.");
+      return;
+    }
+    const speak = () => {
+      const synth = window.speechSynthesis;
+      const voices = synth.getVoices() || [];
+      let candidates = voices.filter(v => /^en-GB/i.test(v.lang));
+      if (!candidates.length) candidates = voices.filter(v => /^en/i.test(v.lang));
+      const voice = candidates[0];
+      const u = new SpeechSynthesisUtterance(String(text || ""));
+      u.lang = voice?.lang || "en-GB";
+      if (voice) u.voice = voice;
+      u.rate = .9;
+      synth.cancel();
+      try { synth.resume(); } catch (e) {}
+      setTimeout(() => {
+        try { synth.resume(); synth.speak(u); }
+        catch (e) { alert("Não foi possível reproduzir o áudio."); }
+      }, 80);
+    };
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices && voices.length) speak();
+    else {
+      let done = false;
+      const onVoices = () => {
+        if (done) return;
+        done = true;
+        speechSynthesis.removeEventListener("voiceschanged", onVoices);
+        speak();
+      };
+      speechSynthesis.addEventListener("voiceschanged", onVoices);
+      setTimeout(() => {
+        if (!done) {
+          done = true;
+          speechSynthesis.removeEventListener("voiceschanged", onVoices);
+          speak();
+        }
+      }, 500);
+    }
+  };
+
+  function initAddLesson() {
+    const form = document.getElementById("addLessonForm");
+    if (!form) return;
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const lesson = {
+        unit: document.getElementById("newUnit")?.value.trim() || "",
+        title: document.getElementById("newTitle")?.value.trim() || "",
+        objective: document.getElementById("newObjective")?.value.trim() || "",
+        content: document.getElementById("newContent")?.value.trim() || "",
+        example: "",
+        questions: []
+      };
+      if (!lesson.unit || !lesson.title) return;
+
+      let extra = [];
+      try {
+        extra = JSON.parse(localStorage.getItem("tiago_extra_lessons") || "[]");
+      } catch (e) {}
+
+      extra.push(lesson);
+      localStorage.setItem("tiago_extra_lessons", JSON.stringify(extra));
+      form.reset();
+      document.getElementById("lessonSaved")?.classList.add("show");
+      renderCourseLessons();
+      setTimeout(() => document.getElementById("lessonSaved")?.classList.remove("show"), 2500);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCourseLessons();
+    initAddLesson();
+  });
+})();
+
+
+
+/* =========================================================
+   CORE 3 — NAVIGATION
+   One controller for all app views and practice pages.
+   ========================================================= */
+(function () {
+  const practiceViews = new Set([
+    "pratica","vocabPractice","grammarPractice","listeningPractice",
+    "writingPractice","translationPractice"
+  ]);
+
+  function closeDrawer() {
+    const menu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("drawerOverlay");
+    const toggle = document.getElementById("menuToggle");
+    menu?.classList.remove("open");
+    overlay?.classList.remove("open");
+    toggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function openView(id, targetId) {
+    const dashboard = document.getElementById("dashboard");
+    document.querySelectorAll(".app-view").forEach(view => view.classList.remove("active"));
+
+    if (id === "dashboard") {
+      if (dashboard) dashboard.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      closeDrawer();
+      return false;
+    }
+
+    if (dashboard) dashboard.style.display = "none";
+
+    const view = document.getElementById(id);
+    if (!view) {
+      console.warn("View not found:", id);
+      closeDrawer();
+      return false;
+    }
+
+    view.classList.add("active");
+    closeDrawer();
+
+    setTimeout(() => {
+      const target = targetId ? document.getElementById(targetId) : view;
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 30);
+
+    return false;
+  }
+
+  window.showView = function (id, targetId) {
+    return openView(id, targetId);
+  };
+
+  window.openPracticeView = function (id) {
+    return openView(id);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const dashboard = document.getElementById("dashboard");
+    if (dashboard) dashboard.style.display = "block";
+
+    document.querySelectorAll("#sideMenu a[data-view]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        const id = link.dataset.view;
+        const href = link.getAttribute("href") || "";
+        const targetId = href.startsWith("#unit") ? href.slice(1) : null;
+        openView(id, targetId);
+      });
+    });
+
+    document.querySelectorAll(".practice-open").forEach(button => {
+      const match = (button.getAttribute("onclick") || "").match(/showView\(['"]([^'"]+)['"]\)/);
+      if (!match) return;
+      button.removeAttribute("onclick");
+      button.addEventListener("click", () => openView(match[1]));
+    });
+  });
+})();
+
+
+
+  // Volume dos sons de feedback usados no menu Praticar e nas aulas.
+  document.addEventListener('DOMContentLoaded',function(){
+    ['correct-sound','wrong-sound'].forEach(function(id){
+      const a=document.getElementById(id);
+      if(a){a.volume=1.0;a.muted=false;}
+    });
+  });
+
+
+
 
 let currentQuiz = [];
 let currentQuestion = 0;
@@ -1167,68 +2325,9 @@ function nextQuestion() {
     scoreEl.textContent = `Você acertou ${score} de ${currentQuiz.length} questões.`;
   }
 }
-</script>
-<script>
-/* ===== FUNÇÕES DA TIAGO ENGLISH ACADEMY ===== */
-const academyKey = "tiagoAcademyProgress";
-let academyProgress = JSON.parse(localStorage.getItem(academyKey) || '{"lessons":0,"xp":0}');
-function saveAcademy(){localStorage.setItem(academyKey,JSON.stringify(academyProgress));updateAcademyProgress();}
-function updateAcademyProgress(){
-  const lessons=Math.min(32,academyProgress.lessons);
-  const pct=(lessons/32)*100;
-  document.getElementById("lessonProgressText").textContent=`${lessons} de 32 aulas concluídas`;
-  document.getElementById("xpText").textContent=`${academyProgress.xp} XP`;
-  document.getElementById("levelText").textContent=`Nível ${Math.floor(academyProgress.xp/250)+1}`;
-  document.getElementById("courseProgressBar").style.width=pct+"%";
-}
-function markLessonComplete(){
-  if(academyProgress.lessons<32){academyProgress.lessons++;academyProgress.xp+=50;saveAcademy();alert(`Aula ${academyProgress.lessons} concluída! +50 XP`);}
-  else alert("Parabéns! Você concluiu as 32 aulas.");
-}
-function resetAcademyProgress(){if(confirm("Tem certeza que deseja reiniciar o progresso?")){academyProgress={lessons:0,xp:0};saveAcademy();}}
-function speakAcademy(text){if(!("speechSynthesis" in window)){alert("O seu navegador não suporta áudio de voz.");return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";speechSynthesis.speak(u);}
-function toggleChallenge(el){el.classList.toggle("done");}
-const flashcards=[
- ["Achieve","Alcançar / Conseguir"],["Improve","Melhorar"],["Journey","Jornada / Viagem"],["Confident","Confiante"],["Challenge","Desafio"],["Opportunity","Oportunidade"],["Knowledge","Conhecimento"],["Practice","Prática"],["Environment","Ambiente"],["Experience","Experiência"]
-];
-let flashIndex=0,flashFront=true;
-function renderFlash(){document.getElementById("flashWord").textContent=flashcards[flashIndex][0];document.getElementById("flashMeaning").textContent=flashcards[flashIndex][1];document.getElementById("flashMeaning").classList.add("hidden");flashFront=true;}
-function flipFlashcard(){flashFront=!flashFront;document.getElementById("flashMeaning").classList.toggle("hidden",flashFront);}
-function nextFlashcard(){flashIndex=(flashIndex+1)%flashcards.length;renderFlash();}
-function speakFlashcard(){speakAcademy(flashcards[flashIndex][0]);}
-const wordDays=[
-["Improve","/ɪmˈpruːv/","melhorar","I want to improve my English."],
-["Achieve","/əˈtʃiːv/","alcançar / conseguir","You can achieve your goals."],
-["Learn","/lɜːrn/","aprender","I learn English every day."],
-["Speak","/spiːk/","falar","I want to speak English confidently."],
-["Practice","/ˈpræk.tɪs/","praticar","Practice makes progress."]
-];
-const dayData=wordDays[new Date().getDate()%wordDays.length];
-document.getElementById("wordDayWord").textContent=dayData[0];document.getElementById("wordDayPron").textContent=dayData[1];document.getElementById("wordDayMeaning").textContent=dayData[2];document.getElementById("wordDayExample").textContent=dayData[3];
 
-let mediaRecorder,recordChunks=[];
-function stopRecording(){if(mediaRecorder&&mediaRecorder.state!=="inactive")mediaRecorder.stop();document.getElementById("startRecordBtn").classList.remove("hidden");document.getElementById("stopRecordBtn").classList.add("hidden");}
 
-const levelQuestions=[
- {q:"Choose the correct sentence:",o:["I am a teacher.","I is a teacher.","I are a teacher."],a:0,points:1},
- {q:"What is the past of 'go'?",o:["goed","went","goes"],a:1,points:1},
- {q:"Choose the correct sentence:",o:["She is studying now.","She studying now.","She are studying now."],a:0,points:1},
- {q:"Which sentence talks about an experience?",o:["I have visited Maputo.","I visit Maputo every day.","I am visiting Maputo now."],a:0,points:2},
- {q:"Choose the best connector: I was tired, ___ I finished my homework.",o:["but","because","or"],a:0,points:2},
- {q:"Choose the correct sentence:",o:["He has lived here for five years.","He live here for five years.","He living here for five years."],a:0,points:2},
- {q:"What does 'improve' mean?",o:["melhorar","esquecer","parar"],a:0,points:1},
- {q:"Choose the most natural question:",o:["Where do you live?","Where you do live?","Where are you live?"],a:0,points:1}
-];
-let levelIndex=0,levelScore=0;
-function renderLevel(){
- if(levelIndex>=levelQuestions.length){let level=levelScore<=3?"A1 — Iniciante":levelScore<=7?"A2 — Elementar":"B1 — Pré-Intermediário";document.getElementById("levelQuestion").textContent="Teste concluído!";document.getElementById("levelOptions").innerHTML="";document.getElementById("levelResult").innerHTML=`<div class="result-box">Seu resultado estimado: <strong>${level}</strong><br>Pontuação: ${levelScore}/${levelQuestions.reduce((s,x)=>s+x.points,0)}<br><small>Este teste é apenas uma estimativa. Para uma avaliação mais completa, faça as atividades do curso.</small></div>`;return;}
- const item=levelQuestions[levelIndex];document.getElementById("levelQuestion").textContent=`${levelIndex+1}. ${item.q}`;const box=document.getElementById("levelOptions");box.innerHTML="";
- item.o.forEach((opt,i)=>{const b=document.createElement("button");b.className="level-option";b.textContent=opt;b.onclick=()=>{if(i===item.a)levelScore+=item.points;levelIndex++;renderLevel();};box.appendChild(b);});
-}
-renderLevel();renderFlash();updateAcademyProgress();
-</script>
-<footer class="site-footer"><p>© 2026 Tiago Missace English Academy. Todos os direitos reservados. | Professor: Tiago António Missace</p></footer>
-<script>
+
 (function(){
   const header=document.querySelector('header');
   let lastScroll=0;
@@ -1241,8 +2340,9 @@ renderLevel();renderFlash();updateAcademyProgress();
     lastScroll=currentScroll;
   });
 })();
-</script>
-<script>
+
+
+
     const menuToggle=document.getElementById('menuToggle');
     const sideMenu=document.getElementById('sideMenu');
     const drawerOverlay=document.getElementById('drawerOverlay');
@@ -1253,323 +2353,388 @@ renderLevel();renderFlash();updateAcademyProgress();
     document.querySelectorAll('.side-menu a').forEach(a=>a.addEventListener('click',closeSideMenu));
     document.querySelectorAll('.submenu-toggle').forEach(btn=>btn.addEventListener('click',()=>{btn.nextElementSibling.classList.toggle('open');}));
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSideMenu();});
-  </script>
-<script>
+  
+
 (function(){
-  function closeMenuSafe(){
-    const sm=document.getElementById('sideMenu');
-    const ov=document.getElementById('drawerOverlay');
-    const mt=document.getElementById('menuToggle');
-    if(sm) sm.classList.remove('open');
-    if(ov) ov.classList.remove('open');
-    if(mt) mt.setAttribute('aria-expanded','false');
-    document.body.style.overflow='';
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+  function findData(title){
+    const lessons = window.ACADEMY_DATA.lessons || [];
+    return lessons.find(l => l.title === title) || null;
+  }
+  const lessonProgressKey = window.AcademyProgress.key;
+  const readLessonProgress = window.AcademyProgress.read;
+  const saveLessonProgress = window.AcademyProgress.save;
+
+  function updateLessonProgressUI(uid,key,total){
+    const answered=readLessonProgress(key);
+    const count=Math.min(answered.length,total);
+    const pct=total ? Math.round((count/total)*100) : 0;
+    const study=document.querySelector(`.lesson-study[data-progress-key="${CSS.escape(key)}"]`);
+    const scope=study || document;
+    const wrap=scope.querySelector(`[data-progress-ui="study"]`);
+    if(wrap){
+      const text=wrap.querySelector('.lesson-progress-text');
+      const fill=wrap.querySelector('.lesson-progress-fill');
+      const status=wrap.querySelector('.lesson-progress-status');
+      if(text) text.textContent=`Progresso: ${count}/${total}`;
+      if(fill) fill.style.width=pct+'%';
+      if(status) status.style.display=(count>=total && total>0)?'inline':'none';
+    }
+    document.querySelectorAll('.lesson-enhanced').forEach(card=>{
+      if(card.dataset.progressKey!==key)return;
+      const text=card.querySelector('.lesson-progress-text');
+      const fill=card.querySelector('.lesson-progress-fill');
+      const status=card.querySelector('.lesson-progress-status');
+      if(text) text.textContent=`Progresso: ${count}/${total}`;
+      if(fill) fill.style.width=pct+'%';
+      if(status) status.style.display=(count>=total && total>0)?'inline':'none';
+      card.classList.toggle('lesson-completed',count>=total && total>0);
+    });
+    return {count,total,pct,completed:count>=total && total>0};
   }
 
-  window.showView=function(id, targetId){
-    const dashboard=document.getElementById('dashboard');
-    document.querySelectorAll('.app-view').forEach(v=>v.classList.remove('active'));
-    if(id==='dashboard'){
-      if(dashboard) dashboard.style.display='block';
-      document.querySelectorAll('.app-view').forEach(v=>v.classList.remove('active'));
-      window.scrollTo({top:0,behavior:'smooth'});
-      return;
+  function buildStudy(l, uid){
+    const d=findData(l.title) || {
+      title:lessonKey(l.title),
+      purpose:l.objective||'Compreender e praticar o tema desta aula.',
+      explanation:l.content||'Leia atentamente o conteúdo da aula e observe o exemplo.',
+      points:[l.objective||'Learning objective'],
+      example:l.example||'',
+      qs:[['Qual é o objetivo principal desta aula?',[l.objective||'Aprender o tema','Ignorar o tema','Saltar a aula'],0,'Reveja o objetivo apresentado no início da aula.']]
+    };
+
+    const questions=(d.questions || []).map(q => [q.question,q.options,q.answer,q.explanation]);
+    const firstQuestion = questions.length ? renderLessonQuestion(uid, questions, 0) : '<p>Não há exercícios disponíveis para esta aula.</p>';
+    const progressKey = lessonProgressKey(l.title || uid);
+
+    return `<div class="lesson-study" data-progress-key="${esc(progressKey)}" data-question-index="0" data-total-questions="${questions.length}">
+      <h4> Explicação da aula</h4>
+      <div class="lesson-progress-wrap" data-progress-ui="study">
+        <div class="lesson-progress-row"><span class="lesson-progress-text">Progresso: 0/${questions.length}</span><span class="lesson-progress-status">✓ Concluído</span></div>
+        <div class="lesson-progress-bar"><div class="lesson-progress-fill"></div></div>
+      </div>
+      <div class="lesson-section"><h5> O que você vai aprender</h5><p>${esc(d.purpose)}</p></div>
+      <div class="lesson-section"><h5> Explicação clara</h5><p>${esc(d.explanation)}</p></div>
+      <div class="lesson-section"><h5> Pontos principais</h5><div class="lesson-keypoints">${d.points.map(x=>`<div class="lesson-keypoint">${esc(x)}</div>`).join('')}</div></div>
+      <div class="lesson-section lesson-example"><h5> Exemplo</h5><p><strong>${esc(d.example)}</strong></p><button type="button" class="small-btn green lesson-audio-btn">🔊 Ouvir exemplo</button></div>
+      <div class="lesson-actions-enhanced">
+        <button type="button" class="small-btn lesson-exercise-btn" onclick="openLessonExercises('${uid}')"> Fazer exercícios</button>
+      </div>
+      <div class="lesson-practice-box" id="${uid}_practice" style="display:none" data-questions='${esc(JSON.stringify(questions))}'>
+        <div class="lesson-practice-head">
+          <div><h4> Exercícios desta aula</h4><p class="lesson-practice-intro">Responda a uma pergunta de cada vez com base na explicação acima.</p></div>
+          <span class="lesson-question-counter" id="${uid}_counter">Questão 1 de ${questions.length}</span>
+        </div>
+        <div class="lesson-single-question" id="${uid}_question">${firstQuestion}</div>
+        <div class="lesson-reference" id="${uid}_reference" style="display:none"><strong> Referência:</strong> <span>Use a explicação e o exemplo apresentados nesta aula para rever a regra.</span></div>
+        <button type="button" class="small-btn green lesson-next-btn" id="${uid}_next" style="display:none">➡ Próxima pergunta</button>
+      </div>
+      <div class="lesson-complete-note" id="${uid}_done">✓ Excelente! Você concluiu os exercícios desta aula.</div>
+    </div>`;
+  }
+
+  function renderLessonQuestion(uid, questions, index){
+    const q=questions[index];
+    if(!q) return '';
+    const qid=uid+'_q'+index;
+    return `<div class="lesson-question" id="${qid}" data-index="${index}">
+      <div class="lesson-question-number">Pergunta ${index+1}</div>
+      <p>${esc(q[0])}</p>
+      <div class="lesson-options">${q[1].map((op,j)=>`<button type="button" class="lesson-option" data-correct="${j===q[2]}" onclick='lessonAnswer(this,"${qid}",${j===q[2]},${esc(JSON.stringify(q[3]))},"${uid}",${index})'>${String.fromCharCode(65+j)}. ${esc(op)}</button>`).join('')}</div>
+      <div class="lesson-feedback"></div>
+    </div>`;
+  }
+
+  window.openLessonExercises=function(uid){
+    const box=document.getElementById(uid+'_practice');
+    if(!box)return;
+
+    const study=box.closest('.lesson-study');
+    if(study){
+      // Keep only one visible layer: hide the lesson explanation while
+      // the exercise is active.
+      study.querySelectorAll('.lesson-section, .lesson-actions-enhanced').forEach(el=>{
+        el.style.display='none';
+      });
     }
-    if(dashboard) dashboard.style.display='none';
-    const view=document.getElementById(id);
-    if(view){
-      view.classList.add('active');
-      setTimeout(()=>{
-        if(targetId){
-          const target=document.getElementById(targetId);
-          if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
-          else view.scrollIntoView({behavior:'smooth',block:'start'});
-        } else {
-          view.scrollIntoView({behavior:'smooth',block:'start'});
+
+    box.style.display='block';
+
+    const questions=JSON.parse(box.dataset.questions||'[]');
+    const key=study?.dataset.progressKey || lessonProgressKey(uid);
+    const answered=readLessonProgress(key);
+    let startIndex=0;
+    while(startIndex<questions.length && answered.includes(startIndex)) startIndex++;
+    if(startIndex>=questions.length) startIndex=Math.max(0,questions.length-1);
+    if(study) study.dataset.questionIndex=String(startIndex);
+    const qHost=document.getElementById(uid+'_question');
+    if(qHost) qHost.innerHTML=renderLessonQuestion(uid,questions,startIndex);
+
+    const counter=document.getElementById(uid+'_counter');
+    if(counter) counter.textContent=questions.length ? `Questão ${startIndex+1} de ${questions.length}` : 'Sem exercícios';
+
+    const next=document.getElementById(uid+'_next');
+    if(next) next.style.display='none';
+
+    const ref=document.getElementById(uid+'_reference');
+    if(ref) ref.style.display='none';
+
+    // Scroll the same exercise area into view. No new overlay or second
+    // page is created.
+    box.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  window.lessonAnswer=function(btn,qid,correct,explanation,uid,index){
+    const q=document.getElementById(qid); if(!q)return;
+    q.querySelectorAll('.lesson-option').forEach(b=>b.disabled=true);
+    q.querySelectorAll('.lesson-option').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct')});
+    if(!correct)btn.classList.add('wrong');
+    const fb=q.querySelector('.lesson-feedback');
+    fb.className='lesson-feedback show '+(correct?'correct':'wrong');
+    fb.innerHTML=(correct?'✓ <strong>Correct!</strong> ':'✗ <strong>Vamos rever.</strong> ') + esc(explanation);
+    if(correct){q.classList.add('correct-pulse')}else{q.classList.add('wrong-shake')}
+    // Play immediate audio feedback after the learner's click.
+    if(typeof window.lessonFeedbackSound==='function') window.lessonFeedbackSound(correct);
+
+    const box=document.getElementById(uid+'_practice');
+    const questions=JSON.parse(box?.dataset.questions||'[]');
+    const study=box?.closest('.lesson-study');
+    const progressKey=study?.dataset.progressKey || lessonProgressKey(uid);
+    const answered=readLessonProgress(progressKey);
+    if(!answered.includes(index)){
+      answered.push(index);
+      saveLessonProgress(progressKey,answered);
+    }
+    const state=updateLessonProgressUI(uid,progressKey,questions.length);
+    if(state.completed){
+      const done=document.getElementById(uid+'_done');
+      if(done){
+        done.innerHTML='✓ <strong>Aula concluída!</strong> Você resolveu todos os exercícios desta aula.';
+        done.classList.add('show');
+      }
+
+      // Automatically update "Meu Progresso" as soon as the last exercise
+      // of this lesson is answered.
+      if(typeof window.syncAcademyProgressFromLessons==='function'){
+        window.syncAcademyProgressFromLessons();
+      }
+    }
+    const ref=document.getElementById(uid+'_reference');
+    if(ref){
+      ref.style.display='block';
+      ref.querySelector('span').textContent=explanation+' Reveja a explicação e o exemplo desta aula antes de continuar.';
+    }
+    const next=document.getElementById(uid+'_next');
+    if(next){
+      if(index < questions.length-1){
+        next.style.display='inline-flex';
+        next.textContent='➡ Próxima pergunta';
+        next.onclick=function(){
+          const qHost=document.getElementById(uid+'_question');
+          if(qHost) qHost.innerHTML=renderLessonQuestion(uid,questions,index+1);
+          const counter=document.getElementById(uid+'_counter');
+          if(counter) counter.textContent=`Questão ${index+2} de ${questions.length}`;
+          next.style.display='none';
+          if(ref) ref.style.display='none';
+          if(qHost) qHost.scrollIntoView({behavior:'smooth',block:'start'});
+        };
+      } else {
+        next.style.display='none';
+        const done=document.getElementById(uid+'_done');
+        if(done){
+          done.innerHTML='✓ <strong>Aula concluída!</strong> Você resolveu todos os exercícios desta aula.';
+          done.classList.add('show');
         }
-      },30);
+        updateLessonProgressUI(uid,progressKey,questions.length);
+      }
     }
-    closeMenuSafe();
   };
 
-  document.addEventListener('DOMContentLoaded',function(){
-    const dashboard=document.getElementById('dashboard');
-    if(dashboard) dashboard.style.display='block';
-
-    document.querySelectorAll('.side-menu a[data-view]').forEach(a=>{
-      a.addEventListener('click',function(e){
-        e.preventDefault();
-        const id=this.dataset.view;
-        let targetId=null;
-        const href=this.getAttribute('href')||'';
-        if(href.startsWith('#unit')) targetId=href.slice(1);
-        showView(id,targetId);
-      });
-    });
-
-    document.querySelectorAll('.submenu-toggle').forEach(btn=>{
-      btn.addEventListener('click',()=>btn.nextElementSibling.classList.toggle('open'));
-    });
+  document.addEventListener('click',function(e){
+    const audioBtn=e.target.closest('.lesson-audio-btn');
+    if(!audioBtn)return;
+    const example=audioBtn.closest('.lesson-study')?.querySelector('.lesson-example strong')?.textContent||'';
+    if(example) speakText(example);
   });
+
+  function enhanceCards(){
+    const cards=document.querySelectorAll('#courseLessons .lesson-card');
+    cards.forEach((card,index)=>{
+      if(card.dataset.lessonEnhanced==='1')return;
+      const title=card.querySelector('h4')?.textContent?.trim(); if(!title)return;
+      card.dataset.lessonEnhanced='1';card.classList.add('lesson-enhanced');
+      const progressKey=lessonProgressKey(title);
+      card.dataset.progressKey=progressKey;
+      const existingProgress=card.querySelector('.lesson-progress-wrap');
+      if(!existingProgress){
+        const wrap=document.createElement('div');
+        wrap.className='lesson-progress-wrap';
+        wrap.innerHTML='<div class="lesson-progress-row"><span class="lesson-progress-text">Progresso: 0/3</span><span class="lesson-progress-status">✓ Concluído</span></div><div class="lesson-progress-bar"><div class="lesson-progress-fill"></div></div>';
+        card.appendChild(wrap);
+      }
+      const oldContent=card.querySelector('.lesson-content');
+      if(oldContent){
+        oldContent.classList.remove('open');
+        oldContent.innerHTML=buildStudy({title,objective:card.querySelector('.lesson-meta span')?.textContent?.replace(/^ \s*/,'')||'',content:'',example:''},'lessonStudy'+index);
+        const study=oldContent.querySelector('.lesson-study');
+        const total=Number(study?.dataset.totalQuestions||3);
+        updateLessonProgressUI('lessonStudy'+index,progressKey,total);
+      }
+      const openBtn=[...card.querySelectorAll('button')].find(b=>/Abrir aula/i.test(b.textContent));
+      const progressQuestions=oldContent?.querySelector('.lesson-practice-box')?.dataset.questions;
+      const progressTotal=progressQuestions ? JSON.parse(progressQuestions).length : 3;
+      updateLessonProgressUI('lessonStudy'+index,progressKey,progressTotal);
+      if(openBtn){
+        const old=oldContent;
+
+        openBtn.onclick=function(){
+          const win=document.getElementById('lessonWindow');
+          const inner=document.getElementById('lessonWindowInner');
+          const titleHost=document.getElementById('lessonWindowTitle');
+          const subtitleHost=document.getElementById('lessonWindowSubtitle');
+
+          if(!win || !inner) return;
+
+          // Only one copy of the lesson exists at a time. We temporarily move
+          // the lesson content from the course list into the dedicated window.
+          const lessonHTML=old.innerHTML;
+          old.innerHTML='';
+          old.classList.remove('open');
+
+          inner.innerHTML=lessonHTML;
+
+          const lessonTitle=card.querySelector('h4')?.textContent?.trim() || 'Aula de Inglês';
+          const objective=card.querySelector('.lesson-meta span')?.textContent?.trim() || 'Aprenda e pratique o conteúdo desta aula.';
+
+          if(titleHost) titleHost.textContent=lessonTitle;
+          if(subtitleHost) subtitleHost.textContent=objective;
+
+          win.classList.add('open');
+          win.setAttribute('aria-hidden','false');
+          document.body.classList.add('lesson-window-active');
+
+          // Restore the saved progress inside the moved lesson.
+          const study=inner.querySelector('.lesson-study');
+          const practice=inner.querySelector('.lesson-practice-box');
+          let total=0;
+          try{
+            total=practice ? JSON.parse(practice.dataset.questions||'[]').length : 0;
+          }catch(e){ total=0; }
+
+          if(study && total){
+            const key=study.dataset.progressKey || progressKey;
+            updateLessonProgressUI('lessonStudy'+index,key,total);
+
+            const answered=readLessonProgress(key);
+            const count=Math.min(answered.length,total);
+            const done=inner.querySelector('.lesson-complete-note');
+
+            if(done){
+              if(count>=total){
+                done.innerHTML='✓ <strong>Aula concluída!</strong> Você resolveu todos os exercícios desta aula.';
+                done.classList.add('show');
+              }else{
+                done.classList.remove('show');
+              }
+            }
+          }
+
+          setTimeout(()=>{
+            document.getElementById('lessonWindowBody')?.scrollTo?.({top:0});
+            win.querySelector('.lesson-window-body')?.scrollTo({top:0});
+          },30);
+        };
+      }    });
+  }
+
+
+  window.closeLessonWindow=function(){
+    const win=document.getElementById('lessonWindow');
+    const inner=document.getElementById('lessonWindowInner');
+    if(!win || !inner) return;
+
+    const activeStudy=inner.querySelector('.lesson-study');
+    const activePractice=inner.querySelector('.lesson-practice-box');
+
+    // Put the current lesson back into its original card so its state/progress
+    // remains available when the learner opens it again.
+    const cards=document.querySelectorAll('#courseLessons .lesson-card');
+    let target=null;
+
+    cards.forEach(card=>{
+      if(!target && card.dataset.progressKey &&
+         activeStudy &&
+         card.dataset.progressKey===activeStudy.dataset.progressKey){
+        target=card;
+      }
+    });
+
+    if(!target && activeStudy){
+      target=[...cards].find(card=>card.querySelector('.lesson-content')) || null;
+    }
+
+    if(target){
+      const content=target.querySelector('.lesson-content');
+      if(content){
+        content.innerHTML=inner.innerHTML;
+        content.classList.remove('open');
+      }
+    }
+
+    inner.innerHTML='';
+    win.classList.remove('open');
+    win.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lesson-window-active');
+
+    // Refresh the lesson card progress immediately after closing.
+    if(typeof window.refreshAllLessonProgress==='function'){
+      window.refreshAllLessonProgress();
+    }
+
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  document.getElementById('lessonWindowClose')?.addEventListener('click',window.closeLessonWindow);
+
+  function hookRender(){
+    const original=window.renderCourseLessons;
+    if(typeof original!=='function')return false;
+    if(original.__lessonV10)return true;
+    function wrapped(){
+      original();
+      setTimeout(()=>{
+        enhanceCards();
+        document.querySelectorAll('#courseLessons .lesson-card').forEach((card,index)=>{
+          const key=card.dataset.progressKey;
+          const practice=card.querySelector('.lesson-practice-box');
+          if(!key || !practice)return;
+          let total=0;
+          try{ total=JSON.parse(practice.dataset.questions||'[]').length; }catch(e){}
+          if(total) updateLessonProgressUI('lessonStudy'+index,key,total);
+        });
+      },0);
+    }
+    wrapped.__lessonV10=true;
+    window.renderCourseLessons=wrapped;
+    return true;
+  }
+
+  window.refreshAllLessonProgress=function(){
+    document.querySelectorAll('#courseLessons .lesson-card').forEach((card,index)=>{
+      const key=card.dataset.progressKey;
+      const practice=card.querySelector('.lesson-practice-box');
+      if(!key || !practice)return;
+      let total=0;
+      try{ total=JSON.parse(practice.dataset.questions||'[]').length; }catch(e){}
+      if(total) updateLessonProgressUI('lessonStudy'+index,key,total);
+    });
+  };
+
+  const wait=setInterval(()=>{if(hookRender()){clearInterval(wait);enhanceCards();}},50);
+  document.addEventListener('DOMContentLoaded',()=>{hookRender();setTimeout(enhanceCards,120);});
 })();
-</script><script>
-/* ===== V4 INTERACTIVE FEATURES ===== */
-(function(){
-  const baseLessons = [
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 1 — Greetings & Introductions", objective:"Learn to greet people and introduce yourself.", content:"Key language: Hello, Hi, Good morning, Good afternoon, Good evening, My name is..., I am..., Nice to meet you.", example:"Hello! My name is Tiago. Nice to meet you."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 2 — Alphabet A–Z", objective:"Recognise and pronounce the English alphabet.", content:"Practise A–Z, spelling names and asking: How do you spell it?", example:"How do you spell your name? — T-I-A-G-O."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 3 — Numbers 0–20", objective:"Use numbers in everyday communication.", content:"Practise 0–20, ages, telephone numbers and simple quantities.", example:"I am twenty-five years old."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 4 — Verb To Be", objective:"Use am, is and are correctly.", content:"I am, you are, he is, she is, it is, we are, they are.", example:"She is a teacher. They are students."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 5 — Personal Information", objective:"Give and ask for basic personal information.", content:"Name, age, country, city, job and contact information.", example:"Where are you from? — I am from Mozambique."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 6 — Classroom English", objective:"Understand common classroom instructions.", content:"Listen, repeat, open your book, close your book, work in pairs, answer the question.", example:"Please open your book."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 7 — Review & Speaking", objective:"Review Unit 1 and practise a short introduction.", content:"Combine greetings, personal information, numbers and the verb to be.", example:"Hello. My name is Ana. I am from Tete. I am a student."},
-    {unit:"Unit 1 — Fundamentals of English", title:"Lesson 8 — Unit Test", objective:"Check understanding of Unit 1.", content:"Review vocabulary, grammar and communication from Lessons 1–7.", example:"Complete the unit test in the Quiz section."},
 
-    {unit:"Unit 2 — Everyday English", title:"Lesson 9 — Family & Relationships", objective:"Talk about family members.", content:"mother, father, sister, brother, husband, wife, son, daughter.", example:"This is my sister."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 10 — My House", objective:"Describe rooms and common objects.", content:"house, bedroom, kitchen, bathroom, living room and basic household objects.", example:"There is a table in the kitchen."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 11 — Daily Routine", objective:"Talk about everyday routines.", content:"wake up, get up, have breakfast, go to work, study, have dinner, go to bed.", example:"I get up at six o'clock."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 12 — Present Simple", objective:"Use the Present Simple for routines and facts.", content:"Affirmative, negative and questions with do/does.", example:"She works at a school. Does he work here?"},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 13 — Present Continuous", objective:"Talk about actions happening now.", content:"am/is/are + verb-ing.", example:"I am studying English now."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 14 — Food & Shopping", objective:"Use English in simple shopping situations.", content:"food vocabulary, prices, quantities and polite requests.", example:"How much is this? — It is 200 meticais."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 15 — Likes & Preferences", objective:"Talk about things you like and dislike.", content:"like, love, enjoy, don't like, hate + everyday vocabulary.", example:"I enjoy listening to English."},
-    {unit:"Unit 2 — Everyday English", title:"Lesson 16 — Unit Test", objective:"Check understanding of Unit 2.", content:"Review family, home, routines, Present Simple, Present Continuous and shopping.", example:"Complete the unit test in the Quiz section."},
 
-    {unit:"Unit 3 — Communication", title:"Lesson 17 — Past Simple", objective:"Talk about completed actions in the past.", content:"Regular and common irregular verbs; affirmative, negative and questions.", example:"I visited my friend yesterday. Did you go to school?"},
-    {unit:"Unit 3 — Communication", title:"Lesson 18 — Past Continuous", objective:"Describe actions in progress in the past.", content:"was/were + verb-ing.", example:"I was studying when he called."},
-    {unit:"Unit 3 — Communication", title:"Lesson 19 — Future with Will", objective:"Talk about predictions and decisions.", content:"will + base verb; short answers and contractions.", example:"I will help you."},
-    {unit:"Unit 3 — Communication", title:"Lesson 20 — Going To", objective:"Talk about plans and intentions.", content:"am/is/are going to + base verb.", example:"I am going to study tonight."},
-    {unit:"Unit 3 — Communication", title:"Lesson 21 — Can & Could", objective:"Express ability and make polite requests.", content:"can for present ability; could for past ability and polite requests.", example:"Could you help me, please?"},
-    {unit:"Unit 3 — Communication", title:"Lesson 22 — Should & Must", objective:"Express advice and obligation.", content:"should for advice; must for strong obligation.", example:"You should practise every day. You must be on time."},
-    {unit:"Unit 3 — Communication", title:"Lesson 23 — Real-Life Conversations", objective:"Practise practical everyday conversations.", content:"Greetings, shopping, asking for directions and making requests.", example:"Excuse me, could you tell me where the bank is?"},
-    {unit:"Unit 3 — Communication", title:"Lesson 24 — Unit Test", objective:"Check understanding of Unit 3.", content:"Review past, future, modal verbs and real-life communication.", example:"Complete the unit test in the Quiz section."},
-
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 25 — Present Perfect", objective:"Talk about experiences and recent events.", content:"have/has + past participle; ever, never, already, yet.", example:"I have visited Maputo."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 26 — Comparatives", objective:"Compare people, places and things.", content:"short and long adjective comparatives; than.", example:"English is easier than I expected."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 27 — Adjectives & Adverbs", objective:"Describe people, actions and situations.", content:"Adjectives describe nouns; adverbs describe actions and manner.", example:"She is a careful driver. She drives carefully."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 28 — Determiners & Quantifiers", objective:"Use words that describe quantity and reference.", content:"a/an, the, some, any, much, many, a lot of, few, little.", example:"There are many students in the class."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 29 — Connectors", objective:"Connect ideas clearly.", content:"and, but, because, so, although and other common connectors.", example:"I study English because I want to communicate better."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 30 — Reading Strategies", objective:"Improve reading comprehension.", content:"Skimming, scanning, predicting meaning from context and identifying key ideas.", example:"Read the title first and predict what the text is about."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 31 — Speaking & Writing", objective:"Produce connected spoken and written English.", content:"Organise ideas, use connectors, give opinions and describe experiences.", example:"In my opinion, learning English is important because..."},
-    {unit:"Unit 4 — Pre-Intermediate", title:"Lesson 32 — Final Review & Test", objective:"Review the complete course and prepare for the final test.", content:"Review vocabulary, grammar, listening, reading, speaking and writing.", example:"Complete the final assessment and review your progress."}
-  ];
-
-  function escapeHTML(s){
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  }
-
-  function loadLessons(){
-    let extra=[];
-    try { extra=JSON.parse(localStorage.getItem('tiago_extra_lessons')||'[]'); } catch(e){}
-    return baseLessons.concat(extra);
-  }
-
-  window.renderCourseLessons=function(){
-    const host=document.getElementById('courseLessons');
-    if(!host) return;
-    const lessons=loadLessons();
-    const groups={};
-    lessons.forEach(l=>(groups[l.unit]??=[]).push(l));
-    host.innerHTML='';
-    Object.keys(groups).forEach(unit=>{
-      const section=document.createElement('div');
-      section.className='course-unit';
-      section.innerHTML='<h3 style="color:#063a78;margin-top:24px">'+escapeHTML(unit)+'</h3>';
-      groups[unit].forEach((l,i)=>{
-        const id='lesson_'+Math.random().toString(36).slice(2);
-        const card=document.createElement('article');
-        card.className='lesson-card';
-        card.innerHTML=`
-          <h4>${escapeHTML(l.title)}</h4>
-          <div class="lesson-meta"><span> ${escapeHTML(l.objective||'Learning objective')}</span><span>🇬🇧 British English</span></div>
-          <div class="lesson-actions">
-            <button class="small-btn" type="button" onclick="toggleLesson('${id}')"> Abrir aula</button>
-            <button class="small-btn green" type="button" onclick="speakText('${escapeHTML((l.example||l.content||'Welcome to your English lesson.')).replace(/'/g,'&#39;')}')">🔊 Ouvir</button>
-          </div>
-          <div class="lesson-content" id="${id}">
-            <p><strong>Objetivo:</strong> ${escapeHTML(l.objective||'')}</p>
-            <p><strong>Conteúdo:</strong> ${escapeHTML(l.content||'')}</p>
-            <p><strong>Example:</strong> <em>${escapeHTML(l.example||'')}</em></p>
-            <div class="practice-question">
-              <strong>Mini check:</strong> Você entendeu esta aula?
-              <button class="small-btn light" type="button" onclick="lessonFeedback(this,true)">✓ Sim, entendi</button>
-              <button class="small-btn light" type="button" onclick="lessonFeedback(this,false)">✗ Preciso rever</button>
-              <div class="feedback"></div>
-            </div>
-          </div>`;
-        section.appendChild(card);
-      });
-      host.appendChild(section);
-    });
-  };
-
-  window.toggleLesson=function(id){
-    const el=document.getElementById(id);
-    if(el) el.classList.toggle('open');
-  };
-
-  window.lessonFeedback=function(btn,correct){
-    const box=btn.closest('.lesson-card');
-    const feedback=box.querySelector('.feedback');
-    feedback.className='feedback show '+(correct?'correct':'wrong');
-    feedback.textContent=correct?'✓ Excelente! Você marcou que entendeu.':'↻ Tudo bem! Reveja a explicação e tente novamente.';
-    box.classList.remove('correct-pulse','wrong-shake');
-    void box.offsetWidth;
-    box.classList.add(correct?'correct-pulse':'wrong-shake');
-  };
-
-  window.checkPractice=function(boxId,name,expected,explanation){
-    const box=document.getElementById(boxId);
-    const chosen=document.querySelector('input[name="'+name+'"]:checked');
-    const feedback=box.querySelector('.feedback');
-    if(!chosen){
-      feedback.className='feedback show wrong';
-      feedback.textContent='⚠ Escolha uma resposta primeiro.';
-      box.classList.add('wrong-shake');
-      return;
-    }
-    const correct=chosen.value===expected;
-    feedback.className='feedback show '+(correct?'correct':'wrong');
-    feedback.textContent=correct?'✓ Correct! Well done! '+explanation:'✗ Not quite. '+explanation;
-    box.classList.remove('correct-pulse','wrong-shake');
-    void box.offsetWidth;
-    box.classList.add(correct?'correct-pulse':'wrong-shake');
-    updatePracticeScore();
-  };
-
-  function updatePracticeScore(){
-    const total=3;
-    let score=0;
-    ['q1','q2','q3'].forEach(n=>{
-      const checked=document.querySelector('input[name="'+n+'"]:checked');
-      const box=document.getElementById(n+'box');
-      if(checked && box.querySelector('.feedback')?.classList.contains('correct')) score++;
-    });
-    const el=document.getElementById('practiceScore');
-    if(el) el.textContent='Score: '+score+' / '+total;
-  }
-
-  window.speakText=function(text, preferredType){
-    if(!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance==='undefined'){
-      alert('O seu navegador não suporta reprodução de voz.'); return;
-    }
-    const speak=()=>{
-      const synth=window.speechSynthesis;
-      let voices=synth.getVoices()||[];
-      let candidates=voices.filter(v=>/^en-GB/i.test(v.lang));
-      if(!candidates.length) candidates=voices.filter(v=>/^en/i.test(v.lang));
-      let voice=candidates[0];
-      if(preferredType==='female') voice=candidates.find(v=>/female|woman|susan|hazel|libby|kate|samantha/i.test(v.name))||voice;
-      if(preferredType==='male') voice=candidates.find(v=>/male|man|daniel|george|oliver|arthur|ryan/i.test(v.name))||voice;
-      const u=new SpeechSynthesisUtterance(String(text||''));
-      u.lang=voice?.lang||'en-GB';
-      if(voice) u.voice=voice;
-      u.rate=.9; u.pitch=1;
-      synth.cancel();
-      // Chrome can leave speechSynthesis paused after a previous utterance.
-      try{synth.resume();}catch(e){}
-      setTimeout(()=>{try{synth.resume(); synth.speak(u);}catch(e){alert('Não foi possível reproduzir o áudio.');}},80);
-    };
-    const voices=window.speechSynthesis.getVoices();
-    if(voices && voices.length) speak();
-    else {
-      let done=false;
-      const onVoices=()=>{if(done)return;done=true;window.speechSynthesis.removeEventListener('voiceschanged',onVoices);speak();};
-      window.speechSynthesis.addEventListener('voiceschanged',onVoices);
-      setTimeout(()=>{if(!done){done=true;window.speechSynthesis.removeEventListener('voiceschanged',onVoices);speak();}},500);
-    }
-  };
-
-  window.loadBritishVoices=function(){
-    const voices=window.speechSynthesis?.getVoices?.()||[];
-    const gb=voices.filter(v=>/^en-GB/i.test(v.lang));
-    const all=gb.length?gb:voices.filter(v=>/^en/i.test(v.lang));
-    ['maleBritishVoice','femaleBritishVoice'].forEach((id,idx)=>{
-      const select=document.getElementById(id);
-      if(!select) return;
-      select.innerHTML='';
-      all.forEach((v,i)=>{
-        const o=document.createElement('option');
-        o.value=String(i);
-        o.textContent=v.name+' ('+v.lang+')';
-        select.appendChild(o);
-      });
-      const status=document.getElementById(idx===0?'maleVoiceStatus':'femaleVoiceStatus');
-      if(status) status.textContent=gb.length?'✓ Vozes en-GB encontradas no dispositivo.':'⚠ Não há voz en-GB disponível; usando a melhor voz inglesa disponível.';
-    });
-  };
-
-  window.speakBritish=function(type){
-    const id=type==='female'?'femaleBritishVoice':'maleBritishVoice';
-    const select=document.getElementById(id);
-    const voices=window.speechSynthesis?.getVoices?.()||[];
-    const gb=voices.filter(v=>/^en-GB/i.test(v.lang));
-    const all=gb.length?gb:voices.filter(v=>/^en/i.test(v.lang));
-    const idx=select?parseInt(select.value||'0',10):0;
-    const voice=all[idx]||all[0];
-    const text=document.getElementById('voicePracticeText')?.textContent||'Hello! Welcome to your English lesson.';
-    if(!voice){ alert('Nenhuma voz inglesa foi disponibilizada pelo seu navegador.'); return; }
-    const u=new SpeechSynthesisUtterance(text);
-    u.voice=voice; u.lang=voice.lang||'en-GB'; u.rate=.9; u.pitch=type==='female'?1.05:.9;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
-  };
-
-  function initVoice(){
-    if('speechSynthesis' in window){
-      loadBritishVoices();
-      speechSynthesis.onvoiceschanged=loadBritishVoices;
-    }
-  }
-
-  function initAddLesson(){
-    const form=document.getElementById('addLessonForm');
-    if(!form) return;
-    form.addEventListener('submit',e=>{
-      e.preventDefault();
-      const lesson={
-        unit:document.getElementById('newUnit').value.trim(),
-        title:document.getElementById('newTitle').value.trim(),
-        objective:document.getElementById('newObjective').value.trim(),
-        content:document.getElementById('newContent').value.trim(),
-        example:''
-      };
-      if(!lesson.unit||!lesson.title) return;
-      let extra=[];
-      try { extra=JSON.parse(localStorage.getItem('tiago_extra_lessons')||'[]'); } catch(err){}
-      extra.push(lesson);
-      localStorage.setItem('tiago_extra_lessons',JSON.stringify(extra));
-      form.reset();
-      document.getElementById('lessonSaved').classList.add('show');
-      renderCourseLessons();
-      setTimeout(()=>document.getElementById('lessonSaved')?.classList.remove('show'),2500);
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded',()=>{
-    renderCourseLessons();
-    initAddLesson();
-    initVoice();
-  });
-})();
-</script><script>
-document.addEventListener('DOMContentLoaded', function(){
-  // Ensure every content view starts hidden; dashboard is the only initial view.
-  document.querySelectorAll('.app-view').forEach(v=>v.classList.remove('active'));
-  const d=document.getElementById('dashboard'); if(d) d.style.display='block';
-
-  // Make any menu link with data-view use the new view controller.
-  document.querySelectorAll('#sideMenu a[data-view]').forEach(a=>{
-    a.onclick=function(e){
-      e.preventDefault();
-      const id=this.dataset.view;
-      const href=this.getAttribute('href')||'';
-      const target=href.startsWith('#unit')?href.substring(1):null;
-      window.showView(id,target);
-      return false;
-    };
-  });
-});
-</script>
-<script>
 /* ===== V8: RANDOM QUESTIONS + RANDOM BRITISH VOICES + MICROPHONE ===== */
 (function(){
 
@@ -2050,7 +3215,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const lastQuestion = {vocab:null,grammar:null,listening:null,writing:null,translations:null};
 
-  function esc(s){
+  function escapePracticeHTML(s){
     return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   }
 
@@ -2176,9 +3341,9 @@ document.addEventListener('DOMContentLoaded', function(){
       host.innerHTML=`
         <div class="v8-answer-card">
           <div class="v8-card" id="v8Card">
-            <h3>${esc(q.question)}</h3>
+            <h3>${escapePracticeHTML(q.question)}</h3>
             <div>
-              ${q.options.map(o=>`<button type="button" class="v8-option" data-answer="${esc(o)}">${esc(o)}</button>`).join("")}
+              ${q.options.map(o=>`<button type="button" class="v8-option" data-answer="${escapePracticeHTML(o)}">${escapePracticeHTML(o)}</button>`).join("")}
             </div>
             <div class="v8-feedback" id="v8Feedback"></div>
             <button type="button" class="v8-next" id="v8Next">Próxima pergunta →</button>
@@ -2204,7 +3369,7 @@ document.addEventListener('DOMContentLoaded', function(){
             const right=[...host.querySelectorAll(".v8-option")].find(x=>x.dataset.answer===q.answer);
             if(right)right.classList.add("correct");
             feedback.className="v8-feedback show wrong";
-            feedback.innerHTML=`✗ <strong>Incorrect.</strong> A resposta correta é: <strong>${esc(q.answer)}</strong>.`;
+            feedback.innerHTML=`✗ <strong>Incorrect.</strong> A resposta correta é: <strong>${escapePracticeHTML(q.answer)}</strong>.`;
             card.classList.add("wrong");
             feedbackSound(false);
           }
@@ -2226,12 +3391,12 @@ document.addEventListener('DOMContentLoaded', function(){
         <div class="v8-answer-card">
           <div class="v8-card" id="v8ListenCard">
             <div class="v9-auto-note">🔊 O áudio será reproduzido automaticamente. A voz muda aleatoriamente.</div>
-            <h3>${esc(q.question || "O que significa?")}</h3>
+            <h3>${escapePracticeHTML(q.question || "O que significa?")}</h3>
             <div class="v8-audio-row">
               <button type="button" class="v8-audio-btn" id="v8ListenAudio">🔊 Ouvir novamente</button>
             </div>
             <div>
-              ${q.options.map(o=>`<button type="button" class="v8-option" data-answer="${esc(o)}">${esc(o)}</button>`).join("")}
+              ${q.options.map(o=>`<button type="button" class="v8-option" data-answer="${escapePracticeHTML(o)}">${escapePracticeHTML(o)}</button>`).join("")}
             </div>
             <div class="v8-feedback" id="v8ListenFeedback"></div>
             <button type="button" class="v8-next" id="v8ListenNext">Próxima pergunta →</button>
@@ -2257,7 +3422,7 @@ document.addEventListener('DOMContentLoaded', function(){
             const right=[...host.querySelectorAll(".v8-option")].find(x=>x.dataset.answer===q.answer);
             if(right)right.classList.add("correct");
             fb.className="v8-feedback show wrong";
-            fb.innerHTML=`✗ <strong>Incorrect.</strong> A resposta correta é: <strong>${esc(q.answer)}</strong>.`;
+            fb.innerHTML=`✗ <strong>Incorrect.</strong> A resposta correta é: <strong>${escapePracticeHTML(q.answer)}</strong>.`;
             card.classList.add("wrong"); feedbackSound(false);
           }
           next.classList.add("show");
@@ -2276,7 +3441,7 @@ document.addEventListener('DOMContentLoaded', function(){
       host.innerHTML=`
         <div class="v8-answer-card">
           <div class="v8-card" id="v8WritingCard">
-            <h3>${esc(q.question)}</h3>
+            <h3>${escapePracticeHTML(q.question)}</h3>
             <textarea class="v8-input" id="v8WritingInput" rows="5" placeholder="Write your answer in English..."></textarea>
             <button type="button" class="practice-next" id="v8WritingCheck">✓ Verificar resposta</button>
             <div class="v8-feedback" id="v8WritingFeedback"></div>
@@ -2299,7 +3464,7 @@ document.addEventListener('DOMContentLoaded', function(){
           fb.innerHTML="✗ <strong>Not quite.</strong> Escreva uma frase completa usando a estrutura pedida.";
           card.classList.add("wrong"); feedbackSound(false);
         }
-        ex.style.display="block"; ex.innerHTML="<strong>Example:</strong> "+esc(q.model);
+        ex.style.display="block"; ex.innerHTML="<strong>Example:</strong> "+escapePracticeHTML(q.model);
         next.classList.add("show"); check.disabled=true;
       };
       next.onclick=()=>{render();window.scrollTo({top:host.getBoundingClientRect().top+window.scrollY-80,behavior:"smooth"});};
@@ -2320,7 +3485,7 @@ document.addEventListener('DOMContentLoaded', function(){
       host.innerHTML=`
         <div class="v8-answer-card">
           <div class="v8-card" id="v8TranslationCard">
-            <h3>${esc(q.question)}</h3>
+            <h3>${escapePracticeHTML(q.question)}</h3>
             <div class="v8-audio-row">
               <button type="button" class="v8-audio-btn" id="v8TranslationAudio">🔊 Ouvir</button>
             </div>
@@ -2342,7 +3507,7 @@ document.addEventListener('DOMContentLoaded', function(){
           card.classList.add("correct"); feedbackSound(true);
         }else{
           fb.className="v8-feedback show wrong";
-          fb.innerHTML=`✗ <strong>Incorrect.</strong> Resposta esperada: <strong>${esc(q.answer)}</strong>.`;
+          fb.innerHTML=`✗ <strong>Incorrect.</strong> Resposta esperada: <strong>${escapePracticeHTML(q.answer)}</strong>.`;
           card.classList.add("wrong"); feedbackSound(false);
         }
         next.classList.add("show"); check.disabled=true;
@@ -2426,22 +3591,6 @@ document.addEventListener('DOMContentLoaded', function(){
     translations();
   }
 
-  // Every time the learner enters a practice page, generate a new random question.
-  const oldShow=window.showView;
-  window.showView=function(id,targetId){
-    const result=oldShow ? oldShow(id,targetId) : false;
-    if(["vocabPractice","grammarPractice","listeningPractice","writingPractice","translationPractice"].includes(id)){
-      setTimeout(function(){
-        if(id==="vocabPractice") optionQuestion("vocabQuestions","vocab","Vocabulary");
-        if(id==="grammarPractice") optionQuestion("grammarQuestions","grammar","Grammar");
-        if(id==="listeningPractice") listening();
-        if(id==="writingPractice") writing();
-        if(id==="translationPractice") translations();
-      },30);
-    }
-    return result;
-  };
-
   document.addEventListener("DOMContentLoaded",function(){
     const typeSelect=document.getElementById("englishTypeSelect");
     if(typeSelect){
@@ -2478,9 +3627,9 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 })();
-</script>
 
-<script>
+
+
 /* V5: Remove the four unit introduction cards from the course overview.
    The detailed 32-lesson content below remains unchanged. */
 (function(){
@@ -2517,456 +3666,16 @@ document.addEventListener('DOMContentLoaded', function(){
   else removeUnitIntroCards();
   setTimeout(removeUnitIntroCards, 300);
 })();
+
+window.addEventListener('lessonCompleted',function(){
+  if(typeof window.syncAcademyProgressFromLessons==='function'){
+    window.syncAcademyProgressFromLessons();
+  }
+});
+
 </script>
 </body>
-
-
-<style id="lesson-learning-v10">
-/* ===== LESSON EXPERIENCE: EXPLANATION -> PRACTICE -> FEEDBACK ===== */
-.lesson-card.lesson-enhanced{position:relative;overflow:hidden}
-.lesson-card.lesson-enhanced .lesson-content{display:none}
-.lesson-card.lesson-enhanced .lesson-content.open{display:block}
-/* Single-question lesson practice */
-.lesson-practice-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:12px}
-.lesson-question-counter{background:#eaf2ff;color:#063a78;border-radius:999px;padding:7px 11px;font-weight:800;font-size:.82rem;white-space:nowrap}
-.lesson-question-number{font-size:.82rem;font-weight:800;color:#15803d;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
-.lesson-single-question .lesson-question{margin:0}
-.lesson-options{margin-top:8px}
-.lesson-next-btn{margin-top:14px}
-@media(max-width:650px){.lesson-practice-head{display:block}.lesson-question-counter{display:inline-block;margin-top:6px}}
-.lesson-study{background:linear-gradient(135deg,#f7fbff,#ffffff);border:1px solid #dbe8f5;border-radius:16px;padding:20px;margin-top:18px}
-.lesson-study h4{color:#063a78;margin:0 0 12px;font-size:1.15rem}
-.lesson-section{margin:15px 0;padding:15px;border-radius:13px;background:#fff;border:1px solid #e7eef5}
-.lesson-section h5{color:#063a78;margin:0 0 8px;font-size:1rem}
-.lesson-section p{color:#334e68;line-height:1.7;margin:7px 0}
-.lesson-keypoints{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}
-.lesson-keypoint{padding:12px;border-radius:11px;background:#eef7ff;color:#24445f;font-size:.93rem}
-.lesson-example{background:#eefbf4!important;border-left:4px solid #15803d!important}
-.lesson-example strong{color:#166534}
-.lesson-practice-box{margin-top:18px;border:2px solid #e1ebf4;border-radius:16px;padding:18px;background:#fbfdff}
-.lesson-practice-box h4{color:#063a78;margin-bottom:6px}
-.lesson-practice-intro{color:#607386;font-size:.92rem;margin-bottom:15px}
-.lesson-question{padding:15px;margin:12px 0;border-radius:13px;background:#fff;border:1px solid #e1e9f1}
-.lesson-question p{font-weight:800;color:#183b5b;margin-bottom:10px}
-.lesson-option{display:block;width:100%;text-align:left;padding:10px 12px;margin:7px 0;border:1px solid #d5e1eb;border-radius:9px;background:#f8fbfd;color:#17344d;cursor:pointer;font-weight:600}
-.lesson-option:hover{background:#edf5ff;border-color:#8bb8e0}
-.lesson-option.selected{border-color:#063a78;background:#eaf2ff}
-.lesson-option.correct{background:#dcfce7;border-color:#22c55e;color:#166534}
-.lesson-option.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
-.lesson-feedback{display:none;margin-top:10px;padding:12px 13px;border-radius:10px;font-size:.92rem;line-height:1.55}
-.lesson-feedback.show{display:block}
-.lesson-feedback.correct{background:#ecfdf5;color:#166534;border:1px solid #86efac}
-.lesson-feedback.wrong{background:#fff7ed;color:#9a3412;border:1px solid #fdba74}
-.lesson-reference{margin-top:10px;padding:11px 13px;border-radius:10px;background:#f5f7fa;color:#52677a;font-size:.88rem;border-left:4px solid #94a3b8}
-.lesson-actions-enhanced{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
-.lesson-actions-enhanced .small-btn{min-width:135px}
-.lesson-exercise-btn{background:#15803d!important}
-.lesson-reference strong{color:#29445d}
-.lesson-complete-note{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:#ecfdf5;color:#166534;font-weight:700}
-.lesson-complete-note.show{display:block}
-@media(max-width:650px){.lesson-actions-enhanced .small-btn{width:100%}.lesson-study{padding:15px}}
-</style>
-
-<script id="lesson-learning-v10-js">
-(function(){
-  const lessonContent = {
-    "Lesson 1 — Greetings & Introductions": {
-      title:"Greetings & Introductions", purpose:"Aprender a cumprimentar pessoas e apresentar-se em inglês.",
-      explanation:"Usamos greetings para iniciar uma conversa. Em situações formais ou educadas, podemos usar Good morning, Good afternoon e Good evening. Para apresentar-se, usamos My name is... ou I am.... Para responder, podemos dizer Nice to meet you.",
-      points:["Hello / Hi = Olá","Good morning = Bom dia","My name is... = O meu nome é...","Nice to meet you = Prazer em conhecer-te"],
-      example:"Hello! My name is Tiago. Nice to meet you.",
-      qs:[
-        ["Qual frase usamos para dizer 'O meu nome é Ana'?",["My name Ana.","My name is Ana.","I name Ana."],1,"Depois de My name usamos is: My name is Ana."],
-        ["Como respondemos educadamente a 'Nice to meet you'?",["Nice to meet you too.","Good night too.","My name is too."],0,"Too significa 'também' e completa a resposta."],
-        ["Qual cumprimento é normalmente usado de manhã?",["Good morning","Good evening","Good night"],0,"Good morning significa 'Bom dia'."]]
-    },
-    "Lesson 2 — Alphabet A–Z": {
-      title:"Alphabet A–Z", purpose:"Reconhecer, pronunciar e soletrar as letras do alfabeto inglês.",
-      explanation:"O alfabeto inglês tem 26 letras. Para pedir a soletração, usamos How do you spell...? Quando soletramos um nome, pronunciamos cada letra individualmente.",
-      points:["26 letters: A–Z","How do you spell...? = Como se soletra...?","Spell = soletrar","Use letters individually when spelling"],
-      example:"How do you spell your name? — T-I-A-G-O.",
-      qs:[
-        ["Quantas letras tem o alfabeto inglês?",["24","26","28"],1,"O alfabeto inglês moderno tem 26 letras."],
-        ["Como perguntamos 'Como se soletra o teu nome?'",["How do you spell your name?","How are your name?","What spell your name?"],0,"A estrutura correta é How do you spell...?"],
-        ["O que significa spell?",["Ler","Soletrar","Escrever uma história"],1,"Spell significa soletrar uma palavra letra por letra."]]
-    },
-    "Lesson 3 — Numbers 0–20": {
-      title:"Numbers 0–20", purpose:"Usar números para idade, telefone e quantidades simples.",
-      explanation:"Os números aparecem em informações pessoais e situações do dia a dia. Pratique especialmente números usados para dizer idade, números de telefone e pequenas quantidades.",
-      points:["0 zero","1–10: one to ten","11–20: eleven to twenty","How old are you? = Quantos anos tens?"],
-      example:"How old are you? — I am twenty years old.",
-      qs:[
-        ["Qual é 15 em inglês?",["Fifteen","Fifty","Five"],0,"15 = fifteen. Não confunda fifteen com fifty."],
-        ["Complete: I am ___ years old.",["twenty","twentys","twenty years"],0,"A forma correta é I am twenty years old."],
-        ["Qual pergunta significa 'Quantos anos tens?'",["How many are you?","How old are you?","What old you?"],1,"How old are you? pergunta a idade."]]
-    },
-    "Lesson 4 — Verb To Be": {
-      title:"Verb To Be", purpose:"Usar am, is e are em frases afirmativas.",
-      explanation:"O verbo to be muda conforme o sujeito: I am; you are; he/she/it is; we/they are. Ele é muito usado para identidade, profissão, estado e localização.",
-      points:["I → am","He / She / It → is","You / We / They → are","Ex.: She is a teacher."],
-      example:"I am a teacher. She is happy. They are students.",
-      qs:[
-        ["Complete: I ___ a student.",["am","is","are"],0,"Com I usamos am."],
-        ["Complete: She ___ a teacher.",["am","is","are"],1,"Com she usamos is."],
-        ["Complete: They ___ students.",["am","is","are"],2,"Com they usamos are."]]
-    },
-    "Lesson 5 — Personal Information": {
-      title:"Personal Information", purpose:"Dar e pedir informações pessoais básicas.",
-      explanation:"Para conversar com alguém, podemos perguntar nome, idade, origem, cidade e profissão. Use What is your name?, Where are you from?, How old are you? e What do you do? conforme a informação desejada.",
-      points:["What is your name?","Where are you from?","How old are you?","What do you do?"],
-      example:"Where are you from? — I am from Mozambique.",
-      qs:[
-        ["Qual pergunta pede a origem de uma pessoa?",["Where are you from?","What is your age?","What is your name?"],0,"Where are you from? pergunta de onde a pessoa é."],
-        ["Como dizer 'Sou de Moçambique'?",["I am Mozambique.","I am from Mozambique.","I from Mozambique."],1,"Usamos am from + lugar."],
-        ["What is your name? pergunta pelo...",["nome","idade","país"],0,"Name significa nome."]]
-    },
-    "Lesson 6 — Classroom English": {
-      title:"Classroom English", purpose:"Compreender e usar instruções comuns da sala de aula.",
-      explanation:"Classroom English são expressões usadas durante a aula. Memorizar estas instruções ajuda o aluno a participar sem precisar traduzir cada palavra.",
-      points:["Open your book = Abra o livro","Listen = Ouça","Repeat = Repita","Work in pairs = Trabalhe em pares"],
-      example:"Please open your book and listen.",
-      qs:[
-        ["Open your book significa...",["Feche o livro","Abra o livro","Compre o livro"],1,"Open significa abrir."],
-        ["Repeat significa...",["Repita","Leia","Pare"],0,"Repeat = repetir/repita."],
-        ["Qual expressão significa 'trabalhe em pares'?",["Work alone","Work in pairs","Read in silence"],1,"Pairs significa pares."]]
-    },
-    "Lesson 7 — Review & Speaking": {
-      title:"Review & Speaking", purpose:"Combinar os conteúdos da Unit 1 numa apresentação curta.",
-      explanation:"Uma apresentação básica pode juntar greeting, name, country, city, occupation e age. O objetivo é comunicar uma mensagem simples e clara.",
-      points:["Greeting","Name","Country / city","Age / occupation"],
-      example:"Hello. My name is Ana. I am from Tete. I am a student.",
-      qs:[
-        ["Qual frase começa corretamente uma apresentação?",["Hello, my name is Ana.","Hello, my Ana name.","My is Ana hello."],0,"My name is + nome é uma estrutura correta."],
-        ["I am from Tete fala sobre...",["origem/local","idade","profissão"],0,"from + lugar indica origem."],
-        ["Qual verbo aparece em 'I am a student'?",["to have","to be","to do"],1,"am é uma forma do verbo to be."]]
-    },
-    "Lesson 8 — Unit Test": {
-      title:"Unit 1 Test", purpose:"Rever greetings, alphabet, numbers, personal information, classroom English e to be.",
-      explanation:"Antes de avançar, verifique se consegue apresentar-se, usar am/is/are, compreender instruções simples e usar números e perguntas pessoais.",
-      points:["Greetings","Alphabet & spelling","Numbers","Verb to be"], example:"Hello! My name is John. I am from Mozambique. Nice to meet you.",
-      qs:[
-        ["Choose: She ___ a teacher.",["am","is","are"],1,"She usa is."],
-        ["Como dizer 'Bom dia'?",["Good morning","Good evening","Good night"],0,"Good morning = Bom dia."],
-        ["How do you spell it? pede para...",["traduzir","soletrar","desenhar"],1,"Spell significa soletrar."]]
-    },
-    "Lesson 9 — Family & Relationships": {
-      title:"Family & Relationships", purpose:"Falar sobre membros da família e relações usando vocabulário básico.", explanation:"Family vocabulary inclui mother, father, brother, sister, husband, wife, son e daughter. Para indicar posse, podemos usar my, your, his, her, our e their.", points:["mother / father","brother / sister","husband / wife","my / your / his / her"], example:"This is my sister. Her name is Maria.", qs:[["My sister significa...",["minha irmã","meu irmão","minha mãe"],0,"my indica posse; sister = irmã."],["Her name significa...",["o nome dele","o nome dela","o nosso nome"],1,"Her é possessivo para she."],["Father significa...",["pai","filho","tio"],0,"Father = pai."]] },
-    "Lesson 10 — My House": {
-      title:"My House", purpose:"Descrever divisões da casa, móveis e localização.", explanation:"Use bedroom, bathroom, kitchen, living room e garden para falar de lugares. Prepositions como in, on e under ajudam a indicar localização.", points:["bedroom / kitchen","living room / bathroom","in / on / under","furniture"], example:"The book is on the table. The sofa is in the living room.", qs:[["Kitchen significa...",["cozinha","quarto","garagem"],0,"Kitchen = cozinha."],["The book is on the table significa que o livro está...",["debaixo da mesa","sobre a mesa","dentro da mesa"],1,"on indica contacto/superfície."],["Bedroom é...",["sala","quarto","cozinha"],1,"Bedroom = quarto."]] },
-    "Lesson 11 — Daily Routine": {
-      title:"Daily Routine", purpose:"Falar sobre ações habituais do dia a dia e horários.", explanation:"Expressões como wake up, have breakfast, go to work, study, have dinner e go to bed descrevem uma rotina. Para hábitos usamos normalmente o Present Simple.", points:["wake up","have breakfast","go to work/school","go to bed"], example:"I wake up at 6 o'clock and go to work at 7.", qs:[["Wake up significa...",["acordar","dormir","chegar"],0,"Wake up = acordar."],["I go to work fala de...",["uma rotina","uma ação neste segundo","uma ação passada"],0,"A rotina é normalmente expressa no Present Simple."],["Go to bed significa...",["ir para a cama","ir para o trabalho","levantar"],0,"Go to bed = ir para a cama."]] },
-    "Lesson 12 — Present Simple": {
-      title:"Present Simple", purpose:"Formar frases afirmativas, negativas e perguntas sobre hábitos e factos.", explanation:"O Present Simple é usado para hábitos, rotinas e factos. Com he, she e it, o verbo normalmente recebe -s/-es na afirmativa. Nas perguntas e negativas usamos do/does.", points:["I/You/We/They work","He/She/It works","do/does for questions","don't/doesn't for negatives"], example:"She works every day. Does she work on Saturday?", qs:[["Choose: He ___ English.",["study","studies","studying"],1,"Com he, study torna-se studies."],["___ you work here?",["Do","Does","Are"],0,"Com you usamos Do."],["She ___ like coffee.",["don't","doesn't","isn't"],1,"Com she usamos doesn't + verbo na forma base."]] },
-    "Lesson 13 — Present Continuous": {
-      title:"Present Continuous", purpose:"Falar sobre ações que estão acontecendo agora.", explanation:"O Present Continuous é formado por am/is/are + verbo-ing. É usado principalmente para ações em progresso no momento da fala.", points:["I am working","He is working","They are working","verb + -ing"], example:"Look! She is reading a book.", qs:[["Look! They ___ football.",["play","are playing","plays"],1,"They + are + playing."],["I ___ studying now.",["am","is","are"],0,"Com I usamos am."],["Present Continuous usa...",["be + verb-ing","do + verb","past + ing"],0,"A estrutura é am/is/are + verb-ing."]] },
-    "Lesson 14 — Food & Shopping": {
-      title:"Food & Shopping", purpose:"Usar vocabulário de comida, preços, quantidades e compras.", explanation:"Em compras, precisamos de nomes de alimentos, preços e quantidades. Expressões úteis incluem How much is it?, How much are they? e I'd like....", points:["food vocabulary","How much...?","I'd like...","quantities and prices"], example:"I'd like two apples, please. How much are they?", qs:[["I'd like significa...",["Eu gostaria de","Eu odeio","Eu já comi"],0,"I'd like é uma forma educada de pedir algo."],["How much is it? pergunta...",["o preço de algo singular","a idade","a hora"],0,"How much pode perguntar preço."],["Two apples significa...",["duas maçãs","dois pães","duas laranjas"],0,"Two = duas; apples = maçãs."]] },
-    "Lesson 15 — Likes & Preferences": {
-      title:"Likes & Preferences", purpose:"Expressar gostos, preferências e coisas que não gostamos.", explanation:"Use like, love, prefer e hate para falar de preferências. Com he/she/it no Present Simple, usamos likes, loves, prefers e hates.", points:["I like...","I love...","I prefer...","I hate..."], example:"I like tea, but I prefer coffee.", qs:[["I like tea significa...",["Eu gosto de chá","Eu compro chá","Eu preparo chá"],0,"like = gostar."],["She ___ coffee.",["like","likes","liking"],1,"Com she usamos likes."],["Prefer significa...",["preferir","perder","procurar"],0,"prefer = preferir."]] },
-    "Lesson 16 — Unit 2 Test": {
-      title:"Unit 2 Test", purpose:"Verificar compreensão de família, casa, rotina, Present Simple, Present Continuous, comida e preferências.", explanation:"A revisão combina vocabulário e estruturas da Unit 2. Preste atenção à diferença entre hábitos e ações acontecendo agora.", points:["Family & house","Present Simple","Present Continuous","Shopping"], example:"I work every day, but I am studying English now.", qs:[["She ___ every day.",["works","is work","work"],0,"She + Present Simple: works."],["She is ___ now.",["study","studying","studies"],1,"is + verb-ing indica ação em progresso."],["I prefer tea ___ coffee.",["than","to","at"],1,"Prefer A to B é a estrutura básica."]] },
-    "Lesson 17 — Past Simple": {
-      title:"Past Simple", purpose:"Falar sobre ações concluídas no passado.", explanation:"O Past Simple descreve acontecimentos terminados. Verbos regulares geralmente recebem -ed; verbos irregulares têm formas próprias, como go → went e see → saw. Em perguntas usamos did + verbo base.", points:["worked / played","went / saw / had","did for questions","didn't + base verb"], example:"I visited my friend yesterday. Did you go to school?", qs:[["Yesterday I ___ to school.",["go","went","going"],1,"Go é irregular: go → went."],["Did you ___ him?",["saw","see","seen"],1,"Depois de did usamos o verbo base: see."],["She ___ TV last night.",["watched","watch","watching"],0,"Watch é regular: watched."]] },
-    "Lesson 18 — Past Continuous": {
-      title:"Past Continuous", purpose:"Descrever uma ação que estava acontecendo em determinado momento no passado.", explanation:"O Past Continuous usa was/were + verb-ing. É útil para uma ação em progresso no passado, muitas vezes interrompida por outra ação no Past Simple.", points:["I/he/she was + ing","you/we/they were + ing","action in progress","was/were + verb-ing"], example:"I was studying when he called.", qs:[["I ___ studying at 8 pm.",["was","were","am"],0,"Com I usamos was."],["They ___ watching TV.",["was","were","is"],1,"Com they usamos were."],["Qual estrutura é correta?",["was study","was studying","did studying"],1,"Past Continuous = was/were + verb-ing."]] },
-    "Lesson 19 — Future with Will": {
-      title:"Future with Will", purpose:"Falar sobre previsões, promessas e decisões espontâneas.", explanation:"Will + verbo base forma o futuro simples. Usamos will para previsões, promessas e decisões tomadas no momento da fala.", points:["will + base verb","I will help","predictions","promises"], example:"I will help you with your homework.", qs:[["I ___ call you tomorrow.",["will","am","did"],0,"Will + verbo base forma o futuro."],["After will usamos...",["verb base","verb-ing","past verb"],0,"Will é seguido pelo verbo na forma base."],["Will pode ser usado para...",["promessas","apenas passado","apenas lugares"],0,"Promessas são um uso comum de will."]] },
-    "Lesson 20 — Going To": {
-      title:"Going To", purpose:"Falar sobre planos e intenções futuras.", explanation:"Be going to + verbo base é usado para planos e intenções já pensados. Também pode indicar uma previsão baseada em evidência presente.", points:["am/is/are going to","plans","intentions","base verb after to"], example:"I am going to study tonight.", qs:[["I ___ going to travel.",["am","is","are"],0,"Com I usamos am."],["She is going to ___ English.",["studies","study","studying"],1,"Depois de going to usamos o verbo base."],["Going to é comum para...",["planos","ações concluídas","hábitos passados"],0,"Going to expressa planos/intencões futuras."]] },
-    "Lesson 21 — Can & Could": {
-      title:"Can & Could", purpose:"Expressar habilidade, permissão e pedidos educados.", explanation:"Can é usado para habilidade e alguns pedidos/permissões. Could pode falar de habilidade no passado e também tornar pedidos mais educados.", points:["can + base verb","could + base verb","Can you...?","Could you...?"], example:"Could you help me, please?", qs:[["She can ___ English.",["speaks","speak","speaking"],1,"Depois de can usamos o verbo base."],["Could you help me? é um...",["pedido educado","passado obrigatório","cumprimento"],0,"Could pode tornar pedidos mais educados."],["Can significa, entre outras coisas...",["poder/conseguir","dever","ter de"],0,"Can pode expressar capacidade ou permissão."]] },
-    "Lesson 22 — Should & Must": {
-      title:"Should & Must", purpose:"Dar conselhos, expressar obrigação e regras.", explanation:"Should é usado principalmente para conselho. Must expressa obrigação forte ou necessidade. Depois de ambos usamos o verbo base.", points:["should + base verb","must + base verb","advice","obligation"], example:"You should study. You must be on time.", qs:[["You ___ study more. (conselho)",["should","musting","are"],0,"Should é usado para conselho."],["Students ___ wear the uniform. (regra)",["must","shoulding","are must"],0,"Must expressa obrigação/regra forte."],["Depois de must usamos...",["verbo base","-ing","past"],0,"Must + base verb."]] },
-    "Lesson 23 — Real-Life Conversations": {
-      title:"Real-Life Conversations", purpose:"Usar inglês em situações reais como restaurante, transporte, compras e direções.", explanation:"Conversas reais combinam perguntas educadas, pedidos, respostas e vocabulário contextual. Frases como Excuse me..., Could you tell me...? e I'd like... são muito úteis.", points:["Excuse me...","Could you tell me...?","I'd like...","asking for directions"], example:"Excuse me, could you tell me where the bank is?", qs:[["Excuse me é usado para...",["chamar a atenção educadamente","dizer adeus","falar do passado"],0,"Excuse me é uma forma educada de iniciar uma pergunta/pedido."],["I'd like a coffee, please. é um...",["pedido educado","aviso","cumprimento"],0,"I'd like é comum ao pedir algo."],["Where is the bank? pergunta por...",["localização","preço","idade"],0,"Where pergunta localização."]] },
-    "Lesson 24 — Unit 3 Test": {
-      title:"Unit 3 Test", purpose:"Rever passado, futuro, modais e comunicação em situações reais.", explanation:"Nesta revisão, compare Past Simple/Past Continuous e will/going to. Também pratique can, could, should e must em contexto.", points:["Past Simple","Past Continuous","Future","Modals"], example:"I was working when he called. I will call you later.", qs:[["I ___ when he called.",["was working","worked now","am work"],0,"A ação em progresso usa Past Continuous."],["You ___ wear a seatbelt. (obrigação)",["must","could","are"],0,"Must expressa obrigação."],["I am going to travel. indica...",["plano","passado","hábito"],0,"Going to é comum para planos."]] },
-    "Lesson 25 — Present Perfect": {
-      title:"Present Perfect", purpose:"Falar sobre experiências e ações recentes ligadas ao presente.", explanation:"O Present Perfect é formado por have/has + past participle. É comum com ever, never, already e yet. O foco está na experiência ou ligação com o presente, não num momento passado terminado específico.", points:["have/has + past participle","ever / never","already / yet","experiences"], example:"I have visited Maputo. Have you ever been there?", qs:[["She ___ visited Maputo.",["has","have","is"],0,"Com she usamos has."],["I have ___ that film.",["see","saw","seen"],2,"O particípio de see é seen."],["Have you ever...? pergunta sobre...",["experiência","hora exata","rotina diária"],0,"Ever é comum ao perguntar sobre experiências."]] },
-    "Lesson 26 — Comparatives": {
-      title:"Comparatives", purpose:"Comparar pessoas, lugares e coisas.", explanation:"Adjetivos curtos geralmente usam -er + than (taller than). Adjetivos longos usam more + adjective + than (more interesting than). Para extremos usamos superlativos, como the biggest.", points:["taller than","more interesting than","better than","the biggest"], example:"English is easier than I expected.", qs:[["Tall → comparative",["taller","more tall","tallest"],0,"Adjetivo curto: tall → taller."],["Interesting → comparative",["interestinger","more interesting","most interesting"],1,"Adjetivos longos normalmente usam more."],["Good → comparative",["gooder","better","best"],1,"Good é irregular: better."]] },
-    "Lesson 27 — Adjectives & Adverbs": {
-      title:"Adjectives & Adverbs", purpose:"Descrever pessoas, coisas, ações e a maneira como algo acontece.", explanation:"Adjectives descrevem nouns: a careful driver. Adverbs frequentemente descrevem verbs: drives carefully. Muitos adverbs de modo terminam em -ly, embora existam exceções.", points:["adjective + noun","verb + adverb","careful / carefully","quick / quickly"], example:"She is a careful driver. She drives carefully.", qs:[["Careful descreve...",["driver (noun)","drives (verb)","yesterday"],0,"Careful é adjective e descreve o noun driver."],["She drives ___.",["careful","carefully","care"],1,"Carefully descreve como ela conduz."],["Adverb frequentemente descreve...",["uma ação","apenas um lugar","um número"],0,"Adverbs podem modificar verbs."]] },
-    "Lesson 28 — Determiners & Quantifiers": {
-      title:"Determiners & Quantifiers", purpose:"Usar palavras para indicar referência e quantidade.", explanation:"A/an e the ajudam a indicar nouns. Some, any, much, many, a lot of, few e little expressam quantidade. Many é comum com countable nouns; much com uncountable nouns.", points:["a / an / the","some / any","much / many","a lot of"], example:"There are many students in the class. There isn't much water.", qs:[["Many é normalmente usado com...",["countable plural nouns","uncountable nouns only","verbs"],0,"Many é comum com nomes contáveis no plural."],["Much é comum com...",["uncountable nouns","plural countable nouns only","people only"],0,"Much é usado com incontáveis."],["Complete: I have ___ books.",["much","many","little"],1,"Books são contáveis no plural: many books."]] },
-    "Lesson 29 — Connectors": {
-      title:"Connectors", purpose:"Ligar ideias de forma clara e lógica.", explanation:"Connectors mostram relações entre ideias. And adiciona, but contrasta, because dá razão, so mostra resultado e although introduz contraste.", points:["and = adição","but = contraste","because = razão","so = resultado"], example:"I study English because I want to communicate better.", qs:[["Because introduz...",["uma razão","um contraste","uma pergunta"],0,"Because explica a razão."],["I was tired, ___ I studied.",["but","because","and?"],0,"But mostra contraste entre ideias."],["It was raining, ___ I stayed home.",["so","because","although"],0,"So introduz o resultado."]] },
-    "Lesson 30 — Reading Strategies": {
-      title:"Reading Strategies", purpose:"Melhorar a compreensão de textos usando estratégias de leitura.", explanation:"Skimming significa ler rapidamente para captar a ideia geral. Scanning procura uma informação específica. Predicting usa título, imagens e contexto para antecipar o conteúdo.", points:["skimming = general idea","scanning = specific information","predicting","keywords"], example:"Read the title first and predict what the text is about.", qs:[["Skimming procura principalmente...",["ideia geral","um número específico","uma palavra apenas"],0,"Skimming é leitura rápida para ideia geral."],["Scanning procura...",["informação específica","apenas a ideia geral","gramática"],0,"Scanning ajuda a localizar informação específica."],["Before reading, the title can help you...",["predict the topic","change the text","translate everything"],0,"O título ajuda a prever o assunto."]] },
-    "Lesson 31 — Speaking & Writing": {
-      title:"Speaking & Writing", purpose:"Organizar ideias e produzir inglês oral e escrito mais conectado.", explanation:"Uma boa produção começa com uma ideia clara, usa conectores e exemplos e termina de forma coerente. Em speaking, pratique frases completas; em writing, organize início, desenvolvimento e conclusão.", points:["organise ideas","use connectors","give opinions","describe experiences"], example:"In my opinion, learning English is important because it helps me communicate.", qs:[["In my opinion introduz...",["uma opinião","uma pergunta","uma data"],0,"In my opinion = na minha opinião."],["Because ajuda a...",["dar uma razão","comparar tamanho","indicar passado"],0,"Because introduz uma razão."],["Uma boa produção deve...",["organizar ideias","misturar palavras sem ordem","evitar exemplos"],0,"Organização melhora clareza e comunicação."]] },
-    "Lesson 32 — Final Review & Test": {
-      title:"Final Review & Test", purpose:"Rever o curso e preparar-se para a avaliação final.", explanation:"A revisão final reúne vocabulário, gramática, listening, reading, speaking e writing. Use os exercícios para identificar pontos que precisam de mais prática antes de avançar para o próximo nível.", points:["Vocabulary","Grammar","Reading & Listening","Speaking & Writing"], example:"Review your notes, practise the exercises and then complete the final assessment.", qs:[["Qual habilidade envolve compreender textos escritos?",["Reading","Speaking","Shopping"],0,"Reading é compreensão de textos escritos."],["Qual habilidade envolve produzir linguagem oral?",["Speaking","Reading","Scanning"],0,"Speaking é produção oral."],["Depois da revisão final, o aluno deve...",["avaliar o que aprendeu","parar de praticar","ignorar os erros"],0,"A avaliação ajuda a identificar o que já domina e o que precisa rever."]] }
-  };
-
-  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
-  function lessonKey(title){return title.replace(/^\s*Lesson\s+\d+\s*[—-]\s*/,'').trim();}
-  function findData(title){return lessonContent[title] || lessonContent['Lesson '+title] || lessonContent[Object.keys(lessonContent).find(k=>k===title)] || null;}
-
-  function buildStudy(l, uid){
-    const d=findData(l.title) || {
-      title:lessonKey(l.title),
-      purpose:l.objective||'Compreender e praticar o tema desta aula.',
-      explanation:l.content||'Leia atentamente o conteúdo da aula e observe o exemplo.',
-      points:[l.objective||'Learning objective'],
-      example:l.example||'',
-      qs:[['Qual é o objetivo principal desta aula?',[l.objective||'Aprender o tema','Ignorar o tema','Saltar a aula'],0,'Reveja o objetivo apresentado no início da aula.']]
-    };
-
-    const questions=d.qs || [];
-    const firstQuestion = questions.length ? renderLessonQuestion(uid, questions, 0) : '<p>Não há exercícios disponíveis para esta aula.</p>';
-
-    return `<div class="lesson-study" data-question-index="0" data-total-questions="${questions.length}">
-      <h4> Explicação da aula</h4>
-      <div class="lesson-section"><h5> O que você vai aprender</h5><p>${esc(d.purpose)}</p></div>
-      <div class="lesson-section"><h5> Explicação clara</h5><p>${esc(d.explanation)}</p></div>
-      <div class="lesson-section"><h5> Pontos principais</h5><div class="lesson-keypoints">${d.points.map(x=>`<div class="lesson-keypoint">${esc(x)}</div>`).join('')}</div></div>
-      <div class="lesson-section lesson-example"><h5> Exemplo</h5><p><strong>${esc(d.example)}</strong></p><button type="button" class="small-btn green lesson-audio-btn">🔊 Ouvir exemplo</button></div>
-      <div class="lesson-actions-enhanced">
-        <button type="button" class="small-btn lesson-exercise-btn" onclick="openLessonExercises('${uid}')"> Fazer exercícios</button>
-      </div>
-      <div class="lesson-practice-box" id="${uid}_practice" style="display:none" data-questions='${esc(JSON.stringify(questions))}'>
-        <div class="lesson-practice-head">
-          <div><h4> Exercícios desta aula</h4><p class="lesson-practice-intro">Responda a uma pergunta de cada vez com base na explicação acima.</p></div>
-          <span class="lesson-question-counter" id="${uid}_counter">Questão 1 de ${questions.length}</span>
-        </div>
-        <div class="lesson-single-question" id="${uid}_question">${firstQuestion}</div>
-        <div class="lesson-reference" id="${uid}_reference" style="display:none"><strong> Referência:</strong> <span>Use a explicação e o exemplo apresentados nesta aula para rever a regra.</span></div>
-        <button type="button" class="small-btn green lesson-next-btn" id="${uid}_next" style="display:none">➡ Próxima pergunta</button>
-      </div>
-      <div class="lesson-complete-note" id="${uid}_done">✓ Excelente! Você concluiu os exercícios desta aula.</div>
-    </div>`;
-  }
-
-  function renderLessonQuestion(uid, questions, index){
-    const q=questions[index];
-    if(!q) return '';
-    const qid=uid+'_q'+index;
-    return `<div class="lesson-question" id="${qid}" data-index="${index}">
-      <div class="lesson-question-number">Pergunta ${index+1}</div>
-      <p>${esc(q[0])}</p>
-      <div class="lesson-options">${q[1].map((op,j)=>`<button type="button" class="lesson-option" data-correct="${j===q[2]}" onclick='lessonAnswer(this,"${qid}",${j===q[2]},${esc(JSON.stringify(q[3]))},"${uid}",${index})'>${String.fromCharCode(65+j)}. ${esc(op)}</button>`).join('')}</div>
-      <div class="lesson-feedback"></div>
-    </div>`;
-  }
-
-  window.openLessonExercises=function(uid){
-    const box=document.getElementById(uid+'_practice');
-    if(!box)return;
-    box.style.display='block';
-    const study=box.closest('.lesson-study');
-    if(study) study.dataset.questionIndex='0';
-    const questions=JSON.parse(box.dataset.questions||'[]');
-    const qHost=document.getElementById(uid+'_question');
-    if(qHost) qHost.innerHTML=renderLessonQuestion(uid,questions,0);
-    const counter=document.getElementById(uid+'_counter');
-    if(counter) counter.textContent=`Questão 1 de ${questions.length}`;
-    const next=document.getElementById(uid+'_next');
-    if(next) next.style.display='none';
-    const ref=document.getElementById(uid+'_reference');
-    if(ref) ref.style.display='none';
-    box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  };
-
-  window.lessonAnswer=function(btn,qid,correct,explanation,uid,index){
-    const q=document.getElementById(qid); if(!q)return;
-    q.querySelectorAll('.lesson-option').forEach(b=>b.disabled=true);
-    q.querySelectorAll('.lesson-option').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct')});
-    if(!correct)btn.classList.add('wrong');
-    const fb=q.querySelector('.lesson-feedback');
-    fb.className='lesson-feedback show '+(correct?'correct':'wrong');
-    fb.innerHTML=(correct?'✓ <strong>Correct!</strong> ':'✗ <strong>Vamos rever.</strong> ') + esc(explanation);
-    if(correct){q.classList.add('correct-pulse')}else{q.classList.add('wrong-shake')}
-    // Play immediate audio feedback after the learner's click.
-    if(typeof window.lessonFeedbackSound==='function') window.lessonFeedbackSound(correct);
-
-    const box=document.getElementById(uid+'_practice');
-    const questions=JSON.parse(box?.dataset.questions||'[]');
-    const ref=document.getElementById(uid+'_reference');
-    if(ref){
-      ref.style.display='block';
-      ref.querySelector('span').textContent=explanation+' Reveja a explicação e o exemplo desta aula antes de continuar.';
-    }
-    const next=document.getElementById(uid+'_next');
-    if(next){
-      if(index < questions.length-1){
-        next.style.display='inline-flex';
-        next.textContent='➡ Próxima pergunta';
-        next.onclick=function(){
-          const qHost=document.getElementById(uid+'_question');
-          if(qHost) qHost.innerHTML=renderLessonQuestion(uid,questions,index+1);
-          const counter=document.getElementById(uid+'_counter');
-          if(counter) counter.textContent=`Questão ${index+2} de ${questions.length}`;
-          next.style.display='none';
-          if(ref) ref.style.display='none';
-          if(qHost) qHost.scrollIntoView({behavior:'smooth',block:'nearest'});
-        };
-      } else {
-        next.style.display='none';
-        const done=document.getElementById(uid+'_done');
-        if(done) done.classList.add('show');
-      }
-    }
-  };
-
-  document.addEventListener('click',function(e){
-    const audioBtn=e.target.closest('.lesson-audio-btn');
-    if(!audioBtn)return;
-    const example=audioBtn.closest('.lesson-study')?.querySelector('.lesson-example strong')?.textContent||'';
-    if(example) speakText(example);
-  });
-
-  function enhanceCards(){
-    const cards=document.querySelectorAll('#courseLessons .lesson-card');
-    cards.forEach((card,index)=>{
-      if(card.dataset.lessonEnhanced==='1')return;
-      const title=card.querySelector('h4')?.textContent?.trim(); if(!title)return;
-      card.dataset.lessonEnhanced='1';card.classList.add('lesson-enhanced');
-      const oldContent=card.querySelector('.lesson-content');
-      if(oldContent){
-        oldContent.classList.remove('open');
-        oldContent.innerHTML=buildStudy({title,objective:card.querySelector('.lesson-meta span')?.textContent?.replace(/^ \s*/,'')||'',content:'',example:''},'lessonStudy'+index);
-      }
-      const openBtn=[...card.querySelectorAll('button')].find(b=>/Abrir aula/i.test(b.textContent));
-      if(openBtn){
-        const old=oldContent;
-        openBtn.onclick=function(){
-          const isOpen=old.classList.toggle('open');
-          openBtn.textContent=isOpen?' Fechar aula':' Abrir aula';
-          if(isOpen) setTimeout(()=>old.scrollIntoView({behavior:'smooth',block:'nearest'}),40);
-        };
-      }
-    });
-  }
-
-  function hookRender(){
-    const original=window.renderCourseLessons;
-    if(typeof original!=='function')return false;
-    if(original.__lessonV10)return true;
-    function wrapped(){original();setTimeout(enhanceCards,0);}
-    wrapped.__lessonV10=true;
-    window.renderCourseLessons=wrapped;
-    return true;
-  }
-
-  const wait=setInterval(()=>{if(hookRender()){clearInterval(wait);enhanceCards();}},50);
-  document.addEventListener('DOMContentLoaded',()=>{hookRender();setTimeout(enhanceCards,120);});
-})();
-</script>
 </html>
-
-
-
-<script>
-/* ===== V6 NAVIGATION FIX =====
-   Dedicated navigation for the new Practice pages.
-*/
-(function () {
-  const practiceViews = [
-    'pratica',
-    'vocabPractice',
-    'grammarPractice',
-    'listeningPractice',
-    'writingPractice',
-    'translationPractice'
-  ];
-
-  function closeDrawer() {
-    const menu = document.getElementById('sideMenu');
-    const overlay = document.getElementById('drawerOverlay');
-    const toggle = document.getElementById('menuToggle');
-    if (menu) menu.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-    if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  function openPracticeView(id) {
-    const dashboard = document.getElementById('dashboard');
-
-    // Hide all app pages.
-    document.querySelectorAll('.app-view').forEach(function (view) {
-      view.classList.remove('active');
-    });
-
-    // Hide the dashboard.
-    if (dashboard) dashboard.style.display = 'none';
-
-    const target = document.getElementById(id);
-    if (!target) {
-      console.error('Practice view not found:', id);
-      return false;
-    }
-
-    target.classList.add('active');
-    closeDrawer();
-
-    setTimeout(function () {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-
-    return false;
-  }
-
-  // Override showView so all new practice buttons use the same working navigation.
-  window.showView = function (id, targetId) {
-    if (practiceViews.indexOf(id) !== -1) {
-      return openPracticeView(id);
-    }
-
-    const dashboard = document.getElementById('dashboard');
-    document.querySelectorAll('.app-view').forEach(function (view) {
-      view.classList.remove('active');
-    });
-
-    if (id === 'dashboard') {
-      if (dashboard) dashboard.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      closeDrawer();
-      return false;
-    }
-
-    if (dashboard) dashboard.style.display = 'none';
-
-    const view = document.getElementById(id);
-    if (view) {
-      view.classList.add('active');
-      setTimeout(function () {
-        const target = targetId ? document.getElementById(targetId) : view;
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    }
-
-    closeDrawer();
-    return false;
-  };
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // Directly wire every new Practice button.
-    document.querySelectorAll('.practice-open').forEach(function (button) {
-      const match = (button.getAttribute('onclick') || '').match(/showView\(['"]([^'"]+)['"]\)/);
-      if (match) {
-        button.removeAttribute('onclick');
-        button.addEventListener('click', function () {
-          openPracticeView(match[1]);
-        });
-      }
-    });
-
-    // Directly wire Practice submenu links.
-    document.querySelectorAll('#sideMenu a[data-view]').forEach(function (link) {
-      const id = link.getAttribute('data-view');
-      if (practiceViews.indexOf(id) !== -1) {
-        link.addEventListener('click', function (event) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openPracticeView(id);
-        }, true);
-      }
-    });
-  });
-})();
-</script>
 
 
   
